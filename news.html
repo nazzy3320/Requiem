@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Requiem — Новости</title>
-  <meta name="description" content="Официальные правила клана Requiem" />
+  <title>Новости • Requiem</title>
+  <meta name="description" content="Новости клана Requiem" />
   <style>
     :root {
       --bg: #0f0f14;
@@ -12,34 +12,34 @@
       --text: #eaeaf0;
       --muted: #9aa0b4;
       --accent: #7c7cff;
-      --danger: #b94a4a;
+      --tag-important: #ff4766;
+      --tag-update: #47b5ff;
+      --tag-event: #00d4aa;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: linear-gradient(180deg, #0f0f14, #0b0b10);
       color: var(--text);
+      min-height: 100vh;
     }
+    
     header {
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 3rem 1.5rem 2rem;
       text-align: center;
     }
     header h1 {
       margin: 0;
-      font-size: 2.6rem;
+      font-size: 3rem;
       letter-spacing: 0.08em;
-    }
-    header p {
-      margin-top: 1rem;
-      color: var(--muted);
     }
     nav {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
+      margin-top: 2rem;
       flex-wrap: wrap;
-      margin-top: 1.5rem;
     }
     nav a {
       color: var(--text);
@@ -53,37 +53,69 @@
       background: var(--accent);
       color: #fff;
     }
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    
     main {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 2rem 1.5rem 4rem;
     }
-    section {
+    
+    .news-item {
       background: var(--card);
       border-radius: 16px;
-      padding: 1.5rem 1.8rem;
+      padding: 1.5rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border-left: 4px solid var(--accent);
     }
-    section h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
+    .news-date {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
     }
-    section h3 {
-      margin-bottom: 0.4rem;
-      margin-top: 1.2rem;
-      font-size: 1.1rem;
-      color: var(--accent);
+    .news-title {
+      margin: 0;
+      font-size: 1.3rem;
+      color: var(--text);
     }
-    section p, section li {
+    
+    /* ТЕГИ */
+    .news-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+      flex-wrap: wrap;
+    }
+    .news-tag {
+      display: inline-block;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    .tag-important {
+      background: rgba(255, 71, 102, 0.15);
+      color: var(--tag-important);
+    }
+    .tag-update {
+      background: rgba(71, 181, 255, 0.15);
+      color: var(--tag-update);
+    }
+    .tag-event {
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--tag-event);
+    }
+    
+    .news-content {
       color: var(--muted);
       line-height: 1.6;
+      margin-top: 0.8rem;
     }
-    ul { padding-left: 1.2rem; }
-    .warning {
-      color: var(--danger);
-      font-weight: 600;
-    }
+    
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -94,30 +126,38 @@
 </head>
 <body>
   <header>
-    <h1>Requiem — Новости</h1>
+    <h1>REQUIEM</h1>
     <nav>
       <a href="index.html">Главная</a>
       <a href="rules.html">Правила</a>
-      <a href="news.html">Новости</a>
-      <a href="join.html">Вступления и тд</a>
-      <a href="blacklist.html">Черный список</a>
+      <a href="news.html" class="active">Новости</a>
+      <a href="join.html">Вступление</a>
+      <a href="blacklist.html">Чёрный список</a>
       <a href="requirements.html">Требования</a>
       <a href="about.html">О клане</a>
     </nav>
   </header>
 
+  <main>
+    <!-- НОВОСТЬ 1 -->
+    <div class="news-item">
+      <div class="news-date">14.01.2026</div>
+      <h2 class="news-title">🔄 Обновление сайта</h2>
+      
+      <div class="news-tags">
+        <span class="news-tag tag-update">Обновление</span>
+        <span class="news-tag tag-important">Важно</span>
+      </div>
+      
+      <div class="news-content">
+        <p>Запущена новая версия официального сайта Requiem. Все страницы обновлены и приведены к единому стилю.</p>
+      </div>
+    </div>
+    
+  </main>
 
-<h1>📰 Новости Requiem</h1>
-
-<!-- ↓↓↓ НОВЫЕ НОВОСТИ ВСТАВЛЯТЬ СЮДА ↓↓↓ -->
-
-<article>
-  <h2>🔔 Открыт набор</h2>
-  <div class="date">01.02.2026</div>
-  <p>Открыт набор новых участников. Подача заявок доступна на сайте.</p>
-</article>
-
+  <footer>
+    © 2026 Requiem • Сайт обновлён: 01.03.2026
+  </footer>
 </body>
 </html>
-
-
