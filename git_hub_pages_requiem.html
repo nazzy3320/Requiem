@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requiem</title>
+  <meta name="description" content="Официальный сайт проекта Requiem" />
+  <style>
+    :root {
+      --bg: #0f0f14;
+      --card: #181825;
+      --text: #eaeaf0;
+      --muted: #9aa0b4;
+      --accent: #7c7cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0f0f14, #0b0b10);
+      color: var(--text);
+    }
+    header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      letter-spacing: 0.08em;
+    }
+    header p {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: var(--card);
+      transition: 0.2s ease;
+    }
+    nav a:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+    section p, section ul {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>REQU I E M</h1>
+    <p>Проект / клан / сообщество. GitHub Pages.</p>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="about.html">О клане</a>
+      <a href="rules.html">Правила</a>
+      <a href="join.html">Вступление</a>
+      <a href="https://github.com/" target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Добро пожаловать в Requiem</h2>
+      <p>
+        Requiem — закрытое сообщество с чёткой иерархией, дисциплиной и правилами.
+        Этот сайт является официальной точкой информации клана.
+      </p>
+      <p>
+        Используй навигацию выше, чтобы ознакомиться с философией клана,
+        правилами и условиями вступления.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Requiem • GitHub Pages
+  </footer>
+</body>
+</html>
