@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Requiem</title>
+  <title>Requiem — Главная</title>
   <meta name="description" content="Официальный сайт проекта Requiem" />
   <style>
     :root {
@@ -12,6 +12,7 @@
       --text: #eaeaf0;
       --muted: #9aa0b4;
       --accent: #7c7cff;
+      --accent-hover: #6b6bff;
     }
     * { box-sizing: border-box; }
     body {
@@ -19,7 +20,10 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(180deg, #0f0f14, #0b0b10);
       color: var(--text);
+      min-height: 100vh;
     }
+    
+    /* Шапка */
     header {
       padding: 3rem 1.5rem 2rem;
       text-align: center;
@@ -28,91 +32,280 @@
       margin: 0;
       font-size: 3rem;
       letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #7c7cff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    header p {
+    header .tagline {
       margin-top: 1rem;
       color: var(--muted);
       font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
+    
+    /* Навигация */
     nav {
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       flex-wrap: wrap;
     }
     nav a {
       color: var(--text);
       text-decoration: none;
-      padding: 0.4rem 0.9rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 999px;
       background: var(--card);
-      transition: 0.2s ease;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+      font-weight: 500;
     }
     nav a:hover {
       background: var(--accent);
       color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.3);
     }
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(124, 124, 255, 0.4);
+    }
+    
+    /* Основной контент */
     main {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      padding: 3rem 1.5rem 5rem;
     }
-    section {
+    
+    /* Приветственная секция */
+    .hero {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .hero h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      margin: 1.2rem 0;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Карточки быстрых ссылок */
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .quick-card {
       background: var(--card);
       border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      padding: 1.8rem;
+      border-left: 4px solid var(--accent);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+      height: 100%;
     }
-    section h2 {
+    .quick-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-color: rgba(124, 124, 255, 0.3);
+    }
+    .quick-card h3 {
       margin-top: 0;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    section p, section ul {
+    .quick-card p {
       color: var(--muted);
       line-height: 1.6;
+      margin: 0.8rem 0 1.2rem 0;
     }
-    footer {
+    .quick-card .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(124, 124, 255, 0.15);
+      color: var(--accent);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .quick-card .btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+    
+    /* Статистика */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2.5rem 0;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .stat-item {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 1rem;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
       color: var(--muted);
       font-size: 0.9rem;
+    }
+    
+    /* Футер */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.5rem; }
+      nav { gap: 0.8rem; }
+      nav a { padding: 0.4rem 1rem; font-size: 0.9rem; }
+      .hero { padding: 1.8rem; }
+      .hero h2 { font-size: 1.5rem; }
+      .quick-links { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>REQUIEM</h1>
+    <div class="tagline">Закрытое сообщество с чёткой иерархией и дисциплиной</div>
+    
     <nav>
-      <a href="index.html">Главная</a>
+      <a href="index.html" class="active">Главная</a>
       <a href="rules.html">Правила</a>
       <a href="news.html">Новости</a>
-      <a href="join.html">Вступления и тд</a>
-      <a href="blacklist.html">Черный список</a>
+      <a href="join.html">Вступление</a>
+      <a href="blacklist.html">Чёрный список</a>
       <a href="requirements.html">Требования</a>
       <a href="about.html">О клане</a>
     </nav>
   </header>
 
   <main>
-    <section>
-      <h2>Добро пожаловать в Requiem</h2>
+    <!-- Приветственная секция -->
+    <div class="hero">
+      <h2>⚔️ Добро пожаловать в Requiem</h2>
       <p>
-        Requiem — закрытое сообщество с чёткой иерархией, дисциплиной и правилами.
-        Этот сайт является официальной точкой информации клана.
+        Requiem — это закрытое сообщество с чёткой иерархией, строгой дисциплиной и продуманными правилами.
+        Мы создаём пространство для тех, кто ценит порядок, уважение и командный дух.
       </p>
       <p>
-        Используй навигацию выше, чтобы ознакомиться с философией клана,
-        правилами и условиями вступления.
+        Этот сайт является официальной точкой информации клана. Используй навигацию выше,
+        чтобы ознакомиться с философией клана, правилами и условиями вступления.
       </p>
-    </section>
+    </div>
+
+    <!-- Карточки быстрых ссылок -->
+    <div class="quick-links">
+      <div class="quick-card">
+        <h3>📜 Правила клана</h3>
+        <p>Официальный свод правил, обязательных для всех участников сообщества.</p>
+        <a href="rules.html" class="btn">Изучить правила →</a>
+      </div>
+      
+      <div class="quick-card">
+        <h3>📝 Как вступить</h3>
+        <p>Вся информация о процессе вступления, требованиях и необходимых формах.</p>
+        <a href="join.html" class="btn">Подать заявку →</a>
+      </div>
+      
+      <div class="quick-card">
+        <h3>⚖️ Требования</h3>
+        <p>Критерии и условия, которым должен соответствовать каждый кандидат.</p>
+        <a href="requirements.html" class="btn">Узнать требования →</a>
+      </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">16+</div>
+        <div class="stat-label">Минимальный возраст</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Основных правил</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3-7</div>
+        <div class="stat-label">Дней на рассмотрение</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2022</div>
+        <div class="stat-label">Год основания</div>
+      </div>
+    </div>
+
   </main>
 
   <footer>
-    © 2026 Requiem • GitHub Pages
+    <div>© 2026 Requiem • Официальный сайт клана</div>
+    <div class="footer-links">
+      <a href="https://discord.gg/u769kvpCT5" target="_blank">Discord</a>
+      <a href="join.html">Вступление</a>
+      <a href="rules.html">Правила</a>
+      <a href="blacklist.html">Чёрный список</a>
+    </div>
   </footer>
 </body>
 </html>
