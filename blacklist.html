@@ -2,67 +2,423 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Requiem — Чёрный список</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Чёрный список • Requiem</title>
+  <meta name="description" content="Чёрный список клана Requiem" />
   <style>
+    /* ОСНОВНЫЕ СТИЛИ (одинаковые с главной) */
+    :root {
+      --bg: #0f0f14;
+      --card: #181825;
+      --text: #eaeaf0;
+      --muted: #9aa0b4;
+      --accent: #7c7cff;
+      --danger: #ff4766;
+      --warning: #ffb347;
+      --success: #00d4aa;
+    }
+    * { box-sizing: border-box; }
     body {
-      background:#0f0f14;
-      color:#eaeaf0;
-      font-family:system-ui;
-      margin:0;
-      padding:40px;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0f0f14, #0b0b10);
+      color: var(--text);
+      min-height: 100vh;
     }
-    table {
-      width:100%;
-      border-collapse:collapse;
-      background:#181825;
-      border-radius:12px;
-      overflow:hidden;
+    
+    /* ШАПКА И НАВИГАЦИЯ (единый стиль) */
+    header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
     }
-    th, td {
-      padding:12px;
-      border-bottom:1px solid #2a2a3a;
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      letter-spacing: 0.08em;
     }
-    th {
-      color:#7c7cff;
-      text-align:left;
+    header .subtitle {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: var(--card);
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+    nav a:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    /* ОСНОВНОЙ КОНТЕНТ */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    
+    /* КАРТОЧКИ */
+    .info-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border-left: 4px solid var(--danger);
+    }
+    .info-card h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* СПИСОК ЗАБАНЕННЫХ */
+    .blacklist-container {
+      display: grid;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .banned-user {
+      background: rgba(255, 71, 102, 0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      transition: transform 0.2s;
+    }
+    .banned-user:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 71, 102, 0.12);
+    }
+    .user-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #ff4766, #ff6b9d);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .user-info {
+      flex: 1;
+    }
+    .user-name {
+      font-weight: 600;
+      color: #ff8fa3;
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .user-id {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
+    .ban-date {
+      color: var(--warning);
+      font-size: 0.9rem;
+      background: rgba(255, 179, 71, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+    .ban-reason {
+      color: var(--muted);
+      line-height: 1.6;
+      padding: 0.8rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      margin-top: 0.8rem;
+      border-left: 3px solid var(--danger);
+    }
+    
+    /* КНОПКИ ДЕЙСТВИЙ */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .appeal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .appeal-btn:hover {
+      background: #6b6bff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.3);
+    }
+    
+    /* ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ */
+    .warning-box {
+      background: rgba(255, 71, 102, 0.1);
+      border-left: 4px solid var(--danger);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .warning-box h3 {
+      color: #ff8fa3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .warning-box p {
+      color: #ff8fa3;
+      margin: 0.8rem 0;
+      line-height: 1.6;
+    }
+    
+    /* ИНФО-БЛОК */
+    .info-box {
+      background: rgba(124, 124, 255, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .info-box h3 {
+      color: var(--accent);
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .info-box p {
+      color: var(--muted);
+      margin: 0.8rem 0;
+      line-height: 1.6;
+    }
+    .info-box ul {
+      color: var(--muted);
+      padding-left: 1.2rem;
+      margin: 0.8rem 0;
+    }
+    .info-box li {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* СТАТУС БАНОВ */
+    .ban-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--danger);
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    /* ФУТЕР */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2rem; }
+      nav { gap: 0.8rem; }
+      nav a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+      .info-card { padding: 1.5rem; }
+      .user-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .ban-date {
+        align-self: flex-start;
+      }
+      .action-buttons {
+        flex-direction: column;
+      }
+      .appeal-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .ban-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <header style="text-align:center; margin-bottom:30px;">
-  <h1>Requiem — Чёрный список</h1>
-  <nav style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-    <a href="index.html">Главная</a>
-    <a href="about.html">О клане</a>
-    <a href="rules.html">Правила</a>
-    <a href="requirements.html">Требования</a>
-    <a href="join.html">Вступление</a>
-    <a href="news.html">Новости</a>
-    <a href="blacklist.html">ЧСК</a>
-  </nav>
-</header>
+  <header>
+    <h1>REQUIEM</h1>
+    <div class="subtitle">Чёрный список клана</div>
+    
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="news.html">Новости</a>
+      <a href="join.html">Вступление</a>
+      <a href="blacklist.html" class="active">Чёрный список</a>
+      <a href="requirements.html">Требования</a>
+      <a href="about.html">О клане</a>
+    </nav>
+  </header>
 
+  <main>
+    <!-- Информационная карточка -->
+    <div class="info-card">
+      <h2>🚫 Чёрный список клана</h2>
+      
+      <!-- Статистика банов -->
+      <div class="ban-stats">
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Активных бана</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30</div>
+          <div class="stat-label">Дней на апелляцию</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">7-14</div>
+          <div class="stat-label">Дней на рассмотрение</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">01.03.2026</div>
+          <div class="stat-label">Последнее обновление</div>
+        </div>
+      </div>
+    </div>
 
-<h1>🚫 Чёрный список Requiem</h1>
-<p>Лица из ЧСК не подлежат вступлению. Апелляции — только через форму.</p>
+    <!-- Список забаненных пользователей -->
+    <div class="blacklist-container">
+      <!-- Пользователь 1 -->
+      <div class="banned-user">
+        <div class="user-header">
+          <div class="user-avatar">Y</div>
+          <div class="user-info">
+            <div class="user-name">@Y3rik24</div>
+            <div class="user-id">ID: 1350573857332793495</div>
+          </div>
+          <div class="ban-date">08.11.2025 18:30</div>
+        </div>
+        <div class="ban-reason">
+          Нарушение правил Discord сервера. Грубое поведение и оскорбление участников.
+        </div>
+      </div>
+      
+      <!-- Пользователь 2 -->
+      <div class="banned-user">
+        <div class="user-header">
+          <div class="user-avatar">W</div>
+          <div class="user-info">
+            <div class="user-name">@werex1337</div>
+            <div class="user-id">ID: 1066670684530557060</div>
+          </div>
+          <div class="ban-date">02.01.2026 15:04</div>
+        </div>
+        <div class="ban-reason">
+          Нарушение игрового этикета. Многократные жалобы от участников клана.
+        </div>
+      </div>
+      
+      <!-- Пользователь 3 -->
+      <div class="banned-user">
+        <div class="user-header">
+          <div class="user-avatar">R</div>
+          <div class="user-info">
+            <div class="user-name">@❄ ! [ 𝓡𝓥 ] | любит верекса ❄</div>
+            <div class="user-id">ID: 1197552971412684920</div>
+          </div>
+          <div class="ban-date">03.01.2026 17:20</div>
+        </div>
+        <div class="ban-reason">
+          Спам, флуд и создание конфликтных ситуаций на сервере.
+        </div>
+      </div>
+    </div>
 
-<table>
-  <tr>
-    <th>Ник</th>
-    <th>Причина</th>
-    <th>Статус</th>
-  </tr>
+    <!-- Важное предупреждение -->
+    <div class="warning-box">
+      <h3>⚠️ Внимание</h3>
+      <p>Эти пользователи внесены в чёрный список за нарушение правил сервера.</p>
+      <p>Лица из чёрного списка не подлежат вступлению в клан.</p>
+    </div>
 
-  <!-- ↓↓↓ ДОБАВЛЯЙ СЮДА ↓↓↓ -->
+    <!-- Информация об апелляциях -->
+    <div class="info-box">
+      <h3>📩 Апелляции</h3>
+      <p>Если вы считаете, что произошла ошибка, вы можете подать апелляцию в течение 30 дней через Google Form.</p>
+      
+      <div class="action-buttons">
+        <a href="https://forms.gle/dTWwBu6M9JmzNBxRA" target="_blank" class="appeal-btn">
+          📝 Подать апелляцию через Google Form
+        </a>
+      </div>
+      
+      <ul>
+        <li><strong>Срок подачи апелляции:</strong> в течение 30 дней с момента бана</li>
+        <li><strong>Срок рассмотрения:</strong> 7-14 рабочих дней</li>
+        <li><strong>Повторная апелляция:</strong> возможна через 30 дней после отказа</li>
+        <li><strong>Ложные апелляции:</strong> приведут к продлению срока бана</li>
+      </ul>
+      
+      <p>Форма для апелляции также доступна на странице <a href="join.html" style="color: var(--accent);">вступления</a>.</p>
+    </div>
+  </main>
 
-  <tr>
-    <td>Player123</td>
-    <td>Грубое нарушение правил</td>
-    <td>Перманент</td>
-  </tr>
-
-</table>
-
+  <footer>
+    © 2026 Requiem • Чёрный список обновлён: 01.03.2026
+  </footer>
 </body>
 </html>
-
