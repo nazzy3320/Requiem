@@ -2,75 +2,469 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Requiem — Требования</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Требования • Requiem</title>
+  <meta name="description" content="Требования к участникам клана Requiem" />
   <style>
+    /* ОСНОВНЫЕ СТИЛИ (одинаковые с главной) */
+    :root {
+      --bg: #0f0f14;
+      --card: #181825;
+      --text: #eaeaf0;
+      --muted: #9aa0b4;
+      --accent: #7c7cff;
+      --danger: #ff4766;
+      --success: #00d4aa;
+      --warning: #ffb347;
+    }
+    * { box-sizing: border-box; }
     body {
-      background:#0f0f14;
-      color:#eaeaf0;
-      font-family:system-ui;
-      margin:0;
-      padding:40px;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0f0f14, #0b0b10);
+      color: var(--text);
+      min-height: 100vh;
     }
-    section {
-      background:#181825;
-      padding:24px;
-      border-radius:16px;
-      max-width:800px;
-      margin:auto;
+    
+    /* ШАПКА И НАВИГАЦИЯ (единый стиль) */
+    header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
     }
-    h1 {
-      color:#7c7cff;
-      margin-top:0;
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      letter-spacing: 0.08em;
     }
-    ul {
-      padding-left:20px;
+    header .subtitle {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    li {
-      margin-bottom:10px;
-      color:#9aa0b4;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
-    .warning {
-      color:#ff6b6b;
-      font-weight:600;
-      margin-top:20px;
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: var(--card);
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+    nav a:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    /* ОСНОВНОЙ КОНТЕНТ */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    
+    /* КАРТОЧКИ С ТРЕБОВАНИЯМИ */
+    .requirement-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border-left: 4px solid var(--accent);
+    }
+    .requirement-card h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* СПИСОК ТРЕБОВАНИЙ */
+    .requirements-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    .requirement-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.2s ease;
+    }
+    .requirement-item:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(124, 124, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .requirement-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: rgba(124, 124, 255, 0.15);
+      border-radius: 8px;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+    .requirement-content {
+      flex: 1;
+    }
+    .requirement-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .requirement-description {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    
+    /* ПРИОРИТЕТНЫЕ ТРЕБОВАНИЯ */
+    .critical-requirement {
+      background: rgba(255, 71, 102, 0.08);
+      border-left: 4px solid var(--danger);
+      border-color: rgba(255, 71, 102, 0.3);
+    }
+    .critical-requirement .requirement-icon {
+      background: rgba(255, 71, 102, 0.2);
+      color: var(--danger);
+    }
+    
+    .important-requirement {
+      background: rgba(255, 179, 71, 0.08);
+      border-left: 4px solid var(--warning);
+      border-color: rgba(255, 179, 71, 0.3);
+    }
+    .important-requirement .requirement-icon {
+      background: rgba(255, 179, 71, 0.2);
+      color: var(--warning);
+    }
+    
+    /* ИНФО-БЛОКИ */
+    .info-box {
+      background: rgba(124, 124, 255, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .info-box p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    .warning-box {
+      background: rgba(255, 71, 102, 0.1);
+      border-left: 4px solid var(--danger);
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .warning-box p {
+      color: #ff8fa3;
+      margin: 0;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    
+    /* ПРОЦЕСС ПРОВЕРКИ */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .process-step {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .step-number {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      line-height: 32px;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    .step-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .step-description {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    
+    /* ИСКЛЮЧЕНИЯ */
+    .exception-box {
+      background: rgba(0, 212, 170, 0.08);
+      border-left: 4px solid var(--success);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+    .exception-box h3 {
+      color: var(--success);
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .exception-box p {
+      color: #a0f0e4;
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+    .exception-conditions {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .exception-conditions h4 {
+      color: var(--success);
+      margin-top: 0;
+      font-size: 0.95rem;
+    }
+    .exception-conditions ul {
+      color: #a0f0e4;
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    .exception-conditions li {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    /* ФУТЕР */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2rem; }
+      nav { gap: 0.8rem; }
+      nav a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+      .requirement-card { padding: 1.5rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .requirement-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .requirement-icon {
+        margin-bottom: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header style="text-align:center; margin-bottom:30px;">
-  <h1>Requiem — Требования</h1>
-  <nav style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-    <a href="index.html">Главная</a>
-    <a href="about.html">О клане</a>
-    <a href="rules.html">Правила</a>
-    <a href="requirements.html">Требования</a>
-    <a href="join.html">Вступление</a>
-    <a href="news.html">Новости</a>
-    <a href="blacklist.html">ЧСК</a>
-  </nav>
-</header>
+  <header>
+    <h1>REQUIEM</h1>
+    <div class="subtitle">Требования к участникам клана</div>
+    
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="news.html">Новости</a>
+      <a href="join.html">Вступление</a>
+      <a href="blacklist.html">Чёрный список</a>
+      <a href="requirements.html" class="active">Требования</a>
+      <a href="about.html">О клане</a>
+    </nav>
+  </header>
 
+  <main>
+    <!-- Основные требования -->
+    <div class="requirement-card">
+      <h2>📌 Основные требования</h2>
+      
+      <ul class="requirements-list">
+        <li class="requirement-item critical-requirement">
+          <div class="requirement-icon">🔞</div>
+          <div class="requirement-content">
+            <span class="requirement-title">Возраст: 16+</span>
+            <p class="requirement-description">
+              Основное требование к возрасту участников. Исключения рассматриваются индивидуально.
+            </p>
+          </div>
+        </li>
+        
+        <li class="requirement-item">
+          <div class="requirement-icon">🤝</div>
+          <div class="requirement-content">
+            <span class="requirement-title">Адекватное и уважительное поведение</span>
+            <p class="requirement-description">
+              Уважение к другим участникам, отсутствие токсичности, умение работать в команде.
+            </p>
+          </div>
+        </li>
+        
+        <li class="requirement-item important-requirement">
+          <div class="requirement-icon">📜</div>
+          <div class="requirement-content">
+            <span class="requirement-title">Обязательное соблюдение правил клана</span>
+            <p class="requirement-description">
+              Полное ознакомление и согласие со всеми правилами Requiem. Нарушения недопустимы.
+            </p>
+          </div>
+        </li>
+        
+        <li class="requirement-item">
+          <div class="requirement-icon">💬</div>
+          <div class="requirement-content">
+            <span class="requirement-title">Активность в Discord</span>
+            <p class="requirement-description">
+              Регулярное участие в жизни сообщества, посещение мероприятий, активность в чатах.
+            </p>
+          </div>
+        </li>
+        
+        <li class="requirement-item critical-requirement">
+          <div class="requirement-icon">🚫</div>
+          <div class="requirement-content">
+            <span class="requirement-title">Запрещены обходы блокировок и наказаний</span>
+            <p class="requirement-description">
+              Создание альтернативных аккаунтов для обхода банов или ограничений приведёт к перманентному ЧС.
+            </p>
+          </div>
+        </li>
+      </ul>
+      
+      <!-- БЛОК С ИСКЛЮЧЕНИЯМИ ПО ВОЗРАСТУ -->
+      <div class="exception-box">
+        <h3>🎯 Исключения по возрасту</h3>
+        <p>
+          В <strong>исключительных случаях</strong> могут быть рассмотрены кандидаты младше 16 лет.
+        </p>
+        
+        <div class="exception-conditions">
+          <h4>Условия для получения исключения:</h4>
+          <ul>
+            <li>Высокий уровень зрелости и ответственности</li>
+            <li>Отличные рекомендации от текущих членов клана</li>
+            <li>Особые навыки или таланты, полезные для сообщества</li>
+            <li>Полное понимание и принятие всех правил клана</li>
+            <li>Согласие родителей/опекунов (при необходимости)</li>
+          </ul>
+        </div>
+        
+        <p>
+          <strong>Важно:</strong> Исключения выдаются индивидуально по решению администрации после собеседования.
+          Количество исключений ограничено.
+        </p>
+      </div>
+      
+      <div class="warning-box">
+        <p>
+          <strong>Внимание:</strong> Несоответствие требованиям является основанием для отказа без объяснения причин.
+        </p>
+      </div>
+    </div>
 
-<section>
-  <h1>📌 Требования к участникам Requiem</h1>
+    <!-- Процесс проверки -->
+    <div class="requirement-card">
+      <h2>🔍 Процесс проверки</h2>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Заявка</div>
+          <p class="step-description">Заполнение анкеты на вступление</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Проверка</div>
+          <p class="step-description">Верификация соответствия требованиям</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Собеседование</div>
+          <p class="step-description">Личное общение с администрацией</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Решение</div>
+          <p class="step-description">Окончательное решение по кандидату</p>
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <p>
+          <strong>Срок рассмотрения:</strong> Обычно 3-7 дней. В случае большого количества заявок срок может быть увеличен.
+        </p>
+      </div>
+    </div>
 
-  <ul>
-    <!-- ↓↓↓ МЕНЯЕШЬ ТОЛЬКО ЭТИ СТРОКИ ↓↓↓ -->
+    <!-- Важная информация -->
+    <div class="requirement-card">
+      <h2>ℹ️ Дополнительная информация</h2>
+      
+      <div class="info-box">
+        <p>
+          <strong>Изменение требований:</strong> Администрация клана оставляет за собой право изменять требования без предварительного уведомления.
+        </p>
+      </div>
+      
+      <div class="info-box">
+        <p>
+          <strong>Повторная подача:</strong> В случае отказа, повторная заявка может быть подана не ранее, чем через 30 дней.
+        </p>
+      </div>
+      
+      <div class="info-box">
+        <p>
+          <strong>Обновлено:</strong> 14.01.2026
+        </p>
+      </div>
+    </div>
+  </main>
 
-    <li>Возраст: 16+</li>
-    <li>Адекватное и уважительное поведение</li>
-    <li>Обязательное соблюдение правил клана</li>
-    <li>Активность в Discord</li>
-    <li>Запрещены обходы блокировок и наказаний</li>
-
-  </ul>
-
-  <p class="warning">
-    Несоответствие требованиям является основанием для отказа
-    без объяснения причин.
-  </p>
-</section>
-
+  <footer>
+    © 2026 Requiem • Требования к участникам
+  </footer>
 </body>
 </html>
-
