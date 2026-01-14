@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Requiem — Вступление и тд</title>
+  <title>Вступление • Requiem</title>
   <meta name="description" content="Вступление и обращения в клан Requiem" />
   <style>
+    /* ОСНОВНЫЕ СТИЛИ (одинаковые с главной) */
     :root {
       --bg: #0f0f14;
       --card: #181825;
       --text: #eaeaf0;
       --muted: #9aa0b4;
       --accent: #7c7cff;
+      --danger: #ff4766;
+      --success: #00d4aa;
+      --warning: #ffb347;
     }
     * { box-sizing: border-box; }
     body {
@@ -19,22 +23,33 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(180deg, #0f0f14, #0b0b10);
       color: var(--text);
+      min-height: 100vh;
     }
+    
+    /* ШАПКА И НАВИГАЦИЯ (единый стиль) */
     header {
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 3rem 1.5rem 2rem;
       text-align: center;
     }
     header h1 {
       margin: 0;
-      font-size: 2.6rem;
+      font-size: 3rem;
       letter-spacing: 0.08em;
+    }
+    header .subtitle {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     nav {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
+      margin-top: 2rem;
       flex-wrap: wrap;
-      margin-top: 1.5rem;
     }
     nav a {
       color: var(--text);
@@ -43,110 +58,374 @@
       border-radius: 999px;
       background: var(--card);
       transition: 0.2s ease;
+      border: 1px solid transparent;
     }
     nav a:hover {
       background: var(--accent);
       color: #fff;
+      border-color: var(--accent);
     }
+    nav a.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    /* ОСНОВНОЙ КОНТЕНТ */
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem 1.5rem 4rem;
     }
-    section {
+    
+    /* КАРТОЧКИ */
+    .join-card {
       background: var(--card);
       border-radius: 16px;
-      padding: 1.5rem 1.8rem;
-      margin-bottom: 1.5rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border-left: 4px solid var(--accent);
     }
-    section h2 {
+    .join-card h2 {
       margin-top: 0;
+      font-size: 1.6rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* СПИСОК ССЫЛОК */
+    .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    .link-item {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    .link-item:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(124, 124, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .link-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(124, 124, 255, 0.15);
+      border-radius: 12px;
+      margin-right: 1.2rem;
+      flex-shrink: 0;
+      color: var(--accent);
       font-size: 1.5rem;
     }
-    section h3 {
-      color: var(--accent);
-      margin-bottom: 0.4rem;
+    .link-content {
+      flex: 1;
     }
-    section p, section li {
+    .link-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .link-description {
       color: var(--muted);
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
     }
-    ul { padding-left: 1.2rem; }
-    a { color: var(--accent); }
+    .link-url {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      word-break: break-all;
+      display: inline-block;
+      margin-top: 0.3rem;
+    }
+    .link-url:hover {
+      text-decoration: underline;
+    }
+    
+    /* ВАЖНЫЕ БЛОКИ */
+    .warning-card {
+      border-left-color: var(--danger);
+      background: linear-gradient(145deg, #181825, #1a1828);
+    }
+    .warning-card h2 {
+      color: #ff8fa3;
+    }
+    
+    .success-card {
+      border-left-color: var(--success);
+    }
+    .success-card h2 {
+      color: #a0f0e4;
+    }
+    
+    .info-card {
+      border-left-color: var(--warning);
+    }
+    
+    /* ПРОЦЕСС ВСТУПЛЕНИЯ */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .process-step {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s ease;
+    }
+    .process-step:hover {
+      transform: translateY(-5px);
+    }
+    .step-number {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      line-height: 36px;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+    .step-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .step-description {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    
+    /* КНОПКИ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 0.5rem;
+    }
+    .btn:hover {
+      background: #6b6bff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.3);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    /* ФУТЕР */
     footer {
       text-align: center;
       padding: 2rem 1rem;
       color: var(--muted);
       font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2rem; }
+      nav { gap: 0.8rem; }
+      nav a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+      .join-card { padding: 1.5rem; }
+      .link-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .link-icon {
+        margin-bottom: 0.8rem;
+        margin-right: 0;
+      }
+      .process-steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-<header style="text-align:center; margin-bottom:30px;">
-  <h1>Requiem — Вступление и тд</h1>
-  <nav style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-    <a href="index.html">Главная</a>
-    <a href="about.html">О клане</a>
-    <a href="rules.html">Правила</a>
-    <a href="requirements.html">Требования</a>
-    <a href="join.html">Вступление</a>
-    <a href="news.html">Новости</a>
-    <a href="blacklist.html">ЧСК</a>
-  </nav>
-</header>
-
+  <header>
+    <h1>REQUIEM</h1>
+    <div class="subtitle">Вступление в клан и обращения</div>
+    
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="rules.html">Правила</a>
+      <a href="news.html">Новости</a>
+      <a href="join.html" class="active">Вступление</a>
+      <a href="blacklist.html">Чёрный список</a>
+      <a href="requirements.html">Требования</a>
+      <a href="about.html">О клане</a>
+    </nav>
+  </header>
 
   <main>
-    <section>
-      <h2>📥 Как вступить в клан</h2>
-      <p>Без заполненной заявки вступление не рассматривается.</p>
-      <ul>
-        <li>
-          📝 <strong>Заявка на вступление:</strong><br />
-          <a href="https://forms.gle/Nc2FNa6FUELK2UfZA" target="_blank">
-            forms.gle/Nc2FNa6FUELK2UfZA
-          </a>
+    <!-- Процесс вступления -->
+    <div class="join-card">
+      <h2>📋 Процесс вступления</h2>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Ознакомление</div>
+          <p class="step-description">Прочитайте правила и требования</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Заявка</div>
+          <p class="step-description">Заполните форму заявки</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Проверка</div>
+          <p class="step-description">Администрация рассмотрит заявку</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Собеседование</div>
+          <p class="step-description">Личное общение в Discord</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Важное предупреждение -->
+    <div class="join-card warning-card">
+      <h2>⚠️ Внимание!</h2>
+      <p style="color: #ff8fa3; font-size: 1.1rem; margin: 1rem 0;">
+        <strong>Без заполненной заявки вступление не рассматривается!</strong>
+      </p>
+    </div>
+
+    <!-- Формы для вступления -->
+    <div class="join-card">
+      <h2>📝 Заявки на вступление</h2>
+      
+      <ul class="link-list">
+        <li class="link-item">
+          <div class="link-icon">👤</div>
+          <div class="link-content">
+            <span class="link-title">Заявка на вступление (для кандидата)</span>
+            <p class="link-description">Заполняется кандидатом самостоятельно</p>
+            <a href="https://forms.gle/Nc2FNa6FUELK2UfZA" target="_blank" class="link-url">
+              forms.gle/Nc2FNa6FUELK2UfZA
+            </a>
+            <a href="https://forms.gle/Nc2FNa6FUELK2UfZA" target="_blank" class="btn">
+              📋 Перейти к форме
+            </a>
+          </div>
         </li>
-        <li>
-          📝 <strong>Заявка (заполняет администратор):</strong><br />
-          <a href="https://forms.gle/t3KfdkZyA4uV6uN69" target="_blank">
-            forms.gle/t3KfdkZyA4uV6uN69
-          </a>
+        
+        <li class="link-item">
+          <div class="link-icon">🛡️</div>
+          <div class="link-content">
+            <span class="link-title">Заявка на вступление (для администратора)</span>
+            <p class="link-description">Заполняется администратором после собеседования</p>
+            <a href="https://forms.gle/t3KfdkZyA4uV6uN69" target="_blank" class="link-url">
+              forms.gle/t3KfdkZyA4uV6uN69
+            </a>
+            <a href="https://forms.gle/t3KfdkZyA4uV6uN69" target="_blank" class="btn btn-secondary">
+              ⚙️ Форма для администраторов
+            </a>
+          </div>
         </li>
       </ul>
-    </section>
+    </div>
 
-    <section>
-      <h2>🛡 Апелляции и администрация</h2>
-      <p>
-        📝 <strong>Апелляция на Чёрный список:</strong><br />
-        <a href="https://forms.gle/dTWwBu6M9JmzNBxRA" target="_blank">
-          forms.gle/dTWwBu6M9JmzNBxRA
-        </a>
-      </p>
-      <p>
-        📝 <strong>Заявка в администрацию:</strong><br />
-        <a href="https://forms.gle/vfgtvUpTCf382Pry7" target="_blank">
-          forms.gle/vfgtvUpTCf382Pry7
-        </a>
-      </p>
-    </section>
+    <!-- Апелляции и администрация -->
+    <div class="join-card info-card">
+      <h2>⚖️ Апелляции и администрация</h2>
+      
+      <ul class="link-list">
+        <li class="link-item">
+          <div class="link-icon">📜</div>
+          <div class="link-content">
+            <span class="link-title">Апелляция на Чёрный список</span>
+            <p class="link-description">Подача апелляции на разбан из чёрного списка</p>
+            <a href="https://forms.gle/dTWwBu6M9JmzNBxRA" target="_blank" class="link-url">
+              forms.gle/dTWwBu6M9JmzNBxRA
+            </a>
+            <a href="https://forms.gle/dTWwBu6M9JmzNBxRA" target="_blank" class="btn">
+              🗣️ Подать апелляцию
+            </a>
+          </div>
+        </li>
+        
+        <li class="link-item">
+          <div class="link-icon">👨‍⚖️</div>
+          <div class="link-content">
+            <span class="link-title">Заявка в администрацию</span>
+            <p class="link-description">Подача заявки на вступление в администрацию клана</p>
+            <a href="https://forms.gle/vfgtvUpTCf382Pry7" target="_blank" class="link-url">
+              forms.gle/vfgtvUpTCf382Pry7
+            </a>
+            <a href="https://forms.gle/vfgtvUpTCf382Pry7" target="_blank" class="btn btn-secondary">
+              ⚡ Подать заявку
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
 
-    <section>
+    <!-- Контакты -->
+    <div class="join-card success-card">
       <h2>💬 Контакты</h2>
-      <p>
-        🔗 <strong>Discord-сервер:</strong><br />
-        <a href="https://discord.gg/u769kvpCT5" target="_blank">
-          discord.gg/u769kvpCT5
-        </a>
-      </p>
-    </section>
+      
+      <div class="link-item">
+        <div class="link-icon">🎮</div>
+        <div class="link-content">
+          <span class="link-title">Discord-сервер Requiem</span>
+          <p class="link-description">Официальный Discord сервер клана для общения и связи</p>
+          <a href="https://discord.gg/u769kvpCT5" target="_blank" class="link-url">
+            discord.gg/u769kvpCT5
+          </a>
+          <a href="https://discord.gg/u769kvpCT5" target="_blank" class="btn">
+            🎯 Присоединиться к Discord
+          </a>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 10px;">
+        <p style="margin: 0; color: var(--muted); font-size: 0.9rem;">
+          <strong>⏰ Срок рассмотрения заявок:</strong> 3-7 рабочих дней
+        </p>
+      </div>
+    </div>
   </main>
 
   <footer>
-    © 2026 Requiem • Вступление
+    © 2026 Requiem • Все формы актуальны на март 2026
   </footer>
 </body>
 </html>
-
