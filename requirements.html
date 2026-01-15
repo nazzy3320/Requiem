@@ -6,341 +6,738 @@
   <title>Требования • Requiem</title>
   <meta name="description" content="Требования к участникам клана Requiem" />
   <style>
-    /* ОСНОВНЫЕ СТИЛИ (одинаковые с главной) */
+    /* ===== ОСНОВНОЙ СТИЛЬ REQUIEM ===== */
     :root {
       --bg: #0f0f14;
       --card: #181825;
       --text: #eaeaf0;
       --muted: #9aa0b4;
       --accent: #7c7cff;
-      --danger: #ff4766;
+      --accent-hover: #6b6bff;
       --success: #00d4aa;
+      --danger: #ff4766;
       --warning: #ffb347;
+      --info: #47b5ff;
     }
-    * { box-sizing: border-box; }
-    body {
+
+    * { 
+      box-sizing: border-box; 
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(180deg, #0f0f14, #0b0b10);
       color: var(--text);
       min-height: 100vh;
+      line-height: 1.6;
     }
-    
-    /* ШАПКА И НАВИГАЦИЯ (единый стиль) */
+
+    /* ===== ШАПКА ===== */
     header {
-      padding: 3rem 1.5rem 2rem;
+      padding: 2rem 1rem 1.5rem;
       text-align: center;
+      animation: fadeIn 0.8s ease;
     }
-    header h1 {
+
+    .site-title {
       margin: 0;
-      font-size: 3rem;
+      font-size: 2.5rem;
       letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #7c7cff, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 20px rgba(124, 124, 255, 0.3);
     }
-    header .subtitle {
-      margin-top: 1rem;
+
+    .tagline {
+      margin-top: 0.8rem;
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 1rem;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
-    nav {
+
+    /* ===== НАВИГАЦИЯ ===== */
+    .main-nav {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
       flex-wrap: wrap;
+      padding: 0 1rem;
     }
-    nav a {
+
+    .nav-link {
       color: var(--text);
       text-decoration: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
       background: var(--card);
-      transition: 0.2s ease;
-      border: 1px solid transparent;
-    }
-    nav a:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-    nav a.active {
-      background: var(--accent);
-      color: #fff;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
       font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
     }
-    
-    /* ОСНОВНОЙ КОНТЕНТ */
-    main {
-      max-width: 900px;
+
+    .nav-link:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
+    }
+
+    .nav-link.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(124, 124, 255, 0.4);
+    }
+
+    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    .container {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2rem 1rem 4rem;
     }
-    
-    /* КАРТОЧКИ С ТРЕБОВАНИЯМИ */
+
+    /* ===== КАРТОЧКИ ТРЕБОВАНИЙ ===== */
     .requirement-card {
       background: var(--card);
       border-radius: 16px;
-      padding: 2rem;
+      padding: 1.5rem;
       margin-bottom: 2rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.05);
       border-left: 4px solid var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .requirement-card h2 {
+
+    .requirement-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .card-title {
       margin-top: 0;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--text);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    
-    /* СПИСОК ТРЕБОВАНИЙ */
-    .requirements-list {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-    }
+
+    /* ===== ЭЛЕМЕНТЫ ТРЕБОВАНИЙ ===== */
     .requirement-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: all 0.2s ease;
       display: flex;
       align-items: flex-start;
-      padding: 1rem;
-      margin-bottom: 0.8rem;
-      background: rgba(255,255,255,0.03);
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.2s ease;
+      gap: 1rem;
     }
+
     .requirement-item:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(124, 124, 255, 0.2);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,0.04);
+      transform: translateX(5px);
     }
+
     .requirement-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
+      min-width: 40px;
+      height: 40px;
       background: rgba(124, 124, 255, 0.15);
-      border-radius: 8px;
-      margin-right: 1rem;
-      flex-shrink: 0;
       color: var(--accent);
+      border-radius: 10px;
       font-size: 1.2rem;
+      border: 1px solid rgba(124, 124, 255, 0.2);
+      flex-shrink: 0;
     }
+
     .requirement-content {
       flex: 1;
     }
+
     .requirement-title {
       font-weight: 600;
       color: var(--text);
       margin-bottom: 0.3rem;
       display: block;
+      font-size: 1.05rem;
     }
+
     .requirement-description {
       color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
+      line-height: 1.6;
       margin: 0;
+      font-size: 0.95rem;
     }
-    
-    /* ПРИОРИТЕТНЫЕ ТРЕБОВАНИЯ */
-    .critical-requirement {
-      background: rgba(255, 71, 102, 0.08);
+
+    /* ===== БЕЙДЖИ ВАЖНОСТИ ===== */
+    .attention-badge-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .attention-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .attention-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: inherit;
+      filter: blur(8px);
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .critical-badge {
+      background: linear-gradient(135deg, #ff2e4a, #ff0033);
+      color: white;
+      animation: pulseCritical 2s infinite;
+    }
+
+    .important-badge {
+      background: linear-gradient(135deg, #ffb347, #ff9900);
+      color: white;
+      animation: pulseImportant 2s infinite;
+    }
+
+    .info-badge {
+      background: linear-gradient(135deg, #7c7cff, #6b6bff);
+      color: white;
+      animation: pulseInfo 2s infinite;
+    }
+
+    .attention-icon {
+      font-size: 1.1rem;
+      animation: iconPulse 1.5s infinite;
+    }
+
+    /* ===== СПЕЦИАЛЬНЫЕ БЛОКИ ===== */
+    .warning-box {
+      background: linear-gradient(135deg, rgba(255, 71, 102, 0.1), rgba(255, 30, 60, 0.08));
       border-left: 4px solid var(--danger);
-      border-color: rgba(255, 71, 102, 0.3);
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      position: relative;
     }
+
+    .warning-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 71, 102, 0.5), transparent);
+    }
+
+    .warning-box .requirement-description {
+      color: #ffa8b5;
+    }
+
+    .critical-requirement {
+      background: linear-gradient(135deg, rgba(255, 30, 60, 0.15), rgba(255, 0, 40, 0.1));
+      border-left: 4px solid #ff0033;
+      border: 1px solid rgba(255, 0, 51, 0.3);
+    }
+
     .critical-requirement .requirement-icon {
-      background: rgba(255, 71, 102, 0.2);
-      color: var(--danger);
+      background: rgba(255, 0, 51, 0.2);
+      color: #ff4766;
     }
-    
+
     .important-requirement {
-      background: rgba(255, 179, 71, 0.08);
+      background: linear-gradient(135deg, rgba(255, 179, 71, 0.1), rgba(255, 150, 50, 0.08));
       border-left: 4px solid var(--warning);
-      border-color: rgba(255, 179, 71, 0.3);
+      border: 1px solid rgba(255, 179, 71, 0.2);
     }
+
     .important-requirement .requirement-icon {
       background: rgba(255, 179, 71, 0.2);
       color: var(--warning);
     }
-    
-    /* ИНФО-БЛОКИ */
-    .info-box {
-      background: rgba(124, 124, 255, 0.08);
-      border-left: 4px solid var(--accent);
+
+    .success-box {
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 180, 140, 0.08));
+      border-left: 4px solid var(--success);
       padding: 1.2rem;
       border-radius: 10px;
-      margin: 1.5rem 0;
+      margin: 1rem 0;
+      border: 1px solid rgba(0, 212, 170, 0.2);
     }
-    .info-box p {
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-    
-    .warning-box {
-      background: rgba(255, 71, 102, 0.1);
-      border-left: 4px solid var(--danger);
-      padding: 1.2rem;
-      border-radius: 10px;
-      margin: 1.5rem 0;
-    }
-    .warning-box p {
-      color: #ff8fa3;
-      margin: 0;
-      font-weight: 500;
-      line-height: 1.6;
-    }
-    
-    /* ПРОЦЕСС ПРОВЕРКИ */
+
+    /* ===== ПРОЦЕСС ПРОВЕРКИ ===== */
     .process-steps {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      gap: 1.5rem;
       margin: 2rem 0;
     }
+
     .process-step {
       background: rgba(255,255,255,0.03);
       padding: 1.5rem;
       border-radius: 12px;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .process-step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      background: rgba(124, 124, 255, 0.05);
+    }
+
     .step-number {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      background: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
       color: white;
       border-radius: 50%;
-      line-height: 32px;
       font-weight: 600;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      border: 2px solid rgba(255,255,255,0.1);
     }
+
     .step-title {
       font-weight: 600;
       color: var(--text);
       margin-bottom: 0.5rem;
+      font-size: 1.1rem;
     }
+
     .step-description {
       color: var(--muted);
       font-size: 0.9rem;
       margin: 0;
+      line-height: 1.5;
     }
-    
-    /* ИСКЛЮЧЕНИЯ */
+
+    /* ===== ИСКЛЮЧЕНИЯ ===== */
     .exception-box {
-      background: rgba(0, 212, 170, 0.08);
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 180, 140, 0.12));
       border-left: 4px solid var(--success);
       padding: 1.5rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1.5rem 0;
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      position: relative;
+      overflow: hidden;
     }
+
+    .exception-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.5), transparent);
+    }
+
     .exception-box h3 {
       color: var(--success);
       margin-top: 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
     }
-    .exception-box p {
-      color: #a0f0e4;
-      margin: 0.5rem 0;
-      line-height: 1.6;
-    }
+
     .exception-conditions {
       background: rgba(0, 0, 0, 0.2);
-      padding: 1rem;
-      border-radius: 8px;
+      padding: 1.2rem;
+      border-radius: 10px;
       margin-top: 1rem;
+      border: 1px solid rgba(0, 212, 170, 0.1);
     }
+
     .exception-conditions h4 {
       color: var(--success);
       margin-top: 0;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
+
     .exception-conditions ul {
       color: #a0f0e4;
       padding-left: 1.2rem;
       margin: 0.5rem 0;
     }
+
     .exception-conditions li {
-      margin-bottom: 0.3rem;
-      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
-    
-    /* ФУТЕР */
+
+    /* ===== АНИМАЦИИ ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseCritical {
+      0% { box-shadow: 0 4px 12px rgba(255, 46, 74, 0.4); }
+      50% { box-shadow: 0 6px 20px rgba(255, 46, 74, 0.6); }
+      100% { box-shadow: 0 4px 12px rgba(255, 46, 74, 0.4); }
+    }
+
+    @keyframes pulseImportant {
+      0% { box-shadow: 0 4px 12px rgba(255, 179, 71, 0.4); }
+      50% { box-shadow: 0 6px 20px rgba(255, 179, 71, 0.6); }
+      100% { box-shadow: 0 4px 12px rgba(255, 179, 71, 0.4); }
+    }
+
+    @keyframes pulseInfo {
+      0% { box-shadow: 0 4px 12px rgba(124, 124, 255, 0.4); }
+      50% { box-shadow: 0 6px 20px rgba(124, 124, 255, 0.6); }
+      100% { box-shadow: 0 4px 12px rgba(124, 124, 255, 0.4); }
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    /* ===== ФУТЕР ===== */
     footer {
       text-align: center;
       padding: 2rem 1rem;
       color: var(--muted);
       font-size: 0.9rem;
       border-top: 1px solid rgba(255,255,255,0.05);
+      background: rgba(0,0,0,0.2);
     }
-    
-    /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    /* ===== ПРОГРЕСС-БАР И КНОПКА НАВЕРХ ===== */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
+      font-size: 1.2rem;
+    }
+
+    .scroll-indicator.visible {
+      opacity: 1;
+    }
+
+    .scroll-indicator:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 18px rgba(124, 124, 255, 0.4);
+    }
+
+    .stats-box {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0.5rem 1rem;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
     @media (max-width: 768px) {
-      header h1 { font-size: 2.2rem; }
-      nav { gap: 0.8rem; }
-      nav a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
-      .requirement-card { padding: 1.5rem; }
-      .process-steps { grid-template-columns: 1fr; }
-      .requirement-item {
-        flex-direction: column;
-        align-items: flex-start;
+      .site-title { 
+        font-size: 2rem; 
+        padding: 0 1rem;
       }
+      
+      .tagline { 
+        font-size: 0.9rem; 
+        padding: 0 1rem;
+      }
+      
+      .main-nav { 
+        gap: 0.5rem; 
+        padding: 0 0.5rem;
+      }
+      
+      .nav-link { 
+        padding: 0.3rem 0.8rem; 
+        font-size: 0.8rem; 
+        border-radius: 15px;
+      }
+      
+      .container { 
+        padding: 1.5rem 0.8rem 3rem; 
+      }
+      
+      .requirement-card { 
+        padding: 1.2rem; 
+        margin-bottom: 1.5rem;
+        border-radius: 14px;
+      }
+      
+      .card-title { 
+        font-size: 1.3rem; 
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .requirement-item {
+        padding: 0.8rem;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
       .requirement-icon {
-        margin-bottom: 0.8rem;
+        min-width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      
+      .attention-badge {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
+      }
+      
+      .attention-icon {
+        font-size: 1rem;
+      }
+      
+      .process-steps {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .process-step {
+        padding: 1.2rem;
+      }
+      
+      .exception-box {
+        padding: 1.2rem;
+      }
+      
+      .exception-conditions {
+        padding: 1rem;
+      }
+      
+      .stats-box {
+        gap: 1rem;
+      }
+      
+      .stat-value {
+        font-size: 1.5rem;
+      }
+      
+      .scroll-indicator { 
+        width: 40px; 
+        height: 40px; 
+        font-size: 1rem;
+        bottom: 15px;
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-title { 
+        font-size: 1.8rem; 
+      }
+      
+      .main-nav {
+        gap: 0.3rem;
+      }
+      
+      .nav-link { 
+        padding: 0.25rem 0.6rem; 
+        font-size: 0.75rem; 
+      }
+      
+      .requirement-card { 
+        padding: 1rem; 
+      }
+      
+      .card-title { 
+        font-size: 1.2rem; 
+      }
+      
+      .attention-badge {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.75rem;
+      }
+      
+      .stats-box {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Прогресс-бар чтения -->
+  <div class="reading-progress"></div>
+
+  <!-- Кнопка "Наверх" -->
+  <div class="scroll-indicator" onclick="scrollToTop()">
+    ↑
+  </div>
+
   <header>
-    <h1>REQUIEM</h1>
-    <div class="subtitle">Требования к участникам клана</div>
+    <h1 class="site-title">REQUIEM</h1>
+    <div class="tagline">Требования к участникам клана</div>
     
-    <nav>
-      <a href="index.html">Главная</a>
-      <a href="rules.html">Правила</a>
-      <a href="news.html">Новости</a>
-      <a href="join.html">Вступление</a>
-      <a href="blacklist.html">Чёрный список</a>
-      <a href="requirements.html" class="active">Требования</a>
-      <a href="about.html">О клане</a>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="rules.html" class="nav-link">Правила</a>
+      <a href="news.html" class="nav-link">Новости</a>
+      <a href="join.html" class="nav-link">Вступление</a>
+      <a href="blacklist.html" class="nav-link">Чёрный список</a>
+      <a href="requirements.html" class="nav-link active">Требования</a>
+      <a href="about.html" class="nav-link">О клане</a>
     </nav>
   </header>
 
-  <main>
+  <main class="container">
     <!-- Основные требования -->
-    <div class="requirement-card">
-      <h2>📌 Основные требования</h2>
+    <div class="requirement-card fade-in">
+      <h2 class="card-title">📌 Основные требования</h2>
       
-      <ul class="requirements-list">
-        <li class="requirement-item critical-requirement">
+      <div class="attention-badge-wrapper">
+        <div class="attention-badge critical-badge">
+          <span class="attention-icon">🔞</span>
+          <span>КРИТИЧЕСКОЕ ТРЕБОВАНИЕ</span>
+        </div>
+        <div class="requirement-item critical-requirement">
           <div class="requirement-icon">🔞</div>
           <div class="requirement-content">
             <span class="requirement-title">Возраст: 16+</span>
             <p class="requirement-description">
-              Основное требование к возрасту участников. Исключения рассматриваются индивидуально.
+              Основное требование к возрасту участников. Исключения рассматриваются индивидуально по строгим критериям.
             </p>
           </div>
-        </li>
-        
-        <li class="requirement-item">
-          <div class="requirement-icon">🤝</div>
-          <div class="requirement-content">
-            <span class="requirement-title">Адекватное и уважительное поведение</span>
-            <p class="requirement-description">
-              Уважение к другим участникам, отсутствие токсичности, умение работать в команде.
-            </p>
-          </div>
-        </li>
-        
-        <li class="requirement-item important-requirement">
+        </div>
+      </div>
+      
+      <div class="requirement-item">
+        <div class="requirement-icon">🤝</div>
+        <div class="requirement-content">
+          <span class="requirement-title">Адекватное и уважительное поведение</span>
+          <p class="requirement-description">
+            Уважение к другим участникам, отсутствие токсичности, умение работать в команде, конструктивное общение.
+          </p>
+        </div>
+      </div>
+      
+      <div class="attention-badge-wrapper">
+        <div class="attention-badge important-badge">
+          <span class="attention-icon">📜</span>
+          <span>ВАЖНОЕ ТРЕБОВАНИЕ</span>
+        </div>
+        <div class="requirement-item important-requirement">
           <div class="requirement-icon">📜</div>
           <div class="requirement-content">
             <span class="requirement-title">Обязательное соблюдение правил клана</span>
@@ -348,123 +745,371 @@
               Полное ознакомление и согласие со всеми правилами Requiem. Нарушения недопустимы.
             </p>
           </div>
-        </li>
-        
-        <li class="requirement-item">
-          <div class="requirement-icon">💬</div>
-          <div class="requirement-content">
-            <span class="requirement-title">Активность в Discord</span>
-            <p class="requirement-description">
-              Регулярное участие в жизни сообщества, посещение мероприятий, активность в чатах.
-            </p>
-          </div>
-        </li>
-        
-        <li class="requirement-item critical-requirement">
+        </div>
+      </div>
+      
+      <div class="requirement-item">
+        <div class="requirement-icon">💬</div>
+        <div class="requirement-content">
+          <span class="requirement-title">Активность в Discord</span>
+          <p class="requirement-description">
+            Регулярное участие в жизни сообщества, посещение мероприятий, активность в чатах и голосовых каналах.
+          </p>
+        </div>
+      </div>
+      
+      <div class="attention-badge-wrapper">
+        <div class="attention-badge critical-badge">
+          <span class="attention-icon">🚫</span>
+          <span>КРИТИЧЕСКОЕ ТРЕБОВАНИЕ</span>
+        </div>
+        <div class="requirement-item critical-requirement">
           <div class="requirement-icon">🚫</div>
           <div class="requirement-content">
             <span class="requirement-title">Запрещены обходы блокировок и наказаний</span>
             <p class="requirement-description">
-              Создание альтернативных аккаунтов для обхода банов или ограничений приведёт к перманентному ЧС.
+              Создание альтернативных аккаунтов для обхода банов или ограничений приведёт к перманентному ЧС и блокировке всех связанных аккаунтов.
             </p>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
       
-      <!-- БЛОК С ИСКЛЮЧЕНИЯМИ ПО ВОЗРАСТУ -->
+      <!-- ИСКЛЮЧЕНИЯ ПО ВОЗРАСТУ -->
       <div class="exception-box">
         <h3>🎯 Исключения по возрасту</h3>
-        <p>
+        <p class="requirement-description">
           В <strong>исключительных случаях</strong> могут быть рассмотрены кандидаты младше 16 лет.
         </p>
         
         <div class="exception-conditions">
-          <h4>Условия для получения исключения:</h4>
+          <h4>✅ Условия для получения исключения:</h4>
           <ul>
             <li>Высокий уровень зрелости и ответственности</li>
             <li>Отличные рекомендации от текущих членов клана</li>
             <li>Особые навыки или таланты, полезные для сообщества</li>
             <li>Полное понимание и принятие всех правил клана</li>
             <li>Согласие родителей/опекунов (при необходимости)</li>
+            <li>Отсутствие дисциплинарных нарушений в прошлом</li>
           </ul>
         </div>
         
-        <p>
-          <strong>Важно:</strong> Исключения выдаются индивидуально по решению администрации после собеседования.
-          Количество исключений ограничено.
-        </p>
+        <div class="warning-box">
+          <p class="requirement-description">
+            <strong>Важно:</strong> Исключения выдаются индивидуально по решению администрации после собеседования.
+            Количество исключений ограничено — не более 3% от общего состава клана.
+          </p>
+        </div>
       </div>
       
       <div class="warning-box">
-        <p>
-          <strong>Внимание:</strong> Несоответствие требованиям является основанием для отказа без объяснения причин.
+        <p class="requirement-description">
+          <strong>Внимание:</strong> Несоответствие любым из перечисленных требований является основанием для отказа без объяснения причин. Решение администрации окончательно и обсуждению не подлежит.
         </p>
       </div>
     </div>
 
     <!-- Процесс проверки -->
-    <div class="requirement-card">
-      <h2>🔍 Процесс проверки</h2>
+    <div class="requirement-card fade-in">
+      <h2 class="card-title">🔍 Процесс проверки</h2>
+      
+      <div class="attention-badge-wrapper">
+        <div class="attention-badge info-badge">
+          <span class="attention-icon">📋</span>
+          <span>ПОШАГОВЫЙ ПРОЦЕСС</span>
+        </div>
+      </div>
       
       <div class="process-steps">
         <div class="process-step">
           <div class="step-number">1</div>
           <div class="step-title">Заявка</div>
-          <p class="step-description">Заполнение анкеты на вступление</p>
+          <p class="step-description">Заполнение анкеты на вступление на сайте клана</p>
         </div>
         
         <div class="process-step">
           <div class="step-number">2</div>
           <div class="step-title">Проверка</div>
-          <p class="step-description">Верификация соответствия требованиям</p>
+          <p class="step-description">Верификация соответствия требованиям, проверка истории</p>
         </div>
         
         <div class="process-step">
           <div class="step-number">3</div>
           <div class="step-title">Собеседование</div>
-          <p class="step-description">Личное общение с администрацией</p>
+          <p class="step-description">Личное общение с администрацией в Discord</p>
         </div>
         
         <div class="process-step">
           <div class="step-number">4</div>
           <div class="step-title">Решение</div>
-          <p class="step-description">Окончательное решение по кандидату</p>
+          <p class="step-description">Окончательное решение по кандидату и уведомление</p>
         </div>
       </div>
       
-      <div class="info-box">
-        <p>
-          <strong>Срок рассмотрения:</strong> Обычно 3-7 дней. В случае большого количества заявок срок может быть увеличен.
+      <div class="success-box">
+        <p class="requirement-description">
+          <strong>Срок рассмотрения:</strong> Обычно 3-7 рабочих дней. В периоды большого количества заявок (начало сезона, мероприятия) срок может быть увеличен до 14 дней.
         </p>
       </div>
     </div>
 
-    <!-- Важная информация -->
-    <div class="requirement-card">
-      <h2>ℹ️ Дополнительная информация</h2>
+    <!-- Дополнительная информация -->
+    <div class="requirement-card fade-in">
+      <h2 class="card-title">ℹ️ Дополнительная информация</h2>
       
-      <div class="info-box">
-        <p>
-          <strong>Изменение требований:</strong> Администрация клана оставляет за собой право изменять требования без предварительного уведомления.
-        </p>
+      <div class="requirement-item">
+        <div class="requirement-icon">📝</div>
+        <div class="requirement-content">
+          <span class="requirement-title">Изменение требований</span>
+          <p class="requirement-description">
+            Администрация клана оставляет за собой право изменять требования без предварительного уведомления. Актуальная версия всегда доступна на этой странице.
+          </p>
+        </div>
       </div>
       
-      <div class="info-box">
-        <p>
-          <strong>Повторная подача:</strong> В случае отказа, повторная заявка может быть подана не ранее, чем через 30 дней.
-        </p>
+      <div class="requirement-item">
+        <div class="requirement-icon">🔄</div>
+        <div class="requirement-content">
+          <span class="requirement-title">Повторная подача</span>
+          <p class="requirement-description">
+            В случае отказа, повторная заявка может быть подана не ранее, чем через 30 дней. При повторном отказе — не ранее, чем через 90 дней.
+          </p>
+        </div>
       </div>
       
-      <div class="info-box">
-        <p>
-          <strong>Обновлено:</strong> 14.01.2026
+      <div class="requirement-item">
+        <div class="requirement-icon">⚖️</div>
+        <div class="requirement-content">
+          <span class="requirement-title">Требования к текущим участникам</span>
+          <p class="requirement-description">
+            Все текущие участники обязаны соответствовать требованиям. Несоответствие может привести к понижению роли или исключению из клана.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Статистика -->
+      <div class="stats-box">
+        <div class="stat-item">
+          <span class="stat-value" id="critical-count">3</span>
+          <span class="stat-label">Критических требований</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="total-count">8</span>
+          <span class="stat-label">Всего требований</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">3-7</span>
+          <span class="stat-label">Дней на проверку</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">30</span>
+          <span class="stat-label">Дней до повторной подачи</span>
+        </div>
+      </div>
+      
+      <div class="success-box">
+        <p class="requirement-description">
+          <strong>Обновлено:</strong> 14.01.2026 • <strong>Версия:</strong> 2.1.4
         </p>
       </div>
     </div>
   </main>
 
   <footer>
-    © 2026 Requiem • Требования к участникам
+    <div>© 2026 Requiem • Требования к участникам клана</div>
+    <div class="footer-links">
+      <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord сервер</a>
+      <a href="index.html" class="footer-link">На главную</a>
+      <a href="join.html" class="footer-link">Вступить в клан</a>
+      <a href="rules.html" class="footer-link">Правила клана</a>
+    </div>
   </footer>
+
+  <script>
+    // ===== ОСНОВНЫЕ ФУНКЦИИ =====
+
+    // Прогресс-бар чтения
+    function setupReadingProgress() {
+      const progressBar = document.querySelector('.reading-progress');
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      
+      window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        
+        progressBar.style.width = scrolled + '%';
+        
+        // Показывать/скрывать кнопку "Наверх"
+        if (window.scrollY > 300) {
+          scrollIndicator.classList.add('visible');
+        } else {
+          scrollIndicator.classList.remove('visible');
+        }
+      });
+    }
+
+    // Прокрутка наверх
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Подсчёт требований
+    function countRequirements() {
+      const criticalBadges = document.querySelectorAll('.critical-badge');
+      const criticalCount = document.getElementById('critical-count');
+      const totalCount = document.getElementById('total-count');
+      
+      if (criticalCount) {
+        criticalCount.textContent = criticalBadges.length;
+      }
+      
+      if (totalCount) {
+        const requirementItems = document.querySelectorAll('.requirement-item');
+        totalCount.textContent = requirementItems.length;
+      }
+    }
+
+    // Эффект для бейджей при наведении
+    function setupBadgeHoverEffects() {
+      const badges = document.querySelectorAll('.attention-badge');
+      
+      badges.forEach(badge => {
+        badge.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px)';
+          this.style.filter = 'brightness(1.1)';
+        });
+        
+        badge.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+          this.style.filter = '';
+        });
+      });
+    }
+
+    // Эффект для шагов процесса
+    function setupProcessStepsEffects() {
+      const steps = document.querySelectorAll('.process-step');
+      
+      steps.forEach(step => {
+        step.addEventListener('mouseenter', function() {
+          const number = this.querySelector('.step-number');
+          if (number) {
+            number.style.transform = 'scale(1.1)';
+            number.style.boxShadow = '0 0 20px rgba(124, 124, 255, 0.5)';
+          }
+        });
+        
+        step.addEventListener('mouseleave', function() {
+          const number = this.querySelector('.step-number');
+          if (number) {
+            number.style.transform = '';
+            number.style.boxShadow = '';
+          }
+        });
+      });
+    }
+
+    // Подсветка критических требований
+    function highlightCriticalRequirements() {
+      const criticalItems = document.querySelectorAll('.critical-requirement');
+      
+      criticalItems.forEach(item => {
+        item.addEventListener('click', function() {
+          this.style.boxShadow = '0 0 0 2px rgba(255, 71, 102, 0.5)';
+          
+          setTimeout(() => {
+            this.style.boxShadow = '';
+          }, 2000);
+        });
+      });
+    }
+
+    // Инициализация всех функций при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+      // Настраиваем прогресс-бар
+      setupReadingProgress();
+      
+      // Считаем требования
+      countRequirements();
+      
+      // Настраиваем эффекты для бейджей
+      setupBadgeHoverEffects();
+      
+      // Настраиваем эффекты для шагов процесса
+      setupProcessStepsEffects();
+      
+      // Подсветка критических требований
+      highlightCriticalRequirements();
+      
+      // Эффекты для навигации
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+        });
+      });
+      
+      // Плавное появление карточек
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in').forEach((card, index) => {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+      }, 200);
+    });
+
+    // Горячие клавиши
+    document.addEventListener('keydown', function(e) {
+      // Escape - сброс выделения
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.requirement-item, .warning-box, .success-box').forEach(item => {
+          item.style.boxShadow = '';
+        });
+      }
+      
+      // Home - наверх
+      if (e.key === 'Home') {
+        scrollToTop();
+      }
+      
+      // C - подсветить критические требования
+      if (e.key === 'c' || e.key === 'C') {
+        const criticalBadges = document.querySelectorAll('.critical-badge');
+        criticalBadges.forEach(badge => {
+          const originalAnimation = badge.style.animation;
+          badge.style.animation = 'pulseCritical 0.5s infinite';
+          
+          setTimeout(() => {
+            badge.style.animation = originalAnimation;
+          }, 2000);
+        });
+      }
+      
+      // S - показать статистику
+      if (e.key === 's' || e.key === 'S') {
+        const statsBox = document.querySelector('.stats-box');
+        if (statsBox) {
+          statsBox.style.transform = 'scale(1.05)';
+          statsBox.style.boxShadow = '0 0 30px rgba(124, 124, 255, 0.3)';
+          
+          setTimeout(() => {
+            statsBox.style.transform = '';
+            statsBox.style.boxShadow = '';
+          }, 1000);
+        }
+      }
+    });
+
+    // Кнопка наверх при клике
+    document.querySelector('.scroll-indicator').addEventListener('click', scrollToTop);
+  </script>
 </body>
 </html>
