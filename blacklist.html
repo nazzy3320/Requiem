@@ -16,6 +16,11 @@
       --danger: #ff4766;
       --warning: #ffb347;
       --success: #00d4aa;
+      --info: #47b5ff;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --cyan: #22d3ee;
+      --lime: #a3e635;
     }
     * { box-sizing: border-box; }
     body {
@@ -96,6 +101,67 @@
       gap: 0.5rem;
     }
     
+    /* ПОИСК И ФИЛЬТРЫ */
+    .search-container {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .search-box {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 3rem;
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(124, 124, 255, 0.2);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 124, 255, 0.1);
+    }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+    
+    .filter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .filter-tag {
+      padding: 0.4rem 0.8rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-tag:hover {
+      background: rgba(124, 124, 255, 0.2);
+      color: var(--accent);
+    }
+    .filter-tag.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
     /* СПИСОК ЗАБАНЕННЫХ */
     .blacklist-container {
       display: grid;
@@ -107,11 +173,12 @@
       border-radius: 12px;
       padding: 1.5rem;
       border: 1px solid rgba(255, 71, 102, 0.2);
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
     }
     .banned-user:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       background: rgba(255, 71, 102, 0.12);
+      box-shadow: 0 5px 20px rgba(255, 71, 102, 0.2);
     }
     .user-header {
       display: flex;
@@ -129,20 +196,27 @@
       justify-content: center;
       font-size: 1.2rem;
       font-weight: bold;
+      flex-shrink: 0;
     }
     .user-info {
       flex: 1;
+      min-width: 0;
     }
     .user-name {
       font-weight: 600;
       color: #ff8fa3;
       font-size: 1.2rem;
       margin-bottom: 0.2rem;
+      word-break: break-word;
     }
     .user-id {
       color: var(--muted);
       font-size: 0.9rem;
-      font-family: monospace;
+      font-family: 'Courier New', monospace;
+      background: rgba(0,0,0,0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
     }
     .ban-date {
       color: var(--warning);
@@ -150,7 +224,43 @@
       background: rgba(255, 179, 71, 0.1);
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+    
+    /* ТЕГИ ПРИЧИН */
+    .reason-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+      flex-wrap: wrap;
+    }
+    .reason-tag {
+      display: inline-block;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .reason-tag:hover {
+      transform: scale(1.05);
+    }
+    
+    /* ЦВЕТА ТЕГОВ */
+    .tag-toxic { background: rgba(255, 71, 102, 0.15); color: var(--danger); }
+    .tag-spam { background: rgba(255, 179, 71, 0.15); color: var(--warning); }
+    .tag-cheat { background: rgba(71, 181, 255, 0.15); color: var(--info); }
+    .tag-admin { background: rgba(124, 124, 255, 0.15); color: var(--accent); }
+    .tag-harassment { background: rgba(244, 114, 182, 0.15); color: var(--pink); }
+    .tag-doxxing { background: rgba(163, 230, 53, 0.15); color: var(--lime); }
+    .tag-bug { background: rgba(34, 211, 238, 0.15); color: var(--cyan); }
+    .tag-leak { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+    .tag-ghosting { background: rgba(0, 212, 170, 0.15); color: var(--success); }
+    .tag-permanent { background: rgba(255, 71, 102, 0.25); color: var(--danger); border: 1px solid rgba(255, 71, 102, 0.3); }
+    .tag-temporary { background: rgba(255, 179, 71, 0.25); color: var(--warning); border: 1px solid rgba(255, 179, 71, 0.3); }
+    
     .ban-reason {
       color: var(--muted);
       line-height: 1.6;
@@ -159,6 +269,24 @@
       border-radius: 8px;
       margin-top: 0.8rem;
       border-left: 3px solid var(--danger);
+    }
+    
+    /* РЕЗУЛЬТАТЫ ПОИСКА */
+    .search-results {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(124, 124, 255, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(124, 124, 255, 0.1);
+      display: none;
+    }
+    .search-results.show {
+      display: block;
+    }
+    .results-count {
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
     }
     
     /* КНОПКИ ДЕЙСТВИЙ */
@@ -295,6 +423,9 @@
       .ban-stats {
         grid-template-columns: repeat(2, 1fr);
       }
+      .filter-tags {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -323,7 +454,7 @@
       <div class="ban-stats">
         <div class="stat-item">
           <div class="stat-number">3</div>
-          <div class="stat-label">Активных ЧСК</div>
+          <div class="stat-label">Игрока в ЧС</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">30</div>
@@ -334,16 +465,42 @@
           <div class="stat-label">Дней на рассмотрение</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">14.01.2026</div>
+          <div class="stat-number">01.03.2026</div>
           <div class="stat-label">Последнее обновление</div>
         </div>
       </div>
     </div>
 
+    <!-- Поиск и фильтры -->
+    <div class="search-container">
+      <h3 style="margin-top: 0; margin-bottom: 1rem;">🔍 Поиск по чёрному списку</h3>
+      
+      <div class="search-box">
+        <div class="search-icon">🔎</div>
+        <input type="text" id="search-input" class="search-input" placeholder="Поиск по ID, нику или тегу...">
+      </div>
+      
+      <div id="search-results" class="search-results">
+        <div class="results-count">Найдено: <span id="match-count">0</span> совпадений</div>
+      </div>
+      
+      <div class="filter-tags">
+        <span class="filter-tag active" data-filter="all">Все</span>
+        <span class="filter-tag" data-filter="toxic">Токсичность</span>
+        <span class="filter-tag" data-filter="spam">Спам</span>
+        <span class="filter-tag" data-filter="cheat">Читы</span>
+        <span class="filter-tag" data-filter="admin">Администрация</span>
+        <span class="filter-tag" data-filter="harassment">Харассмент</span>
+        <span class="filter-tag" data-filter="doxxing">Доксинг</span>
+        <span class="filter-tag" data-filter="permanent">Перманент</span>
+        <span class="filter-tag" data-filter="temporary">Временные</span>
+      </div>
+    </div>
+
     <!-- Список забаненных пользователей -->
-    <div class="blacklist-container">
+    <div class="blacklist-container" id="blacklist-container">
       <!-- Пользователь 1 -->
-      <div class="banned-user">
+      <div class="banned-user" data-id="1350573857332793495" data-tags="toxic,admin,permanent">
         <div class="user-header">
           <div class="user-avatar">Y</div>
           <div class="user-info">
@@ -352,13 +509,21 @@
           </div>
           <div class="ban-date">08.11.2025 18:30</div>
         </div>
+        
+        <div class="reason-tags">
+          <span class="reason-tag tag-toxic">Токсичность</span>
+          <span class="reason-tag tag-admin">Оскорбление админов</span>
+          <span class="reason-tag tag-harassment">Харассмент</span>
+          <span class="reason-tag tag-permanent">Перманент</span>
+        </div>
+        
         <div class="ban-reason">
-          Нарушение правил Discord сервера. Грубое поведение и оскорбление участников.
+          Грубое нарушение правил Discord сервера. Многократные оскорбления участников и администрации. Отказ прекращать токсичное поведение после предупреждений.
         </div>
       </div>
       
       <!-- Пользователь 2 -->
-      <div class="banned-user">
+      <div class="banned-user" data-id="1066670684530557060" data-tags="toxic,spam,permanent">
         <div class="user-header">
           <div class="user-avatar">W</div>
           <div class="user-info">
@@ -367,13 +532,21 @@
           </div>
           <div class="ban-date">02.01.2026 15:04</div>
         </div>
+        
+        <div class="reason-tags">
+          <span class="reason-tag tag-toxic">Нарушение этикета</span>
+          <span class="reason-tag tag-spam">Спам в чатах</span>
+          <span class="reason-tag tag-harassment">Буллинг</span>
+          <span class="reason-tag tag-permanent">Перманент</span>
+        </div>
+        
         <div class="ban-reason">
-          Нарушение игрового этикета. Многократные жалобы от участников клана.
+          Систематическое нарушение игрового этикета. Многократные жалобы от участников клана на неадекватное поведение во время игр. Игнорирование предупреждений модерации.
         </div>
       </div>
       
       <!-- Пользователь 3 -->
-      <div class="banned-user">
+      <div class="banned-user" data-id="1197552971412684920" data-tags="spam,toxic,permanent">
         <div class="user-header">
           <div class="user-avatar">R</div>
           <div class="user-info">
@@ -382,8 +555,40 @@
           </div>
           <div class="ban-date">03.01.2026 17:20</div>
         </div>
+        
+        <div class="reason-tags">
+          <span class="reason-tag tag-spam">Массовый спам</span>
+          <span class="reason-tag tag-toxic">Конфликты</span>
+          <span class="reason-tag tag-ghosting">Гостинг</span>
+          <span class="reason-tag tag-permanent">Перманент</span>
+        </div>
+        
         <div class="ban-reason">
-          Спам, флуд и создание конфликтных ситуаций на сервере.
+          Массовый спам, флуд и целенаправленное создание конфликтных ситуаций на сервере. Нарушение атмосферы сообщества, провокация других участников.
+        </div>
+      </div>
+      
+      <!-- Пример дополнительного пользователя для тегов -->
+      <div class="banned-user" data-id="9999999999999999999" data-tags="cheat,bug,doxxing,permanent">
+        <div class="user-header">
+          <div class="user-avatar">C</div>
+          <div class="user-info">
+            <div class="user-name">@CheaterPro</div>
+            <div class="user-id">ID: 9999999999999999999</div>
+          </div>
+          <div class="ban-date">15.02.2026 12:00</div>
+        </div>
+        
+        <div class="reason-tags">
+          <span class="reason-tag tag-cheat">Использование читов</span>
+          <span class="reason-tag tag-bug">Эксплойт багов</span>
+          <span class="reason-tag tag-doxxing">Доксинг</span>
+          <span class="reason-tag tag-leak">Утечка информации</span>
+          <span class="reason-tag tag-permanent">Перманент</span>
+        </div>
+        
+        <div class="ban-reason">
+          Критическое нарушение: использование стороннего ПО в соревновательных матчах, эксплуатация игровых багов для получения преимущества, сбор и распространение личной информации участников.
         </div>
       </div>
     </div>
@@ -398,7 +603,7 @@
     <!-- Информация об апелляциях -->
     <div class="info-box">
       <h3>📩 Апелляции</h3>
-      <p>Если вы считаете, что произошла ошибка, вы можете подать апелляцию в течение 30 дней через Google Form.</p>
+      <p>Если вы считаете, что произошла ошибка, вы можете подать апелляцию:</p>
       
       <div class="action-buttons">
         <a href="https://forms.gle/dTWwBu6M9JmzNBxRA" target="_blank" class="appeal-btn">
@@ -415,12 +620,191 @@
       
       <p>Форма для апелляции также доступна на странице <a href="join.html" style="color: var(--accent);">вступления</a>.</p>
     </div>
+
+    <!-- Теги и их значения -->
+    <div class="info-box">
+      <h3>🏷️ Теги нарушений</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; margin: 1rem 0;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-toxic" style="margin: 0;">Токсичность</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Оскорбления, буллинг</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-spam" style="margin: 0;">Спам</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Флуд, реклама</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-cheat" style="margin: 0;">Читы</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Нечестная игра</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-admin" style="margin: 0;">Администрация</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Конфликт с админами</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-harassment" style="margin: 0;">Харассмент</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Преследование</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-doxxing" style="margin: 0;">Доксинг</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Раскрытие личной инфо</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-bug" style="margin: 0;">Эксплойты</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Использование багов</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="reason-tag tag-leak" style="margin: 0;">Утечки</span>
+          <span style="color: var(--muted); font-size: 0.9rem;">Распространение инфо</span>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer>
-    © 2026 Requiem • Чёрный список обновлён: 14.01.2026
+    © 2026 Requiem • Чёрный список обновлён: 01.03.2026
   </footer>
+
+  <script>
+    // Элементы DOM
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    const matchCount = document.getElementById('match-count');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const bannedUsers = document.querySelectorAll('.banned-user');
+    const blacklistContainer = document.getElementById('blacklist-container');
+    
+    // Текущий активный фильтр
+    let activeFilter = 'all';
+    let currentSearch = '';
+    
+    // Функция поиска и фильтрации
+    function performSearch() {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      currentSearch = searchTerm;
+      let visibleCount = 0;
+      
+      bannedUsers.forEach(user => {
+        const userId = user.getAttribute('data-id').toLowerCase();
+        const userName = user.querySelector('.user-name').textContent.toLowerCase();
+        const userTags = user.getAttribute('data-tags').toLowerCase();
+        const userReason = user.querySelector('.ban-reason').textContent.toLowerCase();
+        
+        // Проверяем соответствие поиску
+        const matchesSearch = !searchTerm || 
+          userId.includes(searchTerm) || 
+          userName.includes(searchTerm) ||
+          userTags.includes(searchTerm) ||
+          userReason.includes(searchTerm);
+        
+        // Проверяем соответствие фильтру
+        const matchesFilter = activeFilter === 'all' || 
+          userTags.includes(activeFilter);
+        
+        // Показываем/скрываем пользователя
+        if (matchesSearch && matchesFilter) {
+          user.style.display = 'block';
+          visibleCount++;
+          
+          // Подсвечиваем найденный текст
+          if (searchTerm) {
+            highlightText(user, searchTerm);
+          } else {
+            removeHighlight(user);
+          }
+        } else {
+          user.style.display = 'none';
+          removeHighlight(user);
+        }
+      });
+      
+      // Обновляем счётчик результатов
+      matchCount.textContent = visibleCount;
+      
+      // Показываем/скрываем блок результатов
+      if (searchTerm || activeFilter !== 'all') {
+        searchResults.classList.add('show');
+      } else {
+        searchResults.classList.remove('show');
+      }
+    }
+    
+    // Функция подсветки текста
+    function highlightText(userElement, searchTerm) {
+      const elementsToHighlight = [
+        userElement.querySelector('.user-name'),
+        userElement.querySelector('.user-id'),
+        userElement.querySelector('.ban-reason')
+      ];
+      
+      elementsToHighlight.forEach(element => {
+        if (element) {
+          const originalText = element.getAttribute('data-original') || element.innerHTML;
+          element.setAttribute('data-original', originalText);
+          
+          const highlightedText = originalText.replace(
+            new RegExp(`(${searchTerm})`, 'gi'),
+            '<mark style="background: rgba(255, 179, 71, 0.3); color: var(--warning); padding: 0 2px; border-radius: 3px;">$1</mark>'
+          );
+          element.innerHTML = highlightedText;
+        }
+      });
+    }
+    
+    // Функция удаления подсветки
+    function removeHighlight(userElement) {
+      const elements = [
+        userElement.querySelector('.user-name'),
+        userElement.querySelector('.user-id'),
+        userElement.querySelector('.ban-reason')
+      ];
+      
+      elements.forEach(element => {
+        if (element && element.getAttribute('data-original')) {
+          element.innerHTML = element.getAttribute('data-original');
+        }
+      });
+    }
+    
+    // Обработчик поиска
+    searchInput.addEventListener('input', performSearch);
+    
+    // Обработчики фильтров
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', function() {
+        // Убираем активный класс у всех тегов
+        filterTags.forEach(t => t.classList.remove('active'));
+        
+        // Добавляем активный класс текущему тегу
+        this.classList.add('active');
+        
+        // Устанавливаем активный фильтр
+        activeFilter = this.getAttribute('data-filter');
+        
+        // Выполняем поиск
+        performSearch();
+      });
+    });
+    
+    // Обработчики тегов причин
+    document.querySelectorAll('.reason-tag').forEach(tag => {
+      tag.addEventListener('click', function() {
+        const tagClass = Array.from(this.classList).find(cls => cls.startsWith('tag-'));
+        if (tagClass) {
+          const filterType = tagClass.replace('tag-', '');
+          
+          // Устанавливаем соответствующий фильтр
+          filterTags.forEach(t => {
+            if (t.getAttribute('data-filter') === filterType) {
+              t.click();
+            }
+          });
+        }
+      });
+    });
+    
+    // Инициализация
+    performSearch();
+  </script>
 </body>
 </html>
-
-
