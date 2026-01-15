@@ -13,6 +13,10 @@
       --muted: #9aa0b4;
       --accent: #7c7cff;
       --accent-hover: #6b6bff;
+      --success: #00d4aa;
+      --danger: #ff4766;
+      --warning: #ffb347;
+      --info: #47b5ff;
     }
     * { box-sizing: border-box; }
     body {
@@ -189,6 +193,151 @@
       font-size: 0.9rem;
     }
     
+    /* Специальные секции */
+    .status-section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--success);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .countdown-section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--danger);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .rules-section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--warning);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .punishment-section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--info);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* Список правил */
+    .rules-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    .rule-list-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .rule-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: rgba(124, 124, 255, 0.15);
+      border-radius: 8px;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .rule-content {
+      flex: 1;
+    }
+    .rule-title {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .rule-description {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    
+    /* Таблица наказаний */
+    .punishment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .punishment-table th {
+      background: rgba(71, 181, 255, 0.1);
+      color: var(--info);
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .punishment-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted);
+    }
+    .punishment-table tr:last-child td {
+      border-bottom: none;
+    }
+    .punishment-table tr:hover {
+      background: rgba(255,255,255,0.03);
+    }
+    
+    .punishment-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .badge-mute {
+      background: rgba(255, 179, 71, 0.15);
+      color: var(--warning);
+    }
+    .badge-warn {
+      background: rgba(255, 179, 71, 0.25);
+      color: var(--warning);
+    }
+    .badge-ban {
+      background: rgba(255, 71, 102, 0.15);
+      color: var(--danger);
+    }
+    .badge-chs {
+      background: rgba(255, 71, 102, 0.25);
+      color: var(--danger);
+    }
+    
+    /* Анимации */
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    
     /* Футер */
     footer {
       text-align: center;
@@ -222,6 +371,8 @@
       .hero h2 { font-size: 1.5rem; }
       .quick-links { grid-template-columns: 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .status-section, .countdown-section, .rules-section, .punishment-section { padding: 1.5rem; }
+      .punishment-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
@@ -255,11 +406,154 @@
       </p>
     </div>
 
+    <!-- Статус Discord сервера -->
+    <div class="status-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+        <span id="status-dot" class="pulse-dot" style="display: inline-block; width: 12px; height: 12px; background: var(--success); border-radius: 50%;"></span>
+        Статус Discord сервера
+      </h2>
+      <div id="discord-status" style="text-align: center; padding: 1rem;">
+        <div id="status-indicator" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(0, 212, 170, 0.1); border-radius: 20px; margin-bottom: 1rem;">
+          <span id="status-text" style="color: var(--success); font-weight: 500; font-size: 1.1rem;">Проверка статуса...</span>
+        </div>
+        <div style="color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem;">
+          Сервер: <strong style="color: var(--text);">Requiem</strong> • 
+          <a href="https://discord.gg/u769kvpCT5" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 500;">
+            Присоединиться →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Таймер набора -->
+    <div class="countdown-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">⏰ До закрытия набора</h2>
+      <div id="countdown-timer" style="text-align: center; padding: 1rem;">
+        <div style="font-size: 3rem; font-weight: bold; color: var(--danger); margin-bottom: 0.5rem; line-height: 1;">
+          <span id="countdown-days">00</span>
+        </div>
+        <div style="color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem;">
+          дней до 20 марта 2026
+        </div>
+        <div style="margin-top: 1rem;">
+          <a href="join.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.5rem; background: var(--accent); color: white; border-radius: 10px; text-decoration: none; font-weight: 500; transition: all 0.2s;">
+            📝 Подать заявку сейчас
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 основных правил -->
+    <div class="rules-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">📜 5 основных правил</h2>
+      <ul class="rules-list">
+        <li class="rule-list-item">
+          <div class="rule-number">1</div>
+          <div class="rule-content">
+            <span class="rule-title">Уважение и этикет</span>
+            <p class="rule-description">Запрещены оскорбления, дискриминация, провокации и токсичное поведение в любом виде.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">2</div>
+          <div class="rule-content">
+            <span class="rule-title">Соблюдение иерархии</span>
+            <p class="rule-description">Обязательное уважение к администрации и выполнение указаний вышестоящих.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">3</div>
+          <div class="rule-content">
+            <span class="rule-title">Запрет читов и багов</span>
+            <p class="rule-description">Использование стороннего ПО, эксплойтов и багов строго запрещено.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">4</div>
+          <div class="rule-content">
+            <span class="rule-title">Конфиденциальность</span>
+            <p class="rule-description">Запрещена публикация личной информации других участников без согласия.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">5</div>
+          <div class="rule-content">
+            <span class="rule-title">Активность и участие</span>
+            <p class="rule-description">Регулярная активность в Discord и участие в жизни клана обязательны.</p>
+          </div>
+        </li>
+      </ul>
+      
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="rules.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: rgba(124, 124, 255, 0.15); color: var(--accent); border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s;">
+          📖 Все 37 правил →
+        </a>
+      </div>
+    </div>
+
+    <!-- Система наказаний -->
+    <div class="punishment-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">⚖️ Система наказаний</h2>
+      <p style="color: var(--muted); margin: 1rem 0; line-height: 1.6;">
+        Прозрачная система наказаний за нарушения правил. Все участники могут видеть за что и какое наказание следует.
+      </p>
+      
+      <table class="punishment-table">
+        <thead>
+          <tr>
+            <th style="width: 30%;">Нарушение</th>
+            <th style="width: 20%;">Наказание</th>
+            <th style="width: 25%;">Срок</th>
+            <th style="width: 25%;">Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Незначительное нарушение этикета</td>
+            <td><span class="punishment-badge badge-mute">Мут</span></td>
+            <td>1-24 часа</td>
+            <td>Спам в чате</td>
+          </tr>
+          <tr>
+            <td>Повторное нарушение</td>
+            <td><span class="punishment-badge badge-warn">Варн</span></td>
+            <td>Предупреждение</td>
+            <td>2-е нарушение за день</td>
+          </tr>
+          <tr>
+            <td>Грубое нарушение правил</td>
+            <td><span class="punishment-badge badge-ban">Бан</span></td>
+            <td>1-30 дней</td>
+            <td>Оскорбление участников</td>
+          </tr>
+          <tr>
+            <td>Критическое нарушение</td>
+            <td><span class="punishment-badge badge-chs">ЧС</span></td>
+            <td>Перманентно</td>
+            <td>Угрозы, читы, доксинг</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div style="color: var(--muted); font-size: 0.9rem;">
+          Всего в ЧС: <strong style="color: var(--danger);">3 игрока</strong>
+        </div>
+        <a href="blacklist.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255, 71, 102, 0.1); color: var(--danger); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+          👁️ Посмотреть ЧС
+        </a>
+      </div>
+    </div>
+
     <!-- Карточки быстрых ссылок -->
     <div class="quick-links">
       <div class="quick-card">
         <h3>📜 Правила клана</h3>
-        <p>Официальный свод правил, обязательных для всех участников сообщества.</p>
+        <p>Полный свод из 37 правил, обязательных для всех участников сообщества.</p>
         <a href="rules.html" class="btn">Изучить правила →</a>
       </div>
       
@@ -270,9 +564,9 @@
       </div>
       
       <div class="quick-card">
-        <h3>⚖️ Требования</h3>
-        <p>Критерии и условия, которым должен соответствовать каждый кандидат.</p>
-        <a href="requirements.html" class="btn">Узнать требования →</a>
+        <h3>⚖️ Система наказаний</h3>
+        <p>Прозрачная система мутов, варнов, банов и чёрного списка.</p>
+        <a href="#punishment" class="btn">Узнать подробнее →</a>
       </div>
     </div>
 
@@ -287,12 +581,12 @@
         <div class="stat-label">Основных правил</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">3-7</div>
-        <div class="stat-label">Дней на рассмотрение</div>
+        <div class="stat-number">37</div>
+        <div class="stat-label">Всего правил</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">07.10.2025</div>
-        <div class="stat-label">Создание сервера</div>
+        <div class="stat-number">3</div>
+        <div class="stat-label">В Чёрном списке</div>
       </div>
     </div>
 
@@ -307,5 +601,71 @@
       <a href="blacklist.html">Чёрный список</a>
     </div>
   </footer>
+
+  <script>
+    // Таймер обратного отсчёта до 20 марта 2026
+    const countdownDate = new Date('March 20, 2026 23:59:59').getTime();
+    const timerElement = document.getElementById('countdown-days');
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      
+      if (distance < 0) {
+        timerElement.textContent = '00';
+        timerElement.parentElement.innerHTML = '<div style="color: var(--danger); font-size: 2rem;">Набор закрыт</div>';
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      timerElement.textContent = days < 10 ? '0' + days : days;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+    
+    // Функция проверки статуса Discord сервера
+    async function checkDiscordStatus() {
+      const statusText = document.getElementById('status-text');
+      const statusDot = document.getElementById('status-dot');
+      const statusIndicator = document.getElementById('status-indicator');
+      
+      try {
+        const response = await fetch('https://discord.com/api/v9/invites/u769kvpCT5?with_counts=true', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode: 'cors'
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.approximate_presence_count !== undefined) {
+            statusText.textContent = `Онлайн • ${data.approximate_presence_count} активных`;
+            statusDot.style.background = 'var(--success)';
+            statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
+            statusIndicator.style.color = 'var(--success)';
+          } else {
+            statusText.textContent = 'Онлайн • Сервер доступен';
+            statusDot.style.background = 'var(--success)';
+            statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
+            statusIndicator.style.color = 'var(--success)';
+          }
+        } else {
+          throw new Error('Сервер не отвечает');
+        }
+      } catch (error) {
+        statusText.textContent = 'Оффлайн • Проверьте подключение';
+        statusDot.style.background = 'var(--danger)';
+        statusIndicator.style.background = 'rgba(255, 71, 102, 0.1)';
+        statusIndicator.style.color = 'var(--danger)';
+      }
+    }
+    
+    setTimeout(checkDiscordStatus, 1000);
+    setInterval(checkDiscordStatus, 120000);
+  </script>
 </body>
 </html>
