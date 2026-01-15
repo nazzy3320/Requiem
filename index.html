@@ -230,6 +230,25 @@
       border: 1px solid rgba(255,255,255,0.05);
     }
     
+    /* НОВЫЕ СЕКЦИИ: Система мутов и правила */
+    .mute-system-section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid #9b59b6;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .warning-section {
+      background: rgba(255, 179, 71, 0.08);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--warning);
+      border: 1px solid rgba(255, 179, 71, 0.2);
+    }
+    
     /* Список правил */
     .rules-list {
       list-style: none;
@@ -303,6 +322,58 @@
       background: rgba(255,255,255,0.03);
     }
     
+    /* Таблица системы мутов */
+    .mute-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .mute-table th {
+      background: rgba(155, 89, 182, 0.2);
+      color: #9b59b6;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .mute-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted);
+    }
+    .mute-table tr:last-child td {
+      border-bottom: none;
+    }
+    .mute-table tr:hover {
+      background: rgba(155, 89, 182, 0.05);
+    }
+    
+    .mute-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .badge-chat {
+      background: rgba(231, 76, 60, 0.15);
+      color: #e74c3c;
+    }
+    .badge-voice {
+      background: rgba(52, 152, 219, 0.15);
+      color: #3498db;
+    }
+    .badge-combo {
+      background: rgba(155, 89, 182, 0.15);
+      color: #9b59b6;
+    }
+    .badge-full {
+      background: rgba(44, 62, 80, 0.15);
+      color: #2c3e50;
+    }
+    
     .punishment-badge {
       display: inline-block;
       padding: 0.3rem 0.8rem;
@@ -325,6 +396,43 @@
     .badge-chs {
       background: rgba(255, 71, 102, 0.25);
       color: var(--danger);
+    }
+    
+    /* Типы мутов */
+    .mute-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .mute-type-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    .mute-type-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(155, 89, 182, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .mute-type-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .mute-type-name {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .mute-type-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
     }
     
     /* Анимации */
@@ -373,6 +481,7 @@
       .stats { grid-template-columns: repeat(2, 1fr); }
       .status-section, .countdown-section, .rules-section, .punishment-section { padding: 1.5rem; }
       .punishment-table { display: block; overflow-x: auto; }
+      .mute-types { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -495,6 +604,185 @@
       </div>
     </div>
 
+    <!-- ⚠️ ВНИМАНИЕ: Автоматический мут -->
+    <div class="warning-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">⚠️ Внимание: система мутов</h2>
+      <div style="display: flex; align-items: flex-start; gap: 1rem; margin: 1.5rem 0;">
+        <div style="font-size: 2rem; color: var(--warning); flex-shrink: 0;">⏰</div>
+        <div>
+          <p style="color: var(--warning); font-weight: 600; margin-bottom: 0.5rem;">
+            Мут выдаётся автоматически через 10 минут после получения варна, если не подана апелляция.
+          </p>
+          <p style="color: var(--muted); line-height: 1.6; margin: 0;">
+            Срок мута зависит от общего количества варнов у участника. Система полностью автоматическая — 
+            решение принимается без вмешательства модераторов. У вас есть 10 минут на подачу апелляции через тикет.
+          </p>
+        </div>
+      </div>
+      
+      <div style="background: rgba(255, 179, 71, 0.1); border-radius: 10px; padding: 1.2rem; margin-top: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;">
+          <div style="font-size: 1.2rem;">🔥</div>
+          <div style="font-weight: 600; color: var(--text);">Сгорание варнов</div>
+        </div>
+        <p style="color: var(--muted); margin: 0; font-size: 0.95rem;">
+          Все варны сгорают через <strong style="color: var(--warning);">60 дней</strong> без новых нарушений. 
+          За хорошее поведение после мута можно снять <strong style="color: var(--success);">1-3 варна</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Система мутов "Замучен" -->
+    <div class="mute-system-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">🔇 Система мутов "Замучен"</h2>
+      <p style="color: var(--muted); margin: 1rem 0; line-height: 1.6;">
+        В зависимости от типа нарушения, выдаётся один из четырёх видов мутов. Тип мута определяется автоматически на основе того, где было совершено нарушение.
+      </p>
+      
+      <div class="mute-types">
+        <div class="mute-type-card">
+          <span class="mute-type-icon">💬</span>
+          <div class="mute-type-name">Замучен (чат)</div>
+          <p class="mute-type-desc">Запрет на отправку сообщений во всех текстовых каналах сервера.</p>
+          <div style="margin-top: 1rem;">
+            <span class="mute-badge badge-chat">Чат-мут</span>
+          </div>
+        </div>
+        
+        <div class="mute-type-card">
+          <span class="mute-type-icon">🎤</span>
+          <div class="mute-type-name">Замучен (войс)</div>
+          <p class="mute-type-desc">Запрет на разговор в голосовых каналах (микрофон отключён).</p>
+          <div style="margin-top: 1rem;">
+            <span class="mute-badge badge-voice">Войс-мут</span>
+          </div>
+        </div>
+        
+        <div class="mute-type-card">
+          <span class="mute-type-icon">🔇</span>
+          <div class="mute-type-name">Замучен (чат+войс)</div>
+          <p class="mute-type-desc">Комбинированный мут: нельзя ни писать, ни говорить.</p>
+          <div style="margin-top: 1rem;">
+            <span class="mute-badge badge-combo">Комбинированный</span>
+          </div>
+        </div>
+        
+        <div class="mute-type-card">
+          <span class="mute-type-icon">🚫</span>
+          <div class="mute-type-name">Замучен (Фулл)</div>
+          <p class="mute-type-desc">Полная блокировка: нельзя зайти в войс и нельзя писать в чатах.</p>
+          <div style="margin-top: 1rem;">
+            <span class="mute-badge badge-full">Полная блокировка</span>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 0.8rem;">
+          <div style="font-size: 1.1rem;">ℹ️</div>
+          <div>
+            <strong style="color: var(--text);">Как определяется тип мута:</strong><br>
+            • Нарушение в чате → <span class="mute-badge badge-chat" style="font-size: 0.8rem;">Замучен (чат)</span><br>
+            • Нарушение в голосовом канале → <span class="mute-badge badge-voice" style="font-size: 0.8rem;">Замучен (войс)</span><br>
+            • Нарушение в обоих местах → <span class="mute-badge badge-combo" style="font-size: 0.8rem;">Замучен (чат+войс)</span><br>
+            • Тяжёлое нарушение → <span class="mute-badge badge-full" style="font-size: 0.8rem;">Замучен (Фулл)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Система варнов и мутов -->
+    <div class="rules-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">📊 Система варнов и мутов</h2>
+      <p style="color: var(--muted); margin: 1rem 0; line-height: 1.6;">
+        Количество варнов определяет длительность мута. За каждое нарушение выдаётся 1 варн, за тяжёлые нарушения — сразу несколько варнов.
+      </p>
+      
+      <table class="mute-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Варны</th>
+            <th style="width: 30%;">Наказание</th>
+            <th style="width: 25%;">Длительность</th>
+            <th style="width: 20%;">Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: var(--text);">1 варн</strong></td>
+            <td>Только предупреждение</td>
+            <td>Без мута</td>
+            <td><span style="color: var(--success);">Безопасно</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">2 варна</strong></td>
+            <td>Мьют</td>
+            <td>3 часа</td>
+            <td><span style="color: var(--warning);">Внимание</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">3 варна</strong></td>
+            <td>Мьют</td>
+            <td>6 часов</td>
+            <td><span style="color: var(--warning);">Опасно</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">4 варна</strong></td>
+            <td>Мьют</td>
+            <td>12 часов</td>
+            <td><span style="color: #ff6600;">Критично</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">5 варнов</strong></td>
+            <td>Мьют</td>
+            <td>1 день</td>
+            <td><span style="color: #ff3300;">Очень опасно</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">6 варнов</strong></td>
+            <td>Мьют</td>
+            <td>3 дня</td>
+            <td><span style="color: var(--danger);">Критический уровень</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">7 варнов</strong></td>
+            <td>Мьют</td>
+            <td>7 дней</td>
+            <td><span style="color: var(--danger);">Критический уровень</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">8 варнов</strong></td>
+            <td>Мьют</td>
+            <td>14 дней</td>
+            <td><span style="color: var(--danger);">Блокировка</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">9 варнов</strong></td>
+            <td>Мьют</td>
+            <td>21 день</td>
+            <td><span style="color: var(--danger);">Блокировка</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color: var(--text);">10+ варнов</strong></td>
+            <td>Мьют</td>
+            <td>28 дней (максимум)</td>
+            <td><span style="color: var(--danger);">Полная блокировка</span></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(255, 71, 102, 0.08); border-radius: 10px;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="font-size: 1.2rem; color: var(--danger);">💥</div>
+          <div style="font-weight: 600; color: var(--danger);">За тяжёлые нарушения — сразу несколько варнов!</div>
+        </div>
+        <p style="color: var(--muted); margin: 0.5rem 0 0 0; font-size: 0.95rem;">
+          Расизм, NSFW, доксинг, запрещённый контент, угрозы — от 3 варнов сразу. 
+          Решения модераторов окончательны, обжалование только через тикет.
+        </p>
+      </div>
+    </div>
+
     <!-- Система наказаний -->
     <div class="punishment-section">
       <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">⚖️ Система наказаний</h2>
@@ -545,6 +833,59 @@
         </div>
         <a href="blacklist.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255, 71, 102, 0.1); color: var(--danger); border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
           👁️ Посмотреть ЧС
+        </a>
+      </div>
+    </div>
+
+    <!-- Правила системы -->
+    <div class="rules-section">
+      <h2 style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">📋 Правила системы мутов</h2>
+      
+      <ul class="rules-list">
+        <li class="rule-list-item">
+          <div class="rule-number">1</div>
+          <div class="rule-content">
+            <span class="rule-title">Автоматическое применение</span>
+            <p class="rule-description">Мут выдаётся автоматически через 10 минут после получения варна, если не подана апелляция через тикет.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">2</div>
+          <div class="rule-content">
+            <span class="rule-title">Тип мута по нарушению</span>
+            <p class="rule-description">Тип мута определяется автоматически: нарушение в чате → чат-мут, в войсе → войс-мут, везде → комбинированный.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">3</div>
+          <div class="rule-content">
+            <span class="rule-title">Сгорание варнов</span>
+            <p class="rule-description">Все варны сгорают через 60 дней без новых нарушений. Варны учитываются в общей сумме для определения срока мута.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">4</div>
+          <div class="rule-content">
+            <span class="rule-title">Обжалование</span>
+            <p class="rule-description">Апелляция подаётся только через тикет в Discord. Публичные споры наказываются дополнительными варнами.</p>
+          </div>
+        </li>
+        
+        <li class="rule-list-item">
+          <div class="rule-number">5</div>
+          <div class="rule-content">
+            <span class="rule-title">Снятие варнов</span>
+            <p class="rule-description">За примерное поведение после отбытия мута можно снять 1-3 варна по решению администрации.</p>
+          </div>
+        </li>
+      </ul>
+      
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="rules.html#mute-system" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: rgba(124, 124, 255, 0.15); color: var(--accent); border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.2s;">
+          🔗 Подробнее о системе
         </a>
       </div>
     </div>
@@ -666,6 +1007,27 @@
     
     setTimeout(checkDiscordStatus, 1000);
     setInterval(checkDiscordStatus, 120000);
+    
+    // Подсветка текущего уровня варнов при наведении
+    document.querySelectorAll('.mute-table tbody tr').forEach(row => {
+      row.addEventListener('mouseenter', function() {
+        const warnText = this.querySelector('td:first-child strong').textContent;
+        showMuteTooltip(warnText);
+      });
+      
+      row.addEventListener('mouseleave', function() {
+        hideMuteTooltip();
+      });
+    });
+    
+    function showMuteTooltip(warnText) {
+      // Можно добавить всплывающую подсказку
+      console.log(`Наведено на: ${warnText}`);
+    }
+    
+    function hideMuteTooltip() {
+      // Скрыть подсказку
+    }
   </script>
 </body>
 </html>
