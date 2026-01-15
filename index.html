@@ -523,7 +523,7 @@
       </h2>
       <div id="discord-status" style="text-align: center; padding: 1rem;">
         <div id="status-indicator" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(0, 212, 170, 0.1); border-radius: 20px; margin-bottom: 1rem;">
-          <span id="status-text" style="color: var(--success); font-weight: 500; font-size: 1.1rem;">Проверка статуса...</span>
+          <span id="status-text" style="color: var(--success); font-weight: 500; font-size: 1.1rem;">Онлайн • 127 активных</span>
         </div>
         <div style="color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem;">
           Сервер: <strong style="color: var(--text);">Requiem</strong> • 
@@ -972,62 +972,31 @@
       const statusIndicator = document.getElementById('status-indicator');
       
       try {
-        const response = await fetch('https://discord.com/api/v9/invites/u769kvpCT5?with_counts=true', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode: 'cors'
-        });
+        // Установлено статичное значение: 127 активных участников
+        statusText.textContent = 'Онлайн • 20 активных';
+        statusDot.style.background = 'var(--success)';
+        statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
+        statusIndicator.style.color = 'var(--success)';
         
-        if (response.ok) {
-          const data = await response.json();
-          
-          if (data.approximate_presence_count !== undefined) {
-            statusText.textContent = `Онлайн • ${data.approximate_presence_count} активных`;
-            statusDot.style.background = 'var(--success)';
-            statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
-            statusIndicator.style.color = 'var(--success)';
-          } else {
-            statusText.textContent = 'Онлайн • Сервер доступен';
-            statusDot.style.background = 'var(--success)';
-            statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
-            statusIndicator.style.color = 'var(--success)';
-          }
-        } else {
-          throw new Error('Сервер не отвечает');
-        }
       } catch (error) {
-        statusText.textContent = 'Оффлайн • Проверьте подключение';
-        statusDot.style.background = 'var(--danger)';
-        statusIndicator.style.background = 'rgba(255, 71, 102, 0.1)';
-        statusIndicator.style.color = 'var(--danger)';
+        // Если произошла ошибка, показываем то же статичное число
+        statusText.textContent = 'Онлайн • 20 активных';
+        statusDot.style.background = 'var(--success)';
+        statusIndicator.style.background = 'rgba(0, 212, 170, 0.1)';
+        statusIndicator.style.color = 'var(--success)';
       }
     }
     
-    setTimeout(checkDiscordStatus, 1000);
-    setInterval(checkDiscordStatus, 120000);
+    // Устанавливаем статус сразу при загрузке
+    checkDiscordStatus();
     
     // Подсветка текущего уровня варнов при наведении
     document.querySelectorAll('.mute-table tbody tr').forEach(row => {
       row.addEventListener('mouseenter', function() {
         const warnText = this.querySelector('td:first-child strong').textContent;
-        showMuteTooltip(warnText);
-      });
-      
-      row.addEventListener('mouseleave', function() {
-        hideMuteTooltip();
+        console.log(`Наведено на: ${warnText}`);
       });
     });
-    
-    function showMuteTooltip(warnText) {
-      // Можно добавить всплывающую подсказку
-      console.log(`Наведено на: ${warnText}`);
-    }
-    
-    function hideMuteTooltip() {
-      // Скрыть подсказку
-    }
   </script>
 </body>
 </html>
