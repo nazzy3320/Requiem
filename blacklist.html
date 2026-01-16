@@ -22,6 +22,7 @@
       --pink: #f472b6;
       --cyan: #22d3ee;
       --lime: #a3e635;
+      --alt: #64c864;
     }
 
     * { 
@@ -418,10 +419,10 @@
       border-color: rgba(255, 179, 71, 0.3);
     }
     
-    .tag-cheat { 
-      background: linear-gradient(135deg, rgba(71, 181, 255, 0.15), rgba(50, 150, 220, 0.1));
-      color: #80d1ff;
-      border-color: rgba(71, 181, 255, 0.3);
+    .tag-alt { 
+      background: linear-gradient(135deg, rgba(100, 200, 100, 0.15), rgba(80, 180, 80, 0.1));
+      color: #80ff80;
+      border-color: rgba(100, 200, 100, 0.3);
     }
     
     .tag-admin { 
@@ -833,7 +834,7 @@
       <!-- Статистика банов -->
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-value">3</div>
+          <div class="stat-value">4</div>
           <div class="stat-label">Игрока в ЧС</div>
         </div>
         <div class="stat-item">
@@ -845,7 +846,7 @@
           <div class="stat-label">Дней на рассмотрение</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value" style="font-size: 1.5rem;">16.01.2026</div>
+          <div class="stat-value" style="font-size: 1.5rem;">20.01.2026</div>
           <div class="stat-label">Последнее обновление</div>
         </div>
       </div>
@@ -869,7 +870,7 @@
           <span class="filter-tag active" data-filter="all">Все</span>
           <span class="filter-tag" data-filter="toxic">Токсичность</span>
           <span class="filter-tag" data-filter="spam">Спам</span>
-          <span class="filter-tag" data-filter="cheat">Читы</span>
+          <span class="filter-tag" data-filter="alt">Альт аккаунты</span>
           <span class="filter-tag" data-filter="admin">Администрация</span>
           <span class="filter-tag" data-filter="harassment">Харассмент</span>
           <span class="filter-tag" data-filter="doxxing">Доксинг</span>
@@ -881,6 +882,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Список забаненных пользователей -->
+    <div class="blacklist-container" id="blacklist-container">
 
     <!-- Список забаненных пользователей -->
     <div class="blacklist-container" id="blacklist-container">
@@ -898,7 +902,7 @@
         <div class="reason-tags">
           <span class="reason-tag tag-toxic">Токсичность</span>
           <span class="reason-tag tag-spam">Спам</span>
-          <span class="reason-tag tag-cheat">Читы</span>
+          <span class="reason-tag tag-alt">Альт аккаунты</span>
           <span class="reason-tag tag-admin">Администрация</span>
           <span class="reason-tag tag-doxxing">Доксинг</span>
           <span class="reason-tag tag-bug">Эксплойты</span>
@@ -925,7 +929,7 @@
         
         <div class="reason-tags">
           <span class="reason-tag tag-toxic">Токсичность</span>
-          <span class="reason-tag tag-cheat">Читы</span>
+          <span class="reason-tag tag-alt">Альт аккаунты</span>
           <span class="reason-tag tag-doxxing">Доксинг</span>
           <span class="reason-tag tag-bug">Эксплойты</span>
           <span class="reason-tag tag-admin">Администрация</span>
@@ -952,7 +956,7 @@
           <span class="reason-tag tag-ghosting">Гостинг</span>
           <span class="reason-tag tag-toxic">Токсичность</span>
           <span class="reason-tag tag-doxxing">Доксинг</span>
-          <span class="reason-tag tag-cheat">Читы</span>
+          <span class="reason-tag tag-alt">Альт аккаунты</span>
           <span class="reason-tag tag-leak">Утечки</span>
           <span class="reason-tag tag-bug">Эксплойты</span>
           <span class="reason-tag tag-admin">Администрация</span>
@@ -963,7 +967,6 @@
           Массовый спам, флуд и целенаправленное создание конфликтных ситуаций на сервере. Нарушение атмосферы сообщества, провокация других участников.
         </div>
       </div>
-
     <!-- Важное предупреждение -->
     <div class="card fade-in warning-card">
       <h2 class="card-title">⚠️ Внимание</h2>
@@ -1017,8 +1020,8 @@
           <div class="tag-label">Флуд, реклама</div>
         </div>
         <div class="tag-item">
-          <span class="reason-tag tag-cheat" style="margin: 0; font-size: 0.7rem;">Читы</span>
-          <div class="tag-label">Нечестная игра</div>
+          <span class="reason-tag tag-alt" style="margin: 0; font-size: 0.7rem;">Альт аккаунты</span>
+          <div class="tag-label">Мультиаккаунтинг</div>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-admin" style="margin: 0; font-size: 0.7rem;">Администрация</span>
@@ -1057,7 +1060,7 @@
   </main>
 
   <footer>
-    <div>© 2026 Requiem • Чёрный список обновлён: 16.01.2026</div>
+    <div>© 2026 Requiem • Чёрный список обновлён: 20.01.2026</div>
     <div class="footer-links">
       <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord</a>
       <a href="join.html" class="footer-link">Вступление</a>
@@ -1374,7 +1377,7 @@
         document.querySelector('.filter-tag[data-filter="spam"]').click();
       }
       if (e.key === '4') {
-        document.querySelector('.filter-tag[data-filter="cheat"]').click();
+        document.querySelector('.filter-tag[data-filter="alt"]').click();
       }
       if (e.key === '5') {
         document.querySelector('.filter-tag[data-filter="admin"]').click();
@@ -1391,6 +1394,3 @@
   </script>
 </body>
 </html>
-
-
-
