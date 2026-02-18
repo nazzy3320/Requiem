@@ -6,12 +6,14 @@
   <title>Чёрный список • Requiem</title>
   <meta name="description" content="Чёрный список клана Requiem" />
   <style>
-    /* ===== ОСНОВНОЙ СТИЛЬ REQUIEM ===== */
+    /* ===== ОСНОВНЫЕ ПЕРЕМЕННЫЕ ===== */
     :root {
-      --bg: #0f0f14;
-      --card: #181825;
-      --text: #eaeaf0;
-      --muted: #9aa0b4;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0d0d12;
+      --card-bg: #14141f;
+      --text-primary: #f0f0fa;
+      --text-secondary: #a0a8c0;
+      --text-muted: #707890;
       --accent: #7c7cff;
       --accent-hover: #6b6bff;
       --danger: #ff4766;
@@ -23,131 +25,225 @@
       --cyan: #22d3ee;
       --lime: #a3e635;
       --alt: #64c864;
+      --border-color: rgba(124, 124, 255, 0.2);
+      --border-subtle: rgba(255, 255, 255, 0.05);
     }
 
-    * { 
-      box-sizing: border-box; 
+    /* ===== СБРОС ===== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0f0f14, #0b0b10);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0a0f, #0c0c12);
+      color: var(--text-primary);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ===== ШАПКА ===== */
-    header {
-      padding: 2rem 1rem 1.5rem;
-      text-align: center;
-      animation: fadeIn 0.8s ease;
-    }
-
-    .site-title {
-      margin: 0;
-      font-size: 2.5rem;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, #7c7cff, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 20px rgba(124, 124, 255, 0.3);
-    }
-
-    .tagline {
-      margin-top: 0.8rem;
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ===== НАВИГАЦИЯ ===== */
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-      padding: 0 1rem;
-    }
-
-    .nav-link {
-      color: var(--text);
-      text-decoration: none;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      background: var(--card);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.05);
-      font-weight: 500;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .nav-link:hover {
-      background: var(--accent);
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
-    }
-
-    .nav-link.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(124, 124, 255, 0.4);
-    }
-
-    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1rem 4rem;
-    }
-
-    /* ===== КАРТОЧКИ ===== */
-    .card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1.8rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-left: 4px solid var(--accent);
-      transition: all 0.3s ease;
+    /* ===== УЛУЧШЕННЫЙ HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #0c0c14 0%, #0f0f18 100%);
+      padding: 2.5rem 1rem 2rem;
       position: relative;
-      overflow: hidden;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
-
-    .card::before {
+    /* Верхняя линия */
+    .site-header::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(124, 124, 255, 0.5), transparent);
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(124, 124, 255, 0.5) 20%,
+        rgba(255, 71, 102, 0.5) 50%,
+        rgba(124, 124, 255, 0.5) 80%,
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    /* Нижняя линия (основная) */
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        #ff4766 20%,
+        #7c7cff 50%,
+        #ff4766 80%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 15px rgba(255, 71, 102, 0.5));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff, #ffa0b0, #ff4766);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255, 71, 102, 0.3);
+      line-height: 1.2;
+    }
+
+    .header-tagline {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(20, 20, 31, 0.6);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      backdrop-filter: blur(5px);
+      display: inline-block;
+    }
+
+    /* ===== НАВИГАЦИЯ ===== */
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      background: rgba(20, 20, 31, 0.6);
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 71, 102, 0.15);
+      border-color: var(--danger);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, #ff4766, #ff2e4a);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(255, 71, 102, 0.4);
+    }
+
+    /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ===== КАРТОЧКИ ===== */
+    .card {
+      background: rgba(20, 20, 31, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 71, 102, 0.15);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Верхняя линия карточки */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 71, 102, 0.3);
+    }
+
+    .card:hover::before {
+      opacity: 1;
     }
 
     .card-title {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: var(--text);
+      margin: 0 0 1.5rem 0;
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 0.8rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 71, 102, 0.2);
+      position: relative;
+    }
+
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
+      border-radius: 2px;
     }
 
     /* Типы карточек */
@@ -194,14 +290,14 @@
       padding: 1.5rem;
       background: rgba(255, 255, 255, 0.03);
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 71, 102, 0.1);
+      transition: all 0.2s ease;
     }
 
     .stat-item:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      background: rgba(124, 124, 255, 0.05);
+      background: rgba(255, 71, 102, 0.05);
     }
 
     .stat-value {
@@ -215,7 +311,7 @@
 
     .stat-label {
       font-size: 0.9rem;
-      color: var(--muted);
+      color: var(--text-secondary);
     }
 
     /* ===== ПОИСК И ФИЛЬТРЫ ===== */
@@ -223,8 +319,8 @@
       background: rgba(255, 255, 255, 0.03);
       border-radius: 16px;
       padding: 1.5rem;
-      margin-bottom: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 71, 102, 0.1);
     }
 
     .search-box {
@@ -236,17 +332,17 @@
       width: 100%;
       padding: 0.9rem 1rem 0.9rem 3rem;
       background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(124, 124, 255, 0.2);
+      border: 2px solid rgba(255, 71, 102, 0.2);
       border-radius: 12px;
-      color: var(--text);
+      color: var(--text-primary);
       font-size: 1rem;
       transition: all 0.3s;
     }
 
     .search-input:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(124, 124, 255, 0.1);
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(255, 71, 102, 0.1);
     }
 
     .search-icon {
@@ -254,7 +350,8 @@
       left: 1rem;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--muted);
+      color: var(--text-muted);
+      font-size: 1.2rem;
     }
 
     .filter-tags {
@@ -267,25 +364,25 @@
     .filter-tag {
       padding: 0.4rem 0.8rem;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 71, 102, 0.2);
       border-radius: 20px;
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s ease;
     }
 
     .filter-tag:hover {
-      background: rgba(124, 124, 255, 0.2);
-      color: var(--accent);
+      background: rgba(255, 71, 102, 0.2);
+      color: #ff8099;
       transform: translateY(-2px);
     }
 
     .filter-tag.active {
-      background: var(--accent);
+      background: var(--danger);
       color: white;
-      border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
+      border-color: var(--danger);
+      box-shadow: 0 4px 12px rgba(255, 71, 102, 0.3);
     }
 
     /* ===== СПИСОК ЗАБАНЕННЫХ ===== */
@@ -297,10 +394,10 @@
 
     .banned-user {
       background: rgba(255, 71, 102, 0.08);
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 1.5rem;
       border: 1px solid rgba(255, 71, 102, 0.2);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       position: relative;
       overflow: hidden;
     }
@@ -326,6 +423,7 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 0.8rem;
+      flex-wrap: wrap;
     }
 
     .user-avatar {
@@ -345,7 +443,7 @@
 
     .user-info {
       flex: 1;
-      min-width: 0;
+      min-width: 200px;
     }
 
     .user-name {
@@ -358,14 +456,21 @@
     }
 
     .user-id {
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 0.9rem;
       font-family: 'Courier New', monospace;
       background: rgba(0,0,0,0.2);
       padding: 0.3rem 0.6rem;
       border-radius: 6px;
       display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .user-id:hover {
+      background: rgba(255, 71, 102, 0.2);
+      color: #ffa0b0;
     }
 
     .ban-date {
@@ -397,7 +502,7 @@
       font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s ease;
       border: 1px solid transparent;
     }
 
@@ -474,7 +579,7 @@
     }
 
     .ban-reason {
-      color: var(--muted);
+      color: var(--text-secondary);
       line-height: 1.6;
       padding: 0.8rem;
       background: rgba(0,0,0,0.2);
@@ -488,9 +593,9 @@
     .search-results {
       margin-top: 1rem;
       padding: 1rem;
-      background: rgba(124, 124, 255, 0.05);
+      background: rgba(255, 71, 102, 0.1);
       border-radius: 10px;
-      border: 1px solid rgba(124, 124, 255, 0.1);
+      border: 1px solid rgba(255, 71, 102, 0.2);
       display: none;
     }
 
@@ -500,7 +605,7 @@
     }
 
     .results-count {
-      color: var(--accent);
+      color: #ff8099;
       font-weight: 500;
       margin-bottom: 0.5rem;
       font-size: 1rem;
@@ -512,31 +617,27 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.7rem 1.4rem;
-      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      background: linear-gradient(135deg, #ff4766, #ff2e4a);
       color: white;
       border: none;
       border-radius: 10px;
       text-decoration: none;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
+      box-shadow: 0 4px 12px rgba(255, 71, 102, 0.3);
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(124, 124, 255, 0.4);
+      box-shadow: 0 6px 18px rgba(255, 71, 102, 0.4);
       filter: brightness(1.1);
     }
 
     .btn-secondary {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(200, 200, 255, 0.05));
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-secondary:hover {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(200, 200, 255, 0.1));
+      border: 1px solid rgba(255, 71, 102, 0.3);
     }
 
     /* ===== ИНФОРМАЦИОННЫЕ БЛОКИ ===== */
@@ -587,17 +688,17 @@
       padding: 0.5rem;
       background: rgba(255, 255, 255, 0.03);
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 71, 102, 0.1);
+      transition: all 0.2s ease;
     }
 
     .tag-item:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 71, 102, 0.05);
       transform: translateX(5px);
     }
 
     .tag-label {
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 0.9rem;
       flex: 1;
     }
@@ -609,192 +710,208 @@
     }
 
     .fade-in {
-      animation: fadeIn 0.6s ease forwards;
       opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
     }
 
-    /* ===== ПРОГРЕСС-БАР И КНОПКА НАВЕРХ ===== */
-    .reading-progress {
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ===== ПРОГРЕСС-БАР ===== */
+    .progress-bar {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
       z-index: 1000;
       transition: width 0.1s ease;
     }
 
-    .scroll-indicator {
+    /* ===== КНОПКА НАВЕРХ ===== */
+    .scroll-top {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      width: 45px;
-      height: 45px;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #ff4766, #ff2e4a);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: white;
       cursor: pointer;
       opacity: 0;
-      transition: all 0.3s;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 20px rgba(255, 71, 102, 0.3);
       z-index: 100;
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
 
-    .scroll-indicator.visible {
+    .scroll-top.visible {
       opacity: 1;
+      visibility: visible;
     }
 
-    .scroll-indicator:hover {
+    .scroll-top:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 18px rgba(124, 124, 255, 0.4);
     }
 
     /* ===== ФУТЕР ===== */
-    footer {
+    .footer {
       text-align: center;
-      padding: 2rem 1rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      background: rgba(0,0,0,0.2);
+      padding: 2.5rem 1rem;
+      border-top: 1px solid rgba(255, 71, 102, 0.2);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 71, 102, 0.5), 
+        rgba(124, 124, 255, 0.5), 
+        rgba(255, 71, 102, 0.5), 
+        transparent
+      );
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
     .footer-link {
-      color: var(--muted);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.2s;
-      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      font-size: 0.95rem;
     }
 
     .footer-link:hover {
-      color: var(--accent);
+      color: var(--danger);
     }
 
-    /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+    /* ===== МЕДИА-ЗАПРОСЫ ===== */
     @media (max-width: 768px) {
-      .site-title { 
-        font-size: 2rem; 
-        padding: 0 1rem;
+      .site-header {
+        padding: 2rem 1rem 1.5rem;
       }
-      
-      .tagline { 
-        font-size: 0.9rem; 
-        padding: 0 1rem;
+
+      .logo-icon {
+        font-size: 2.2rem;
       }
-      
-      .main-nav { 
-        gap: 0.5rem; 
-        padding: 0 0.5rem;
+
+      .site-title {
+        font-size: 2.2rem;
       }
-      
-      .nav-link { 
-        padding: 0.3rem 0.8rem; 
-        font-size: 0.8rem; 
-        border-radius: 15px;
+
+      .header-tagline {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
       }
-      
-      .container { 
-        padding: 1.5rem 0.8rem 3rem; 
+
+      .nav-link {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
       }
-      
-      .card { 
-        padding: 1.3rem; 
-        margin-bottom: 1.3rem;
-        border-radius: 14px;
+
+      .container {
+        padding: 1.5rem 1rem 3rem;
       }
-      
-      .card-title { 
-        font-size: 1.3rem; 
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+
+      .card {
+        padding: 1.5rem;
       }
-      
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+
       .user-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.8rem;
       }
-      
+
       .ban-date {
         align-self: flex-start;
       }
-      
+
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
       }
-      
+
       .stat-value {
         font-size: 2rem;
       }
-      
+
       .filter-tags {
         justify-content: center;
       }
-      
+
       .tags-grid {
         grid-template-columns: 1fr;
       }
-      
-      .scroll-indicator { 
-        width: 40px; 
-        height: 40px; 
-        font-size: 1rem;
-        bottom: 15px;
-        right: 15px;
+
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
       }
     }
 
     @media (max-width: 480px) {
-      .site-title { 
-        font-size: 1.8rem; 
+      .site-title {
+        font-size: 1.8rem;
       }
-      
-      .main-nav {
-        gap: 0.3rem;
+
+      .logo-icon {
+        font-size: 2rem;
       }
-      
-      .nav-link { 
-        padding: 0.25rem 0.6rem; 
-        font-size: 0.75rem; 
+
+      .nav-link {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
       }
-      
-      .card { 
-        padding: 1rem; 
-      }
-      
-      .card-title { 
-        font-size: 1.2rem; 
-      }
-      
+
       .stats-grid {
         grid-template-columns: 1fr;
       }
-      
+
       .user-avatar {
         width: 45px;
         height: 45px;
         font-size: 1.2rem;
       }
-      
+
       .btn {
         padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
       }
-      
+
       .reason-tag {
         padding: 0.25rem 0.6rem;
         font-size: 0.75rem;
@@ -803,67 +920,77 @@
   </style>
 </head>
 <body>
-  <!-- Прогресс-бар чтения -->
-  <div class="reading-progress"></div>
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Кнопка "Наверх" -->
-  <div class="scroll-indicator" onclick="scrollToTop()">
+  <!-- Кнопка наверх -->
+  <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
     ↑
   </div>
 
-  <header>
-    <h1 class="site-title">REQUIEM</h1>
-    <div class="tagline">Чёрный список клана</div>
-    
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-      <a href="rules.html" class="nav-link">Правила</a>
-      <a href="news.html" class="nav-link">Новости</a>
-      <a href="join.html" class="nav-link">Вступление</a>
-      <a href="blacklist.html" class="nav-link active">Чёрный список</a>
-      <a href="requirements.html" class="nav-link">Требования</a>
-      <a href="about.html" class="nav-link">О клане</a>
-    </nav>
+  <!-- ШАПКА -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo-wrapper">
+        <span class="logo-icon">🚫</span>
+        <h1 class="site-title">REQUIEM</h1>
+      </div>
+      
+      <div class="header-tagline">
+        Чёрный список клана
+      </div>
+      
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="rules.html" class="nav-link">Правила</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="join.html" class="nav-link">Вступление</a>
+        <a href="blacklist.html" class="nav-link active">Чёрный список</a>
+        <a href="requirements.html" class="nav-link">Требования</a>
+        <a href="about.html" class="nav-link">О клане</a>
+      </nav>
+    </div>
   </header>
 
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
   <main class="container">
     <!-- Информационная карточка -->
-    <div class="card fade-in danger-card">
+    <div class="card danger-card fade-in delay-1">
       <h2 class="card-title">🚫 Чёрный список клана</h2>
       
       <!-- Статистика банов -->
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Игрока в ЧС</div>
+          <span class="stat-value">3</span>
+          <span class="stat-label">Игрока в ЧС</span>
         </div>
         <div class="stat-item">
-          <div class="stat-value">30</div>
-          <div class="stat-label">Дней на апелляцию</div>
+          <span class="stat-value">30</span>
+          <span class="stat-label">Дней на апелляцию</span>
         </div>
         <div class="stat-item">
-          <div class="stat-value">7-14</div>
-          <div class="stat-label">Дней на рассмотрение</div>
+          <span class="stat-value">7-14</span>
+          <span class="stat-label">Дней на рассмотрение</span>
         </div>
         <div class="stat-item">
-          <div class="stat-value" style="font-size: 1.5rem;">20.01.2026</div>
-          <div class="stat-label">Последнее обновление</div>
+          <span class="stat-value" style="font-size: 1.5rem;">20.01.2026</span>
+          <span class="stat-label">Последнее обновление</span>
         </div>
       </div>
     </div>
 
     <!-- Поиск и фильтры -->
-    <div class="card fade-in">
+    <div class="card fade-in delay-2">
       <h2 class="card-title">🔍 Поиск по чёрному списку</h2>
       
       <div class="search-container">
         <div class="search-box">
-          <div class="search-icon">🔎</div>
+          <span class="search-icon">🔎</span>
           <input type="text" id="search-input" class="search-input" placeholder="Поиск по ID, нику или тегу...">
         </div>
         
         <div id="search-results" class="search-results">
-          <div class="results-count">Найдено: <span id="match-count">0</span> совпадений</div>
+          <div class="results-count">Найдено: <span id="match-count">3</span> совпадений</div>
         </div>
         
         <div class="filter-tags">
@@ -885,16 +1012,13 @@
 
     <!-- Список забаненных пользователей -->
     <div class="blacklist-container" id="blacklist-container">
-
-    <!-- Список забаненных пользователей -->
-    <div class="blacklist-container" id="blacklist-container">
       <!-- Пользователь 1 -->
-      <div class="banned-user fade-in" data-id="1350573857332793495" data-tags="toxic,spam,alt,admin,doxxing,bug,leak,ghosting,permanent">
+      <div class="banned-user fade-in delay-3" data-id="1350573857332793495" data-tags="toxic,spam,alt,admin,doxxing,bug,leak,ghosting,permanent">
         <div class="user-header">
           <div class="user-avatar">Y</div>
           <div class="user-info">
             <div class="user-name">@Y3rik24</div>
-            <div class="user-id">ID: 1350573857332793495</div>
+            <div class="user-id" title="Кликните для копирования">ID: 1350573857332793495</div>
           </div>
           <div class="ban-date">08.11.2025 18:30</div>
         </div>
@@ -917,12 +1041,12 @@
       </div>
       
       <!-- Пользователь 2 -->
-      <div class="banned-user fade-in" data-id="1066670684530557060" data-tags="toxic,alt,doxxing,bug,admin,permanent">
+      <div class="banned-user fade-in delay-3" data-id="1066670684530557060" data-tags="toxic,alt,doxxing,bug,admin,permanent">
         <div class="user-header">
           <div class="user-avatar">W</div>
           <div class="user-info">
             <div class="user-name">@werex1337</div>
-            <div class="user-id">ID: 1066670684530557060</div>
+            <div class="user-id" title="Кликните для копирования">ID: 1066670684530557060</div>
           </div>
           <div class="ban-date">02.01.2026 15:04</div>
         </div>
@@ -942,12 +1066,12 @@
       </div>
       
       <!-- Пользователь 3 -->
-      <div class="banned-user fade-in" data-id="1197552971412684920" data-tags="ghosting,toxic,doxxing,alt,leak,bug,admin,permanent">
+      <div class="banned-user fade-in delay-4" data-id="1197552971412684920" data-tags="ghosting,toxic,doxxing,alt,leak,bug,admin,permanent">
         <div class="user-header">
           <div class="user-avatar">R</div>
           <div class="user-info">
             <div class="user-name">@❄ ! [ 𝓡𝓥 ] | любит верекса ❄</div>
-            <div class="user-id">ID: 1197552971412684920</div>
+            <div class="user-id" title="Кликните для копирования">ID: 1197552971412684920</div>
           </div>
           <div class="ban-date">03.01.2026 17:20</div>
         </div>
@@ -967,8 +1091,10 @@
           Систематическое и грубое нарушение правил Discord сервера. Полное игнорирование требований администрации.
         </div>
       </div>
+    </div>
+
     <!-- Важное предупреждение -->
-    <div class="card fade-in warning-card">
+    <div class="card warning-card fade-in delay-4">
       <h2 class="card-title">⚠️ Внимание</h2>
       
       <div class="warning-box">
@@ -978,7 +1104,7 @@
     </div>
 
     <!-- Информация об апелляциях -->
-    <div class="card fade-in info-card">
+    <div class="card info-card fade-in delay-4">
       <h2 class="card-title">📩 Апелляции</h2>
       
       <div class="info-box">
@@ -997,8 +1123,7 @@
           <p>• <strong>Срок подачи апелляции:</strong> в течение 30 дней с момента бана</p>
           <p>• <strong>Срок рассмотрения:</strong> 7-14 рабочих дней</p>
           <p>• <strong>Повторная апелляция:</strong> возможна через 30 дней после отказа</p>
-          <p>• <strong>Ложные апелляции:</strong> Ложные апелляции по временным наказаниям — продление срока.
-По ЧСК апелляции рассматриваются всегда, повторная подача после ложной апелляции — через 60 дней.</p>
+          <p>• <strong>Ложные апелляции:</strong> Ложные апелляции по временным наказаниям — продление срока. По ЧСК апелляции рассматриваются всегда, повторная подача после ложной апелляции — через 60 дней.</p>
         </div>
       </div>
       
@@ -1008,60 +1133,63 @@
     </div>
 
     <!-- Теги и их значения -->
-    <div class="card fade-in">
+    <div class="card fade-in delay-4">
       <h2 class="card-title">🏷️ Теги нарушений</h2>
       
       <div class="tags-grid">
         <div class="tag-item">
           <span class="reason-tag tag-toxic" style="margin: 0; font-size: 0.7rem;">Токсичность</span>
-          <div class="tag-label">Оскорбления, буллинг</div>
+          <span class="tag-label">Оскорбления, буллинг</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-spam" style="margin: 0; font-size: 0.7rem;">Спам</span>
-          <div class="tag-label">Флуд, реклама</div>
+          <span class="tag-label">Флуд, реклама</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-alt" style="margin: 0; font-size: 0.7rem;">Альт аккаунты</span>
-          <div class="tag-label">Мультиаккаунтинг</div>
+          <span class="tag-label">Мультиаккаунтинг</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-admin" style="margin: 0; font-size: 0.7rem;">Администрация</span>
-          <div class="tag-label">Конфликт с админами</div>
+          <span class="tag-label">Конфликт с админами</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-harassment" style="margin: 0; font-size: 0.7rem;">Харассмент</span>
-          <div class="tag-label">Преследование</div>
+          <span class="tag-label">Преследование</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-doxxing" style="margin: 0; font-size: 0.7rem;">Доксинг</span>
-          <div class="tag-label">Раскрытие личной инфо</div>
+          <span class="tag-label">Раскрытие личной инфо</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-bug" style="margin: 0; font-size: 0.7rem;">Эксплойты</span>
-          <div class="tag-label">Использование багов</div>
+          <span class="tag-label">Использование багов</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-leak" style="margin: 0; font-size: 0.7rem;">Утечки</span>
-          <div class="tag-label">Распространение инфо</div>
+          <span class="tag-label">Распространение инфо</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-ghosting" style="margin: 0; font-size: 0.7rem;">Гостинг</span>
-          <div class="tag-label">Использование гостинга</div>
+          <span class="tag-label">Использование гостинга</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-permanent" style="margin: 0; font-size: 0.7rem;">Перманент</span>
-          <div class="tag-label">Постоянный бан</div>
+          <span class="tag-label">Постоянный бан</span>
         </div>
         <div class="tag-item">
           <span class="reason-tag tag-temporary" style="margin: 0; font-size: 0.7rem;">Временный</span>
-          <div class="tag-label">Временный бан</div>
+          <span class="tag-label">Временный бан</span>
         </div>
       </div>
     </div>
   </main>
 
-  <footer>
-    <div>© 2026 Requiem • Чёрный список обновлён: 20.01.2026</div>
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="footer-text">
+      © 2026 Requiem • Чёрный список обновлён: 20.01.2026
+    </div>
     <div class="footer-links">
       <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord</a>
       <a href="join.html" class="footer-link">Вступление</a>
@@ -1071,74 +1199,30 @@
   </footer>
 
   <script>
-    // ===== ОСНОВНЫЕ ФУНКЦИИ =====
-
-    // Прогресс-бар чтения
-    function setupReadingProgress() {
-      const progressBar = document.querySelector('.reading-progress');
-      const scrollIndicator = document.querySelector('.scroll-indicator');
+    // Прогресс-бар
+    const progressBar = document.getElementById('progressBar');
+    const scrollTop = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
       
-      window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        
-        progressBar.style.width = scrolled + '%';
-        
-        // Показывать/скрывать кнопку "Наверх"
-        if (window.scrollY > 300) {
-          scrollIndicator.classList.add('visible');
-        } else {
-          scrollIndicator.classList.remove('visible');
-        }
-      });
-    }
+      progressBar.style.width = scrolled + '%';
+      
+      // Кнопка наверх
+      if (winScroll > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
 
     // Прокрутка наверх
     function scrollToTop() {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
-      });
-    }
-
-    // Эффекты при наведении
-    function setupHoverEffects() {
-      // Эффект для карточек
-      const cards = document.querySelectorAll('.card, .stat-item, .tag-item');
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-3px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Эффект для забаненных пользователей
-      const bannedUsers = document.querySelectorAll('.banned-user');
-      bannedUsers.forEach(user => {
-        user.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-3px)';
-        });
-        
-        user.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Эффект для фильтров
-      const filterTags = document.querySelectorAll('.filter-tag');
-      filterTags.forEach(tag => {
-        tag.addEventListener('mouseenter', function() {
-          if (!this.classList.contains('active')) {
-            this.style.transform = 'translateY(-2px)';
-          }
-        });
-        
-        tag.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
       });
     }
 
@@ -1150,11 +1234,9 @@
       const filterTags = document.querySelectorAll('.filter-tag');
       const bannedUsers = document.querySelectorAll('.banned-user');
       
-      // Текущий активный фильтр
       let activeFilter = 'all';
       let currentSearch = '';
       
-      // Функция поиска и фильтрации
       function performSearch() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         currentSearch = searchTerm;
@@ -1166,23 +1248,19 @@
           const userTags = user.getAttribute('data-tags').toLowerCase();
           const userReason = user.querySelector('.ban-reason').textContent.toLowerCase();
           
-          // Проверяем соответствие поиску
           const matchesSearch = !searchTerm || 
             userId.includes(searchTerm) || 
             userName.includes(searchTerm) ||
             userTags.includes(searchTerm) ||
             userReason.includes(searchTerm);
           
-          // Проверяем соответствие фильтру
           const matchesFilter = activeFilter === 'all' || 
             userTags.includes(activeFilter);
           
-          // Показываем/скрываем пользователя
           if (matchesSearch && matchesFilter) {
             user.style.display = 'block';
             visibleCount++;
             
-            // Подсвечиваем найденный текст
             if (searchTerm) {
               highlightText(user, searchTerm);
             } else {
@@ -1194,10 +1272,8 @@
           }
         });
         
-        // Обновляем счётчик результатов
         matchCount.textContent = visibleCount;
         
-        // Показываем/скрываем блок результатов
         if (searchTerm || activeFilter !== 'all') {
           searchResults.classList.add('show');
         } else {
@@ -1205,7 +1281,6 @@
         }
       }
       
-      // Функция подсветки текста
       function highlightText(userElement, searchTerm) {
         const elementsToHighlight = [
           userElement.querySelector('.user-name'),
@@ -1220,14 +1295,13 @@
             
             const highlightedText = originalText.replace(
               new RegExp(`(${searchTerm})`, 'gi'),
-              '<mark style="background: rgba(255, 179, 71, 0.3); color: var(--warning); padding: 0 2px; border-radius: 3px; font-weight: 500;">$1</mark>'
+              '<mark style="background: rgba(255, 179, 71, 0.3); color: #ffd080; padding: 0 2px; border-radius: 3px;">$1</mark>'
             );
             element.innerHTML = highlightedText;
           }
         });
       }
       
-      // Функция удаления подсветки
       function removeHighlight(userElement) {
         const elements = [
           userElement.querySelector('.user-name'),
@@ -1242,34 +1316,22 @@
         });
       }
       
-      // Обработчик поиска
       searchInput.addEventListener('input', performSearch);
       
-      // Обработчики фильтров
       filterTags.forEach(tag => {
         tag.addEventListener('click', function() {
-          // Убираем активный класс у всех тегов
           filterTags.forEach(t => t.classList.remove('active'));
-          
-          // Добавляем активный класс текущему тегу
           this.classList.add('active');
-          
-          // Устанавливаем активный фильтр
           activeFilter = this.getAttribute('data-filter');
-          
-          // Выполняем поиск
           performSearch();
         });
       });
       
-      // Обработчики тегов причин
       document.querySelectorAll('.reason-tag').forEach(tag => {
         tag.addEventListener('click', function() {
           const tagClass = Array.from(this.classList).find(cls => cls.startsWith('tag-'));
           if (tagClass) {
             const filterType = tagClass.replace('tag-', '');
-            
-            // Устанавливаем соответствующий фильтр
             filterTags.forEach(t => {
               if (t.getAttribute('data-filter') === filterType) {
                 t.click();
@@ -1279,7 +1341,6 @@
         });
       });
       
-      // Инициализация
       performSearch();
     }
 
@@ -1288,11 +1349,9 @@
       const userIdElements = document.querySelectorAll('.user-id');
       
       userIdElements.forEach(element => {
-        element.style.cursor = 'pointer';
         element.addEventListener('click', function() {
           const id = this.textContent.replace('ID: ', '');
           
-          // Копируем в буфер обмена
           navigator.clipboard.writeText(id).then(() => {
             const originalText = this.textContent;
             this.textContent = '✅ Скопировано!';
@@ -1311,89 +1370,29 @@
       });
     }
 
-    // Инициализация всех функций при загрузке
+    // Инициализация
     document.addEventListener('DOMContentLoaded', function() {
-      // Настраиваем прогресс-бар
-      setupReadingProgress();
-      
-      // Настраиваем эффекты при наведении
-      setupHoverEffects();
-      
-      // Настраиваем поиск и фильтрацию
       setupSearchAndFilter();
-      
-      // Настраиваем копирование ID
       setupCopyID();
       
-      // Эффекты для навигации
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-2px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
+      // Горячие клавиши
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Home') {
+          scrollToTop();
+        }
+        if (e.key === 'Escape') {
+          document.getElementById('search-input').value = '';
+          document.querySelector('.filter-tag[data-filter="all"]').click();
+        }
+        if (e.key === 'f' || e.key === 'F') {
+          document.getElementById('search-input').focus();
+          document.getElementById('search-input').select();
+        }
       });
-      
-      // Плавное появление элементов
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach((element, index) => {
-          setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-      }, 200);
     });
 
-    // Горячие клавиши
-    document.addEventListener('keydown', function(e) {
-      // Home - наверх
-      if (e.key === 'Home') {
-        scrollToTop();
-      }
-      
-      // Escape - сброс поиска
-      if (e.key === 'Escape') {
-        document.getElementById('search-input').value = '';
-        document.querySelector('.filter-tag[data-filter="all"]').click();
-      }
-      
-      // F - фокус на поиск
-      if (e.key === 'f' || e.key === 'F') {
-        document.getElementById('search-input').focus();
-        document.getElementById('search-input').select();
-      }
-      
-      // 1-9 - фильтры по тегам
-      if (e.key === '1') {
-        document.querySelector('.filter-tag[data-filter="all"]').click();
-      }
-      if (e.key === '2') {
-        document.querySelector('.filter-tag[data-filter="toxic"]').click();
-      }
-      if (e.key === '3') {
-        document.querySelector('.filter-tag[data-filter="spam"]').click();
-      }
-      if (e.key === '4') {
-        document.querySelector('.filter-tag[data-filter="alt"]').click();
-      }
-      if (e.key === '5') {
-        document.querySelector('.filter-tag[data-filter="admin"]').click();
-      }
-      
-      // A - апелляция
-      if (e.key === 'a' || e.key === 'A') {
-        window.open('https://forms.gle/dTWwBu6M9JmzNBxRA', '_blank');
-      }
-    });
-
-    // Кнопка наверх при клике
-    document.querySelector('.scroll-indicator').addEventListener('click', scrollToTop);
+    // Кнопка наверх
+    document.querySelector('.scroll-top').addEventListener('click', scrollToTop);
   </script>
 </body>
 </html>
-
-
