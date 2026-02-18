@@ -3,151 +3,258 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Правила с наказаниями • Requiem</title>
+  <title>Правила • Requiem</title>
   <meta name="description" content="Официальные правила клана Requiem с указанием наказаний" />
   <style>
-    /* ===== ОСНОВНОЙ СТИЛЬ REQUIEM ===== */
+    /* ===== ОСНОВНЫЕ ПЕРЕМЕННЫЕ ===== */
     :root {
-      --bg: #0f0f14;
-      --card: #181825;
-      --text: #eaeaf0;
-      --muted: #9aa0b4;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0d0d12;
+      --card-bg: #14141f;
+      --text-primary: #f0f0fa;
+      --text-secondary: #a0a8c0;
+      --text-muted: #707890;
       --accent: #7c7cff;
       --accent-hover: #6b6bff;
-      --success: #00d4aa;
       --danger: #ff4766;
       --warning: #ffb347;
+      --success: #00d4aa;
       --info: #47b5ff;
+      --border-color: rgba(124, 124, 255, 0.2);
+      --border-subtle: rgba(255, 255, 255, 0.05);
     }
 
-    * { 
-      box-sizing: border-box; 
+    /* ===== СБРОС ===== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0f0f14, #0b0b10);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0a0f, #0c0c12);
+      color: var(--text-primary);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ===== ШАПКА ===== */
-    header {
-      padding: 2rem 1rem 1.5rem;
+    /* ===== УЛУЧШЕННЫЙ HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #0c0c14 0%, #0f0f18 100%);
+      padding: 2.5rem 1rem 2rem;
+      position: relative;
       text-align: center;
-      animation: fadeIn 0.8s ease;
+      border-bottom: 2px solid transparent;
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Верхняя линия */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(124, 124, 255, 0.5) 20%,
+        rgba(255, 71, 102, 0.5) 50%,
+        rgba(124, 124, 255, 0.5) 80%,
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    /* Нижняя линия (основная) */
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        #7c7cff 20%,
+        #ff4766 50%,
+        #7c7cff 80%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 15px rgba(124, 124, 255, 0.5));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .site-title {
       margin: 0;
-      font-size: 2.5rem;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, #7c7cff, #a78bfa);
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff, #ffa0a0, #ff4766);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 20px rgba(124, 124, 255, 0.3);
+      text-shadow: 0 0 30px rgba(255, 71, 102, 0.3);
+      line-height: 1.2;
     }
 
-    .tagline {
-      margin-top: 0.8rem;
-      color: var(--muted);
-      font-size: 1rem;
+    .header-tagline {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 1.5rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(20, 20, 31, 0.6);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      backdrop-filter: blur(5px);
+      display: inline-block;
     }
 
     /* ===== НАВИГАЦИЯ ===== */
     .main-nav {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      margin-top: 1.5rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      padding: 0 1rem;
+      margin-top: 1rem;
     }
 
     .nav-link {
-      color: var(--text);
+      color: var(--text-secondary);
       text-decoration: none;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      background: var(--card);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      background: rgba(20, 20, 31, 0.6);
+      border: 1px solid rgba(255, 71, 102, 0.2);
       font-weight: 500;
-      font-size: 0.9rem;
-      white-space: nowrap;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
     }
 
     .nav-link:hover {
-      background: var(--accent);
-      color: #fff;
+      background: rgba(255, 71, 102, 0.15);
+      border-color: var(--danger);
+      color: white;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
     }
 
     .nav-link.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(124, 124, 255, 0.4);
+      background: linear-gradient(135deg, #ff4766, #ff2e4a);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(255, 71, 102, 0.4);
     }
 
-    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 1rem 4rem;
+      padding: 2.5rem 1.5rem 4rem;
     }
 
     /* ===== КАРТОЧКИ ПРАВИЛ ===== */
     .rule-card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1.5rem;
+      background: rgba(20, 20, 31, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-left: 4px solid var(--accent);
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 71, 102, 0.15);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
       overflow: hidden;
     }
 
+    /* Верхняя линия карточки */
+    .rule-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
     .rule-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 71, 102, 0.3);
+    }
+
+    .rule-card:hover::before {
+      opacity: 1;
     }
 
     .card-title {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: var(--text);
+      margin: 0 0 1.5rem 0;
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      gap: 0.8rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 71, 102, 0.2);
+      position: relative;
+    }
+
+    .card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
+      border-radius: 2px;
     }
 
     /* ===== ЭЛЕМЕНТЫ ПРАВИЛ С НАКАЗАНИЯМИ ===== */
     .rule-item {
       margin-bottom: 1rem;
       padding: 1rem;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       transition: all 0.2s ease;
       position: relative;
     }
 
     .rule-item:hover {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 71, 102, 0.03);
+      border-color: rgba(255, 71, 102, 0.1);
     }
 
     .rule-header {
@@ -162,38 +269,38 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 32px;
-      height: 32px;
-      background: rgba(124, 124, 255, 0.15);
-      color: var(--accent);
+      min-width: 36px;
+      height: 36px;
+      background: rgba(255, 71, 102, 0.15);
+      color: #ff8099;
       padding: 0.2rem 0.6rem;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 600;
       margin-right: 0.8rem;
-      font-size: 0.9rem;
-      border: 1px solid rgba(124, 124, 255, 0.2);
+      font-size: 0.95rem;
+      border: 1px solid rgba(255, 71, 102, 0.3);
       flex-shrink: 0;
     }
 
     .rule-text {
-      color: var(--muted);
+      color: var(--text-secondary);
       line-height: 1.6;
       margin: 0.5rem 0 0 0;
       font-size: 1rem;
     }
 
     .rule-text strong {
-      color: var(--text);
+      color: var(--text-primary);
     }
 
     /* ===== СТИЛИ ДЛЯ БЛОКОВ НАКАЗАНИЙ ===== */
     .punishment-block {
       margin-top: 0.8rem;
-      padding: 0.8rem;
-      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
       font-size: 0.9rem;
       position: relative;
-      border-left: 3px solid;
+      border-left: 4px solid;
       background: rgba(0, 0, 0, 0.2);
       transition: all 0.2s ease;
     }
@@ -208,7 +315,7 @@
     }
 
     .punishment-text {
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 0.85rem;
       line-height: 1.5;
     }
@@ -268,51 +375,50 @@
       color: #ff2e4a;
     }
 
-    /* ===== ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ БЕЙДЖЕЙ ВНИМАНИЯ ===== */
+    /* ===== БЕЙДЖИ ВНИМАНИЯ ===== */
     .attention-badge-wrapper {
-      position: relative;
-      margin-bottom: 1rem;
+      margin: 1.5rem 0 1rem 0;
     }
 
     .attention-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.6rem 1rem;
-      border-radius: 10px;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       position: relative;
       z-index: 1;
-      margin-bottom: 0.5rem;
-      transition: all 0.3s ease;
-      /* Убраны анимации подъёма */
-      transform: none !important;
+      margin-bottom: 0.8rem;
+      transition: all 0.2s ease;
     }
 
     .attention-badge:hover {
       filter: brightness(1.1);
-      transform: none !important;
     }
 
     .critical-badge {
       background: linear-gradient(135deg, #ff2e4a, #ff0033);
       color: white;
+      box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
     }
 
     .important-badge {
       background: linear-gradient(135deg, #ffb347, #ff9900);
       color: white;
+      box-shadow: 0 0 15px rgba(255, 179, 71, 0.3);
     }
 
     .warning-badge {
       background: linear-gradient(135deg, #ff9500, #ff7b00);
       color: white;
+      box-shadow: 0 0 15px rgba(255, 149, 0, 0.3);
     }
 
     .attention-icon {
       font-size: 1.1rem;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
     .attention-badge:hover .attention-icon {
@@ -324,35 +430,31 @@
       background: linear-gradient(135deg, rgba(255, 71, 102, 0.1), rgba(255, 30, 60, 0.08));
       border-left: 4px solid var(--danger);
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1rem 0;
       border: 1px solid rgba(255, 71, 102, 0.2);
-      position: relative;
-      transition: all 0.3s ease;
     }
 
     .critical-box {
       background: linear-gradient(135deg, rgba(255, 30, 60, 0.15), rgba(255, 0, 40, 0.1));
       border-left: 4px solid #ff0033;
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1rem 0;
       border: 1px solid rgba(255, 0, 51, 0.3);
-      transition: all 0.3s ease;
     }
 
     .critical-box .rule-text {
-      color: #ff8099;
+      color: #ffa0b0;
     }
 
     .important-box {
       background: linear-gradient(135deg, rgba(255, 179, 71, 0.1), rgba(255, 150, 50, 0.08));
       border-left: 4px solid var(--warning);
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1rem 0;
       border: 1px solid rgba(255, 179, 71, 0.2);
-      transition: all 0.3s ease;
     }
 
     .important-box .rule-text {
@@ -363,14 +465,74 @@
       background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 180, 140, 0.08));
       border-left: 4px solid var(--success);
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1rem 0;
       border: 1px solid rgba(0, 212, 170, 0.2);
     }
 
-    /* ===== ПЛАВНЫЕ АНИМАЦИИ БЕЗ ПОДЪЁМА ===== */
+    /* ===== ТЕГИ ПРАВИЛ ===== */
+    .rule-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.8rem;
+      background: rgba(255, 71, 102, 0.2);
+      color: #ffa0b0;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 71, 102, 0.3);
+    }
+
+    /* ===== ЛЕГЕНДА НАКАЗАНИЙ ===== */
+    .punishment-legend {
+      background: rgba(20, 20, 31, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 71, 102, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 71, 102, 0.1);
+    }
+
+    .legend-item:hover {
+      background: rgba(255, 71, 102, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    .legend-warning { background: var(--warning); }
+    .legend-mute { background: #ff6b35; }
+    .legend-warn { background: #ff4757; }
+    .legend-kick { background: #ff3838; }
+    .legend-ban { background: #ff0033; }
+    .legend-permaban { background: #cc0000; }
+
+    /* ===== АНИМАЦИИ ===== */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -392,7 +554,6 @@
       100% { box-shadow: 0 0 10px rgba(255, 149, 0, 0.3); }
     }
 
-    /* Применяем плавные анимации свечения */
     .critical-badge {
       animation: pulseCritical 3s infinite ease-in-out;
     }
@@ -406,225 +567,255 @@
     }
 
     .fade-in {
+      opacity: 0;
       animation: fadeIn 0.6s ease forwards;
     }
 
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ===== ПРОГРЕСС-БАР ===== */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #ff4766, #7c7cff);
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    /* ===== КНОПКА НАВЕРХ ===== */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #ff4766, #ff2e4a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 20px rgba(255, 71, 102, 0.3);
+      z-index: 100;
+      font-size: 1.3rem;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      transform: scale(1.1);
+    }
+
     /* ===== ФУТЕР ===== */
-    footer {
+    .footer {
       text-align: center;
-      padding: 2rem 1rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      background: rgba(0,0,0,0.2);
+      padding: 2.5rem 1rem;
+      border-top: 1px solid rgba(255, 71, 102, 0.2);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 71, 102, 0.5), 
+        rgba(124, 124, 255, 0.5), 
+        rgba(255, 71, 102, 0.5), 
+        transparent
+      );
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
     .footer-link {
-      color: var(--muted);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.2s;
-      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      font-size: 0.95rem;
     }
 
     .footer-link:hover {
-      color: var(--accent);
+      color: var(--danger);
     }
 
-    /* ===== ТЕГИ ПРАВИЛ ===== */
-    .rule-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.2rem 0.6rem;
-      background: rgba(255, 71, 102, 0.2);
-      color: #ff8099;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border: 1px solid rgba(255, 71, 102, 0.3);
-      margin-top: 0.2rem;
-    }
-
-    .scroll-indicator {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
-      font-size: 1.2rem;
-    }
-
-    .scroll-indicator.visible {
-      opacity: 1;
-    }
-
-    .scroll-indicator:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 18px rgba(124, 124, 255, 0.4);
-    }
-
+    /* ===== ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ ===== */
     .last-updated {
       text-align: center;
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 71, 102, 0.2);
+    }
+
+    .last-updated p {
+      margin: 0.3rem 0;
+    }
+
+    .last-updated strong {
+      color: #ffa0b0;
     }
 
     /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
     @media (max-width: 768px) {
-      .site-title { 
-        font-size: 2rem; 
-        padding: 0 1rem;
+      .site-header {
+        padding: 2rem 1rem 1.5rem;
       }
-      
-      .tagline { 
-        font-size: 0.9rem; 
-        padding: 0 1rem;
+
+      .logo-icon {
+        font-size: 2.2rem;
       }
-      
-      .main-nav { 
-        gap: 0.5rem; 
-        padding: 0 0.5rem;
+
+      .site-title {
+        font-size: 2.2rem;
       }
-      
-      .nav-link { 
-        padding: 0.3rem 0.8rem; 
-        font-size: 0.8rem; 
-        border-radius: 15px;
+
+      .header-tagline {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
       }
-      
-      .container { 
-        padding: 1.5rem 0.8rem 3rem; 
+
+      .nav-link {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
       }
-      
-      .rule-card { 
-        padding: 1.2rem; 
-        margin-bottom: 1.5rem;
-        border-radius: 14px;
+
+      .container {
+        padding: 1.5rem 1rem 3rem;
       }
-      
-      .card-title { 
-        font-size: 1.3rem; 
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+
+      .rule-card {
+        padding: 1.5rem;
       }
-      
-      .rule-number { 
-        min-width: 28px; 
-        height: 28px; 
-        font-size: 0.8rem; 
-        margin-right: 0.6rem;
+
+      .card-title {
+        font-size: 1.5rem;
       }
-      
-      .rule-text { 
-        font-size: 0.95rem; 
-        line-height: 1.5;
+
+      .rule-item {
+        padding: 0.8rem;
       }
-      
+
+      .rule-number {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+      }
+
       .punishment-block {
-        padding: 0.6rem;
-        font-size: 0.8rem;
+        padding: 0.6rem 0.8rem;
       }
-      
-      .punishment-title {
-        font-size: 0.8rem;
-      }
-      
-      .punishment-text {
-        font-size: 0.8rem;
-      }
-      
-      .attention-badge {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.8rem;
-        border-radius: 8px;
-      }
-      
-      .attention-icon {
-        font-size: 1rem;
-      }
-      
-      .warning-box,
-      .critical-box,
-      .important-box,
-      .success-box {
+
+      .punishment-legend {
         padding: 1rem;
-        border-radius: 8px;
+        gap: 0.5rem;
       }
-      
-      .rule-tag {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.5rem;
+
+      .legend-item {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
       }
-      
-      .scroll-indicator { 
-        width: 40px; 
-        height: 40px; 
-        font-size: 1rem;
-        bottom: 15px;
-        right: 15px;
+
+      .legend-color {
+        width: 14px;
+        height: 14px;
+      }
+
+      .attention-badge {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
       }
     }
 
     @media (max-width: 480px) {
-      .site-title { 
-        font-size: 1.8rem; 
+      .site-title {
+        font-size: 1.8rem;
       }
-      
-      .main-nav {
-        gap: 0.3rem;
+
+      .logo-icon {
+        font-size: 2rem;
       }
-      
-      .nav-link { 
-        padding: 0.25rem 0.6rem; 
-        font-size: 0.75rem; 
+
+      .nav-link {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
       }
-      
-      .rule-card { 
-        padding: 1rem; 
+
+      .rule-card {
+        padding: 1.2rem;
       }
-      
-      .card-title { 
-        font-size: 1.2rem; 
+
+      .card-title {
+        font-size: 1.3rem;
       }
-      
-      .rule-item {
-        padding: 0.8rem;
+
+      .rule-number {
+        min-width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
       }
-      
+
+      .rule-text {
+        font-size: 0.95rem;
+      }
+
       .punishment-block {
-        padding: 0.5rem;
+        padding: 0.5rem 0.7rem;
+      }
+
+      .punishment-title {
+        font-size: 0.8rem;
+      }
+
+      .punishment-text {
+        font-size: 0.8rem;
+      }
+
+      .legend-item {
         font-size: 0.75rem;
       }
-      
+
       .attention-badge {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.75rem;
-      }
-      
-      .rule-header {
-        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
       }
     }
 
@@ -640,117 +831,73 @@
         flex-shrink: 0;
       }
     }
-
-    /* ===== ПРОГРЕСС-БАР ЧТЕНИЯ ===== */
-    .reading-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      z-index: 1000;
-      transition: width 0.1s ease;
-    }
-
-    /* ===== ЛЕГЕНДА НАКАЗАНИЙ ===== */
-    .punishment-legend {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      justify-content: center;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .legend-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .legend-color {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-    }
-
-    .legend-warning { background: var(--warning); }
-    .legend-mute { background: #ff6b35; }
-    .legend-warn { background: #ff4757; }
-    .legend-kick { background: #ff3838; }
-    .legend-ban { background: #ff0033; }
-    .legend-permaban { background: #cc0000; }
   </style>
 </head>
 <body>
-  <!-- Прогресс-бар чтения -->
-  <div class="reading-progress"></div>
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Кнопка "Наверх" -->
-  <div class="scroll-indicator" onclick="scrollToTop()">
+  <!-- Кнопка наверх -->
+  <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
     ↑
   </div>
 
-  <header>
-    <h1 class="site-title">REQUIEM</h1>
-    <div class="tagline">Официальный свод правил клана с наказаниями</div>
-    
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-      <a href="rules.html" class="nav-link active">Правила</a>
-      <a href="news.html" class="nav-link">Новости</a>
-      <a href="join.html" class="nav-link">Вступление</a>
-      <a href="blacklist.html" class="nav-link">Чёрный список</a>
-      <a href="requirements.html" class="nav-link">Требования</a>
-      <a href="about.html" class="nav-link">О клане</a>
-    </nav>
+  <!-- ШАПКА -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo-wrapper">
+        <span class="logo-icon">📜</span>
+        <h1 class="site-title">REQUIEM</h1>
+      </div>
+      
+      <div class="header-tagline">
+        Официальный свод правил клана с наказаниями
+      </div>
+      
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="rules.html" class="nav-link active">Правила</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="join.html" class="nav-link">Вступление</a>
+        <a href="blacklist.html" class="nav-link">Чёрный список</a>
+        <a href="requirements.html" class="nav-link">Требования</a>
+        <a href="about.html" class="nav-link">О клане</a>
+      </nav>
+    </div>
   </header>
 
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
   <main class="container">
     <!-- Легенда наказаний -->
-    <div class="punishment-legend fade-in">
-      <div class="legend-item">
+    <div class="punishment-legend fade-in delay-1">
+      <div class="legend-item" data-type="warning">
         <div class="legend-color legend-warning"></div>
         <span>Предупреждение</span>
       </div>
-      <div class="legend-item">
+      <div class="legend-item" data-type="mute">
         <div class="legend-color legend-mute"></div>
         <span>Мут 1-24 часа</span>
       </div>
-      <div class="legend-item">
+      <div class="legend-item" data-type="warn">
         <div class="legend-color legend-warn"></div>
         <span>Варн + мут</span>
       </div>
-      <div class="legend-item">
+      <div class="legend-item" data-type="kick">
         <div class="legend-color legend-kick"></div>
         <span>Кик с сервера</span>
       </div>
-      <div class="legend-item">
+      <div class="legend-item" data-type="ban">
         <div class="legend-color legend-ban"></div>
         <span>Бан 1-30 дней</span>
       </div>
-      <div class="legend-item">
+      <div class="legend-item" data-type="permaban">
         <div class="legend-color legend-permaban"></div>
         <span>Пермабан</span>
       </div>
     </div>
 
     <!-- Общие правила -->
-    <div class="rule-card fade-in">
+    <div class="rule-card fade-in delay-2">
       <h2 class="card-title">📜 Общие правила</h2>
       
       <div class="rule-item">
@@ -797,7 +944,7 @@
         </div>
       </div>
       
-      <!-- Критическое правило с бейджем НАД ним -->
+      <!-- Критическое правило с бейджем -->
       <div class="attention-badge-wrapper">
         <div class="attention-badge critical-badge">
           <span class="attention-icon">⚠️</span>
@@ -818,7 +965,7 @@
     </div>
 
     <!-- Запрещено или ограничено -->
-    <div class="rule-card fade-in">
+    <div class="rule-card fade-in delay-3">
       <h2 class="card-title">🚫 Запрещено или ограничено</h2>
       
       <div class="rule-item">
@@ -986,7 +1133,7 @@
         </div>
       </div>
       
-      <!-- Критическое правило с бейджем НАД ним -->
+      <!-- Критическое правило с бейджем -->
       <div class="attention-badge-wrapper">
         <div class="attention-badge critical-badge">
           <span class="attention-icon">⚠️</span>
@@ -1018,10 +1165,10 @@
     </div>
 
     <!-- Администрация сервера -->
-    <div class="rule-card fade-in">
+    <div class="rule-card fade-in delay-4">
       <h2 class="card-title">⚖️ Администрация сервера</h2>
       
-      <h3 class="card-title" style="font-size: 1.3rem; margin: 1rem 0 0.5rem 0; padding: 0; border: none;">Основные правила</h3>
+      <h3 style="color: var(--text-primary); margin: 1rem 0 0.5rem 0; font-size: 1.3rem;">Основные правила</h3>
       
       <div class="rule-item">
         <div class="rule-header">
@@ -1078,7 +1225,7 @@
         </div>
       </div>
       
-      <h3 class="card-title" style="font-size: 1.3rem; margin: 1.5rem 0 0.5rem 0; padding: 0; border: none;">Правила для состава администрации</h3>
+      <h3 style="color: var(--text-primary); margin: 1.5rem 0 0.5rem 0; font-size: 1.3rem;">Правила для состава администрации</h3>
       
       <div class="rule-item">
         <div class="rule-header">
@@ -1179,7 +1326,7 @@
         </div>
       </div>
       
-      <!-- Важное правило с бейджем НАД ним -->
+      <!-- Важное правило с бейджем -->
       <div class="attention-badge-wrapper">
         <div class="attention-badge important-badge">
           <span class="attention-icon">📌</span>
@@ -1200,10 +1347,10 @@
     </div>
 
     <!-- Заключение -->
-    <div class="rule-card fade-in">
+    <div class="rule-card fade-in delay-4">
       <h2 class="card-title">🩸 Заключение</h2>
       
-      <!-- Важное правило с бейджем НАД ним -->
+      <!-- Важное правило с бейджем -->
       <div class="attention-badge-wrapper">
         <div class="attention-badge warning-badge">
           <span class="attention-icon">ℹ️</span>
@@ -1227,17 +1374,20 @@
       </div>
       
       <div class="last-updated">
-        <p class="rule-text">Последнее обновление правил: <strong>Январь 2026</strong></p>
-        <p class="rule-text">Всего правил: <strong>37</strong> • Критических правил: <strong id="critical-count">2</strong></p>
-        <p class="rule-text" style="margin-top: 0.5rem; color: var(--accent);">
+        <p>Последнее обновление правил: <strong>Январь 2026</strong></p>
+        <p>Всего правил: <strong>37</strong> • Критических правил: <strong id="critical-count">2</strong></p>
+        <p style="margin-top: 0.8rem; color: #ffa0b0;">
           ⚠️ <strong>Внимание:</strong> Администрация оставляет за собой право применять более строгие наказания при систематических нарушениях или особо тяжёлых случаях.
         </p>
       </div>
     </div>
   </main>
 
-  <footer>
-    <div>© 2026 Requiem • Официальные правила клана с наказаниями</div>
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="footer-text">
+      © 2026 Requiem • Официальные правила клана с наказаниями
+    </div>
     <div class="footer-links">
       <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord сервер</a>
       <a href="index.html" class="footer-link">На главную</a>
@@ -1248,27 +1398,23 @@
   </footer>
 
   <script>
-    // ===== ОСНОВНЫЕ ФУНКЦИИ =====
-
-    // Прогресс-бар чтения
-    function setupReadingProgress() {
-      const progressBar = document.querySelector('.reading-progress');
-      const scrollIndicator = document.querySelector('.scroll-indicator');
+    // Прогресс-бар
+    const progressBar = document.getElementById('progressBar');
+    const scrollTop = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
       
-      window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        
-        progressBar.style.width = scrolled + '%';
-        
-        // Показывать/скрывать кнопку "Наверх"
-        if (window.scrollY > 300) {
-          scrollIndicator.classList.add('visible');
-        } else {
-          scrollIndicator.classList.remove('visible');
-        }
-      });
-    }
+      progressBar.style.width = scrolled + '%';
+      
+      if (winScroll > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
 
     // Прокрутка наверх
     function scrollToTop() {
@@ -1282,157 +1428,53 @@
     function countCriticalRules() {
       const criticalBadges = document.querySelectorAll('.critical-badge');
       const criticalCount = document.getElementById('critical-count');
-      
       if (criticalCount) {
         criticalCount.textContent = criticalBadges.length;
       }
     }
 
-    // Эффект для бейджей при наведении - только плавное свечение
-    function setupBadgeHoverEffects() {
-      const badges = document.querySelectorAll('.attention-badge');
-      
-      badges.forEach(badge => {
-        badge.addEventListener('mouseenter', function() {
-          // Только изменение яркости, без подъёма
-          this.style.filter = 'brightness(1.15)';
+    // Фильтр по наказаниям
+    document.querySelectorAll('.legend-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const type = this.getAttribute('data-type');
+        
+        // Сброс
+        document.querySelectorAll('.punishment-block').forEach(block => {
+          block.style.opacity = '0.5';
+          block.style.filter = 'grayscale(0.7)';
         });
         
-        badge.addEventListener('mouseleave', function() {
-          this.style.filter = '';
+        // Подсветка выбранного типа
+        document.querySelectorAll('.punishment-' + type).forEach(block => {
+          block.style.opacity = '1';
+          block.style.filter = 'none';
+          block.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
-      });
-    }
-
-    // Подсветка наказаний при наведении на правило
-    function setupPunishmentHoverEffects() {
-      const ruleItems = document.querySelectorAll('.rule-item');
-      
-      ruleItems.forEach(item => {
-        const punishmentBlock = item.querySelector('.punishment-block');
-        if (punishmentBlock) {
-          item.addEventListener('mouseenter', function() {
-            // Только лёгкое изменение фона и тени
-            punishmentBlock.style.boxShadow = '0 3px 8px rgba(0,0,0,0.2)';
-            punishmentBlock.style.backgroundColor = 'rgba(0, 0, 0, 0.25)';
-          });
-          
-          item.addEventListener('mouseleave', function() {
-            punishmentBlock.style.boxShadow = '';
-            punishmentBlock.style.backgroundColor = '';
-          });
-        }
-      });
-    }
-
-    // Фильтрация правил по типу наказания
-    function setupPunishmentFilter() {
-      const legendItems = document.querySelectorAll('.legend-item');
-      
-      legendItems.forEach(item => {
-        item.addEventListener('click', function() {
-          const type = this.querySelector('.legend-color').className.split(' ')[1].replace('legend-', '');
-          
-          // Сброс предыдущей подсветки
+        
+        // Сброс через 3 секунды
+        setTimeout(() => {
           document.querySelectorAll('.punishment-block').forEach(block => {
-            block.style.opacity = '0.5';
-            block.style.filter = 'grayscale(0.7)';
+            block.style.opacity = '';
+            block.style.filter = '';
           });
-          
-          // Подсветка выбранного типа
-          document.querySelectorAll('.punishment-' + type).forEach(block => {
-            block.style.opacity = '1';
-            block.style.filter = 'none';
-            block.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
-          
-          // Сброс через 3 секунды
-          setTimeout(() => {
-            document.querySelectorAll('.punishment-block').forEach(block => {
-              block.style.opacity = '';
-              block.style.filter = '';
-            });
-          }, 3000);
-        });
+        }, 3000);
       });
-    }
-
-    // Инициализация всех функций при загрузке
-    document.addEventListener('DOMContentLoaded', function() {
-      // Настраиваем прогресс-бар
-      setupReadingProgress();
-      
-      // Считаем критические правила
-      countCriticalRules();
-      
-      // Настраиваем эффекты для бейджей
-      setupBadgeHoverEffects();
-      
-      // Настраиваем эффекты для наказаний
-      setupPunishmentHoverEffects();
-      
-      // Настраиваем фильтр наказаний
-      setupPunishmentFilter();
-      
-      // Убираем эффект подъёма для навигации
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-1px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Плавное появление карточек
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach((card, index) => {
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-      }, 200);
     });
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+      countCriticalRules();
+    });
+
+    // Кнопка наверх
+    document.querySelector('.scroll-top').addEventListener('click', scrollToTop);
 
     // Горячие клавиши
     document.addEventListener('keydown', function(e) {
-      // Escape - сброс выделения
+      if (e.key === 'Home') scrollToTop();
       if (e.key === 'Escape') {
         document.querySelectorAll('.rule-item, .warning-box, .critical-box, .important-box').forEach(item => {
           item.style.boxShadow = '';
-        });
-      }
-      
-      // Home - наверх
-      if (e.key === 'Home') {
-        scrollToTop();
-      }
-      
-      // C - подсветить критические правила
-      if (e.key === 'c' || e.key === 'C') {
-        const criticalBadges = document.querySelectorAll('.critical-badge');
-        criticalBadges.forEach(badge => {
-          const originalAnimation = badge.style.animation;
-          badge.style.animation = 'pulseCritical 1s infinite';
-          
-          setTimeout(() => {
-            badge.style.animation = originalAnimation;
-          }, 2000);
-        });
-      }
-      
-      // P - показать все наказания
-      if (e.key === 'p' || e.key === 'P') {
-        const punishmentBlocks = document.querySelectorAll('.punishment-block');
-        punishmentBlocks.forEach(block => {
-          block.style.boxShadow = '0 0 12px rgba(124, 124, 255, 0.3)';
-          
-          setTimeout(() => {
-            block.style.boxShadow = '';
-          }, 1500);
         });
       }
     });
