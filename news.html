@@ -6,102 +6,180 @@
   <title>Новости • Requiem</title>
   <meta name="description" content="Новости и события клана Requiem" />
   <style>
-    /* ===== ОСНОВНОЙ СТИЛЬ REQUIEM ===== */
+    /* ===== ОСНОВНЫЕ ПЕРЕМЕННЫЕ ===== */
     :root {
-      --bg: #0f0f14;
-      --card: #181825;
-      --text: #eaeaf0;
-      --muted: #9aa0b4;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0d0d12;
+      --card-bg: #14141f;
+      --text-primary: #f0f0fa;
+      --text-secondary: #a0a8c0;
+      --text-muted: #707890;
       --accent: #7c7cff;
       --accent-hover: #6b6bff;
       --danger: #ff4766;
       --warning: #ffb347;
       --success: #00d4aa;
       --info: #47b5ff;
+      --border-color: rgba(124, 124, 255, 0.2);
+      --border-subtle: rgba(255, 255, 255, 0.05);
     }
 
-    * { 
-      box-sizing: border-box; 
+    /* ===== СБРОС ===== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0f0f14, #0b0b10);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0a0f, #0c0c12);
+      color: var(--text-primary);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ===== ШАПКА ===== */
-    header {
-      padding: 2rem 1rem 1.5rem;
+    /* ===== УЛУЧШЕННЫЙ HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #0c0c14 0%, #0f0f18 100%);
+      padding: 2.5rem 1rem 2rem;
+      position: relative;
       text-align: center;
-      animation: fadeIn 0.8s ease;
+      border-bottom: 2px solid transparent;
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Верхняя линия */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(124, 124, 255, 0.5) 20%,
+        rgba(71, 181, 255, 0.5) 50%,
+        rgba(124, 124, 255, 0.5) 80%,
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    /* Нижняя линия (основная) */
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        #7c7cff 20%,
+        #47b5ff 50%,
+        #7c7cff 80%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 15px rgba(124, 124, 255, 0.5));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .site-title {
       margin: 0;
-      font-size: 2.5rem;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, #7c7cff, #a78bfa);
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff, #c0c0ff, #7c7cff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 20px rgba(124, 124, 255, 0.3);
+      text-shadow: 0 0 30px rgba(124, 124, 255, 0.3);
+      line-height: 1.2;
     }
 
-    .tagline {
-      margin-top: 0.8rem;
-      color: var(--muted);
-      font-size: 1rem;
+    .header-tagline {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 1.5rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(20, 20, 31, 0.6);
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(5px);
+      display: inline-block;
     }
 
     /* ===== НАВИГАЦИЯ ===== */
     .main-nav {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      margin-top: 1.5rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      padding: 0 1rem;
+      margin-top: 1rem;
     }
 
     .nav-link {
-      color: var(--text);
+      color: var(--text-secondary);
       text-decoration: none;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      background: var(--card);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      background: rgba(20, 20, 31, 0.6);
+      border: 1px solid var(--border-color);
       font-weight: 500;
-      font-size: 0.9rem;
-      white-space: nowrap;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
     }
 
     .nav-link:hover {
-      background: var(--accent);
-      color: #fff;
+      background: rgba(124, 124, 255, 0.15);
+      border-color: var(--accent);
+      color: white;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
     }
 
     .nav-link.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(124, 124, 255, 0.4);
+      background: linear-gradient(135deg, #7c7cff, #6b6bff);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.4);
     }
 
-    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
     .container {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 1rem 4rem;
+      padding: 2.5rem 1.5rem 4rem;
     }
 
     /* ===== ФИЛЬТРЫ НОВОСТЕЙ ===== */
@@ -111,76 +189,86 @@
       gap: 0.8rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
-      padding: 0 1rem;
     }
 
     .filter-btn {
       padding: 0.5rem 1.2rem;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .filter-btn:hover {
-      background: rgba(124, 124, 255, 0.2);
+      background: rgba(124, 124, 255, 0.1);
       transform: translateY(-2px);
+      color: white;
     }
 
     .filter-btn.active {
-      background: var(--accent);
+      background: linear-gradient(135deg, #7c7cff, #6b6bff);
       color: white;
-      border-color: var(--accent);
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
     }
 
     /* ===== КАРТОЧКИ НОВОСТЕЙ ===== */
     .news-item {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 1.8rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-left: 4px solid var(--accent);
-      transition: all 0.3s ease;
+      background: rgba(20, 20, 31, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+      /* Убираем border-left отсюда */
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .news-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
-
+    /* Верхняя линия карточки */
     .news-item::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(124, 124, 255, 0.5), transparent);
+      height: 2px;
+      background: linear-gradient(90deg, #7c7cff, #47b5ff);
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
-    /* Стили для разных типов новостей */
+    .news-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(124, 124, 255, 0.3);
+    }
+
+    .news-item:hover::before {
+      opacity: 1;
+    }
+
+    /* ЛЕВЫЕ ПОЛОСКИ ДЛЯ РАЗНЫХ ТИПОВ НОВОСТЕЙ */
     .news-important {
-      border-left-color: var(--danger);
+      border-left: 4px solid var(--danger) !important;
     }
 
     .news-update {
-      border-left-color: var(--info);
+      border-left: 4px solid var(--info) !important;
     }
 
     .news-event {
-      border-left-color: var(--success);
+      border-left: 4px solid var(--success) !important;
     }
 
     .news-announcement {
-      border-left-color: var(--warning);
+      border-left: 4px solid var(--warning) !important;
     }
 
     /* ===== ШАПКА НОВОСТИ ===== */
@@ -194,12 +282,13 @@
     }
 
     .news-date {
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 0.9rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.03);
       padding: 0.3rem 0.8rem;
       border-radius: 12px;
       font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     /* ===== ТЕГИ НОВОСТЕЙ ===== */
@@ -214,41 +303,46 @@
       align-items: center;
       gap: 0.3rem;
       padding: 0.3rem 0.8rem;
-      border-radius: 12px;
+      border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .news-tag:hover {
+      transform: translateY(-2px);
     }
 
     .tag-important {
       background: linear-gradient(135deg, rgba(255, 71, 102, 0.15), rgba(255, 30, 60, 0.1));
       color: #ff8099;
-      border: 1px solid rgba(255, 71, 102, 0.3);
+      border-color: rgba(255, 71, 102, 0.3);
     }
 
     .tag-update {
       background: linear-gradient(135deg, rgba(71, 181, 255, 0.15), rgba(50, 150, 220, 0.1));
       color: #80d1ff;
-      border: 1px solid rgba(71, 181, 255, 0.3);
+      border-color: rgba(71, 181, 255, 0.3);
     }
 
     .tag-event {
       background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 180, 140, 0.1));
       color: #80f0d4;
-      border: 1px solid rgba(0, 212, 170, 0.3);
+      border-color: rgba(0, 212, 170, 0.3);
     }
 
     .tag-announcement {
       background: linear-gradient(135deg, rgba(255, 179, 71, 0.15), rgba(255, 150, 50, 0.1));
       color: #ffd080;
-      border: 1px solid rgba(255, 179, 71, 0.3);
+      border-color: rgba(255, 179, 71, 0.3);
     }
 
     /* ===== КОНТЕНТ НОВОСТИ ===== */
     .news-title {
-      margin: 0 0 1rem 0;
-      font-size: 1.5rem;
-      color: var(--text);
+      margin: 1rem 0 1rem 0;
+      font-size: 1.8rem;
+      color: var(--text-primary);
       line-height: 1.4;
       display: flex;
       align-items: center;
@@ -256,7 +350,7 @@
     }
 
     .news-content {
-      color: var(--muted);
+      color: var(--text-secondary);
       line-height: 1.7;
       margin-bottom: 1.5rem;
     }
@@ -274,6 +368,10 @@
       margin-bottom: 0.5rem;
     }
 
+    .news-content strong {
+      color: var(--text-primary);
+    }
+
     /* ===== ФУТЕР НОВОСТИ ===== */
     .news-footer {
       display: flex;
@@ -281,7 +379,7 @@
       align-items: center;
       margin-top: 1.5rem;
       padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid var(--border-color);
       flex-wrap: wrap;
       gap: 1rem;
     }
@@ -290,7 +388,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 0.9rem;
     }
 
@@ -298,7 +396,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      background: linear-gradient(135deg, #7c7cff, #47b5ff);
     }
 
     .news-actions {
@@ -308,12 +406,12 @@
 
     .news-action-btn {
       padding: 0.4rem 0.8rem;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--muted);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       font-size: 0.85rem;
       display: flex;
       align-items: center;
@@ -322,22 +420,24 @@
 
     .news-action-btn:hover {
       background: rgba(124, 124, 255, 0.1);
-      color: var(--text);
+      color: white;
+      transform: translateY(-2px);
     }
 
     /* ===== СТАТИСТИКА НОВОСТЕЙ ===== */
     .news-stats {
-      background: var(--card);
-      border-radius: 16px;
+      background: rgba(20, 20, 31, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
       padding: 1.5rem;
       margin-bottom: 2rem;
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid var(--border-color);
     }
 
     .stats-title {
       margin: 0 0 1rem 0;
-      font-size: 1.2rem;
-      color: var(--text);
+      font-size: 1.3rem;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -345,7 +445,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
     }
 
@@ -353,8 +453,14 @@
       text-align: center;
       padding: 1rem;
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
+      border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-2px);
+      background: rgba(124, 124, 255, 0.05);
     }
 
     .stat-value {
@@ -363,11 +469,12 @@
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 0.3rem;
+      line-height: 1;
     }
 
     .stat-label {
       font-size: 0.9rem;
-      color: var(--muted);
+      color: var(--text-muted);
     }
 
     /* ===== ИНФОРМАЦИОННЫЕ БЛОКИ ===== */
@@ -375,7 +482,7 @@
       background: linear-gradient(135deg, rgba(124, 124, 255, 0.1), rgba(100, 100, 220, 0.08));
       border-left: 4px solid var(--accent);
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1.5rem 0;
       border: 1px solid rgba(124, 124, 255, 0.2);
     }
@@ -384,9 +491,38 @@
       background: linear-gradient(135deg, rgba(255, 71, 102, 0.1), rgba(255, 30, 60, 0.08));
       border-left: 4px solid var(--danger);
       padding: 1.2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 1.5rem 0;
       border: 1px solid rgba(255, 71, 102, 0.2);
+    }
+
+    .info-box p,
+    .warning-box p {
+      margin: 0 0 0.5rem 0;
+      line-height: 1.6;
+    }
+
+    .info-box p:last-child,
+    .warning-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-box p {
+      color: #a0b4ff;
+    }
+
+    .warning-box p {
+      color: #ffa8b5;
+    }
+
+    .info-box a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(124, 124, 255, 0.3);
+    }
+
+    .info-box a:hover {
+      border-bottom-color: var(--accent);
     }
 
     /* ===== АНИМАЦИИ ===== */
@@ -396,240 +532,285 @@
     }
 
     .fade-in {
-      animation: fadeIn 0.6s ease forwards;
       opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
     }
 
-    /* ===== ПРОГРЕСС-БАР И КНОПКА НАВЕРХ ===== */
-    .reading-progress {
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ===== ПРОГРЕСС-БАР ===== */
+    .progress-bar {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      background: linear-gradient(90deg, #7c7cff, #47b5ff);
       z-index: 1000;
       transition: width 0.1s ease;
     }
 
-    .scroll-indicator {
+    /* ===== КНОПКА НАВЕРХ ===== */
+    .scroll-top {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      width: 45px;
-      height: 45px;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #7c7cff, #6b6bff);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: white;
       cursor: pointer;
       opacity: 0;
-      transition: all 0.3s;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 20px rgba(124, 124, 255, 0.3);
       z-index: 100;
-      box-shadow: 0 4px 12px rgba(124, 124, 255, 0.3);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
 
-    .scroll-indicator.visible {
+    .scroll-top.visible {
       opacity: 1;
+      visibility: visible;
     }
 
-    .scroll-indicator:hover {
+    .scroll-top:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 18px rgba(124, 124, 255, 0.4);
     }
 
     /* ===== ФУТЕР ===== */
-    footer {
+    .footer {
       text-align: center;
-      padding: 2rem 1rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      background: rgba(0,0,0,0.2);
+      padding: 2.5rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(124, 124, 255, 0.5), 
+        rgba(71, 181, 255, 0.5), 
+        rgba(124, 124, 255, 0.5), 
+        transparent
+      );
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
     .footer-link {
-      color: var(--muted);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.2s;
-      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      font-size: 0.95rem;
     }
 
     .footer-link:hover {
       color: var(--accent);
     }
 
-    /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+    /* ===== МЕДИА-ЗАПРОСЫ ===== */
     @media (max-width: 768px) {
-      .site-title { 
-        font-size: 2rem; 
-        padding: 0 1rem;
+      .site-header {
+        padding: 2rem 1rem 1.5rem;
       }
-      
-      .tagline { 
-        font-size: 0.9rem; 
-        padding: 0 1rem;
+
+      .logo-icon {
+        font-size: 2.2rem;
       }
-      
-      .main-nav { 
-        gap: 0.5rem; 
-        padding: 0 0.5rem;
+
+      .site-title {
+        font-size: 2.2rem;
       }
-      
-      .nav-link { 
-        padding: 0.3rem 0.8rem; 
-        font-size: 0.8rem; 
-        border-radius: 15px;
+
+      .header-tagline {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
       }
-      
-      .container { 
-        padding: 1.5rem 0.8rem 3rem; 
+
+      .nav-link {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
       }
-      
-      .news-item { 
-        padding: 1.3rem; 
-        margin-bottom: 1.3rem;
-        border-radius: 14px;
+
+      .container {
+        padding: 1.5rem 1rem 3rem;
       }
-      
-      .news-title { 
-        font-size: 1.3rem; 
+
+      .news-item {
+        padding: 1.5rem;
       }
-      
+
+      .news-title {
+        font-size: 1.5rem;
+      }
+
       .news-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.8rem;
       }
-      
+
       .news-footer {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
       }
-      
+
       .news-actions {
         width: 100%;
         justify-content: flex-start;
       }
-      
-      .news-filters {
-        gap: 0.5rem;
-      }
-      
+
       .filter-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
       }
-      
+
       .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
-      
-      .scroll-indicator { 
-        width: 40px; 
-        height: 40px; 
-        font-size: 1rem;
-        bottom: 15px;
-        right: 15px;
+
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
       }
     }
 
     @media (max-width: 480px) {
-      .site-title { 
-        font-size: 1.8rem; 
+      .site-title {
+        font-size: 1.8rem;
       }
-      
-      .main-nav {
-        gap: 0.3rem;
+
+      .logo-icon {
+        font-size: 2rem;
       }
-      
-      .nav-link { 
-        padding: 0.25rem 0.6rem; 
-        font-size: 0.75rem; 
+
+      .nav-link {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
       }
-      
-      .news-item { 
-        padding: 1rem; 
+
+      .news-item {
+        padding: 1.2rem;
       }
-      
-      .news-title { 
-        font-size: 1.2rem; 
+
+      .news-title {
+        font-size: 1.3rem;
       }
-      
+
       .news-tag {
         padding: 0.2rem 0.6rem;
         font-size: 0.75rem;
       }
-      
+
       .news-action-btn {
         padding: 0.3rem 0.6rem;
         font-size: 0.8rem;
+      }
+
+      .filter-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Прогресс-бар чтения -->
-  <div class="reading-progress"></div>
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Кнопка "Наверх" -->
-  <div class="scroll-indicator" onclick="scrollToTop()">
+  <!-- Кнопка наверх -->
+  <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
     ↑
   </div>
 
-  <header>
-    <h1 class="site-title">REQUIEM</h1>
-    <div class="tagline">Новости и события клана</div>
-    
-    <nav class="main-nav">
-      <a href="index.html" class="nav-link">Главная</a>
-      <a href="rules.html" class="nav-link">Правила</a>
-      <a href="news.html" class="nav-link active">Новости</a>
-      <a href="join.html" class="nav-link">Вступление</a>
-      <a href="blacklist.html" class="nav-link">Чёрный список</a>
-      <a href="requirements.html" class="nav-link">Требования</a>
-      <a href="about.html" class="nav-link">О клане</a>
-    </nav>
+  <!-- ШАПКА -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo-wrapper">
+        <span class="logo-icon">📰</span>
+        <h1 class="site-title">REQUIEM</h1>
+      </div>
+      
+      <div class="header-tagline">
+        Новости и события клана
+      </div>
+      
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="rules.html" class="nav-link">Правила</a>
+        <a href="news.html" class="nav-link active">Новости</a>
+        <a href="join.html" class="nav-link">Вступление</a>
+        <a href="blacklist.html" class="nav-link">Чёрный список</a>
+        <a href="requirements.html" class="nav-link">Требования</a>
+        <a href="about.html" class="nav-link">О клане</a>
+      </nav>
+    </div>
   </header>
 
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
   <main class="container">
     <!-- Статистика новостей -->
-    <div class="news-stats fade-in">
+    <div class="news-stats fade-in delay-1">
       <h2 class="stats-title">📊 Статистика новостей</h2>
       <div class="stats-grid">
         <div class="stat-item">
-          <span class="stat-value" id="total-news">5</span>
+          <span class="stat-value" id="total-news">4</span>
           <span class="stat-label">Всего новостей</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value" id="month-news">5</span>
-          <span class="stat-label">За этот месяц</span>
+          <span class="stat-value" id="month-news">4</span>
+          <span class="stat-label">За январь 2026</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value" id="important-news">3</span>
+          <span class="stat-value" id="important-news">2</span>
           <span class="stat-label">Важных новостей</span>
         </div>
         <div class="stat-item">
-          <span class="stat-value" id="last-update">15.01</span>
+          <span class="stat-value" id="last-update">18.01</span>
           <span class="stat-label">Последнее обновление</span>
         </div>
       </div>
     </div>
 
     <!-- Фильтры новостей -->
-    <div class="news-filters">
+    <div class="news-filters fade-in delay-2">
       <button class="filter-btn active" onclick="filterNews('all')">Все новости</button>
       <button class="filter-btn" onclick="filterNews('important')">Важные</button>
       <button class="filter-btn" onclick="filterNews('update')">Обновления</button>
@@ -637,8 +818,8 @@
       <button class="filter-btn" onclick="filterNews('announcement')">Объявления</button>
     </div>
 
-    <!-- НОВОСТЬ 1 - Набор участников -->
-    <div class="news-item fade-in news-important" data-category="important event">
+    <!-- НОВОСТЬ 1 - Набор участников (КРАСНАЯ полоска - важная) -->
+    <div class="news-item fade-in delay-3 news-important" data-category="important event">
       <div class="news-header">
         <div class="news-date">18.01.2026 • 15:00</div>
         <div class="news-tags">
@@ -662,7 +843,7 @@
         </ul>
         
         <div class="info-box">
-          <p><strong>Как подать заявку:</strong> Перейдите на страницу <a href="join.html" style="color: var(--accent);">Вступление</a> и заполните анкету. Наши администраторы рассмотрят вашу заявку в течение 3-7 дней.</p>
+          <p><strong>Как подать заявку:</strong> Перейдите на страницу <a href="join.html">Вступление</a> и заполните анкету. Наши администраторы рассмотрят вашу заявку в течение 3-7 дней.</p>
         </div>
         
         <p><strong>Важно:</strong> Количество мест ограничено. Приоритет отдаётся игрокам с рекомендациями от текущих членов клана.</p>
@@ -684,13 +865,13 @@
       </div>
     </div>
 
-    <!-- НОВОСТЬ 2 - Обновление правил -->
-    <div class="news-item fade-in news-update" data-category="update important">
+    <!-- НОВОСТЬ 2 - Обновление правил (КРАСНАЯ полоска - важная) -->
+    <div class="news-item fade-in delay-4 news-important" data-category="update important">
       <div class="news-header">
         <div class="news-date">14.01.2026 • 21:41</div>
         <div class="news-tags">
           <span class="news-tag tag-update">Обновление</span>
-          <span class="news-tag tag-important">Обязательно</span>
+          <span class="news-tag tag-important">Важно</span>
         </div>
       </div>
       
@@ -731,7 +912,7 @@
       </div>
     </div>
 
-    <!-- НОВОСТЬ 3 - Исправление ошибок на сайте -->
+    <!-- НОВОСТЬ 3 - Исправление ошибок (СИНЯЯ полоска - обновление) -->
     <div class="news-item fade-in news-update" data-category="update">
       <div class="news-header">
         <div class="news-date">15.01.2026 • 11:30</div>
@@ -770,14 +951,14 @@
             📤 Поделиться
           </button>
           <button class="news-action-btn" onclick="bookmarkNews('news3')">
-            🔖 Закладка
+            🔖 В закладки
           </button>
         </div>
       </div>
     </div>
 
-    <!-- НОВОСТЬ 4 - Запуск нового дизайна -->
-    <div class="news-item fade-in news-update" data-category="update">
+    <!-- НОВОСТЬ 4 - Запуск нового дизайна (ЖЁЛТАЯ полоска - объявление) -->
+    <div class="news-item fade-in news-announcement" data-category="update announcement">
       <div class="news-header">
         <div class="news-date">15.01.2026 • 13:20</div>
         <div class="news-tags">
@@ -814,7 +995,7 @@
           <span>Администрация Requiem</span>
         </div>
         <div class="news-actions">
-          <button class="news-action-btn" onclick="shareNews('news5')">
+          <button class="news-action-btn" onclick="shareNews('news4')">
             📤 Поделиться
           </button>
         </div>
@@ -822,8 +1003,11 @@
     </div>
   </main>
 
-  <footer>
-    <div>© 2026 Requiem • Новости клана</div>
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="footer-text">
+      © 2026 Requiem • Новости клана • Обновлено 18.01.2026
+    </div>
     <div class="footer-links">
       <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord сервер</a>
       <a href="index.html" class="footer-link">На главную</a>
@@ -833,27 +1017,23 @@
   </footer>
 
   <script>
-    // ===== ОСНОВНЫЕ ФУНКЦИИ =====
-
-    // Прогресс-бар чтения
-    function setupReadingProgress() {
-      const progressBar = document.querySelector('.reading-progress');
-      const scrollIndicator = document.querySelector('.scroll-indicator');
+    // Прогресс-бар
+    const progressBar = document.getElementById('progressBar');
+    const scrollTop = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
       
-      window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        
-        progressBar.style.width = scrolled + '%';
-        
-        // Показывать/скрывать кнопку "Наверх"
-        if (window.scrollY > 300) {
-          scrollIndicator.classList.add('visible');
-        } else {
-          scrollIndicator.classList.remove('visible');
-        }
-      });
-    }
+      progressBar.style.width = scrolled + '%';
+      
+      if (winScroll > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
 
     // Прокрутка наверх
     function scrollToTop() {
@@ -867,8 +1047,8 @@
     function filterNews(category) {
       const newsItems = document.querySelectorAll('.news-item');
       const filterBtns = document.querySelectorAll('.filter-btn');
+      let visibleCount = 0;
       
-      // Обновляем активную кнопку фильтра
       filterBtns.forEach(btn => {
         btn.classList.remove('active');
         if (btn.textContent === 'Все новости' && category === 'all') {
@@ -884,30 +1064,30 @@
         }
       });
       
-      // Фильтруем новости
       newsItems.forEach(item => {
         if (category === 'all') {
           item.style.display = 'block';
+          visibleCount++;
         } else {
           const itemCategories = item.getAttribute('data-category');
           if (itemCategories && itemCategories.includes(category)) {
             item.style.display = 'block';
+            visibleCount++;
           } else {
             item.style.display = 'none';
           }
         }
-        
-        // Добавляем анимацию при показе
-        if (item.style.display === 'block') {
-          item.style.animation = 'fadeIn 0.5s ease';
-        }
       });
+      
+      // Обновляем статистику видимых новостей
+      document.getElementById('total-news').textContent = visibleCount;
     }
 
     // Поделиться новостью
     function shareNews(newsId) {
-      const newsTitle = document.querySelector(`[data-id="${newsId}"] h2`)?.textContent || 'Новость Requiem';
-      const shareText = `Читайте новость: "${newsTitle}" на сайте клана Requiem`;
+      const newsItem = document.querySelector(`[onclick*="${newsId}"]`).closest('.news-item');
+      const newsTitle = newsItem.querySelector('.news-title').textContent;
+      const shareText = `📰 ${newsTitle} — новость клана Requiem`;
       
       if (navigator.share) {
         navigator.share({
@@ -916,9 +1096,8 @@
           url: window.location.href,
         });
       } else {
-        // Fallback для браузеров без поддержки Web Share API
         navigator.clipboard.writeText(shareText + ' ' + window.location.href).then(() => {
-          alert('Ссылка на новость скопирована в буфер обмена!');
+          alert('✅ Ссылка на новость скопирована в буфер обмена!');
         });
       }
     }
@@ -930,125 +1109,50 @@
       if (!bookmarks.includes(newsId)) {
         bookmarks.push(newsId);
         localStorage.setItem('requiem_bookmarks', JSON.stringify(bookmarks));
-        alert('Новость добавлена в закладки!');
+        alert('🔖 Новость добавлена в закладки!');
       } else {
         alert('Эта новость уже в ваших закладках.');
       }
     }
 
-    // Присоединиться к турниру
-    function joinTournament() {
-      const confirmed = confirm('Вы хотите зарегистрироваться на турнир? Вас перенаправит в Discord для регистрации.');
-      if (confirmed) {
-        window.open('https://discord.gg/u769kvpCT5', '_blank');
-      }
-    }
-
-    // Подсчёт статистики
+    // Обновление статистики при загрузке
     function updateStats() {
       const newsItems = document.querySelectorAll('.news-item');
       const importantNews = document.querySelectorAll('.tag-important').length;
+      const lastDate = document.querySelector('.news-date').textContent.split(' • ')[0];
       
       document.getElementById('total-news').textContent = newsItems.length;
       document.getElementById('important-news').textContent = importantNews;
+      document.getElementById('last-update').textContent = lastDate;
     }
 
-    // Эффекты при наведении
-    function setupHoverEffects() {
-      // Эффект для новостных карточек
-      const newsItems = document.querySelectorAll('.news-item');
-      newsItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-5px)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Эффект для тегов
-      const tags = document.querySelectorAll('.news-tag');
-      tags.forEach(tag => {
-        tag.addEventListener('mouseenter', function() {
-          this.style.transform = 'scale(1.05)';
-        });
-        
-        tag.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-    }
-
-    // Инициализация всех функций при загрузке
+    // Инициализация
     document.addEventListener('DOMContentLoaded', function() {
-      // Настраиваем прогресс-бар
-      setupReadingProgress();
-      
-      // Обновляем статистику
       updateStats();
       
-      // Настраиваем эффекты при наведении
-      setupHoverEffects();
-      
-      // Эффекты для навигации
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-2px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Плавное появление новостей
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach((item, index) => {
-          setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-      }, 200);
-      
-      // Добавляем ID новостям для закладок
+      // Добавляем ID новостям
       const newsItems = document.querySelectorAll('.news-item');
       newsItems.forEach((item, index) => {
-        item.setAttribute('data-id', `news${index + 1}`);
+        if (!item.hasAttribute('data-id')) {
+          item.setAttribute('data-id', `news${index + 1}`);
+        }
+      });
+      
+      // Горячие клавиши
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Home') {
+          scrollToTop();
+        }
+        if (e.key === '1') filterNews('all');
+        if (e.key === '2') filterNews('important');
+        if (e.key === '3') filterNews('update');
+        if (e.key === '4') filterNews('event');
+        if (e.key === '5') filterNews('announcement');
       });
     });
 
-    // Горячие клавиши
-    document.addEventListener('keydown', function(e) {
-      // F - фильтр "Все новости"
-      if (e.key === 'f' || e.key === 'F') {
-        filterNews('all');
-      }
-      
-      // I - фильтр "Важные"
-      if (e.key === 'i' || e.key === 'I') {
-        filterNews('important');
-      }
-      
-      // Home - наверх
-      if (e.key === 'Home') {
-        scrollToTop();
-      }
-      
-      // Escape - сброс выделения
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.news-item').forEach(item => {
-          item.style.boxShadow = '';
-        });
-      }
-    });
-
-    // Кнопка наверх при клике
-    document.querySelector('.scroll-indicator').addEventListener('click', scrollToTop);
+    // Кнопка наверх
+    document.querySelector('.scroll-top').addEventListener('click', scrollToTop);
   </script>
 </body>
 </html>
-
-
