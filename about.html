@@ -6,12 +6,14 @@
   <title>О клане • Requiem</title>
   <meta name="description" content="Информация о клане Requiem" />
   <style>
-    /* ===== ОСНОВНОЙ СТИЛЬ REQUIEM ===== */
+    /* ===== ОСНОВНЫЕ ПЕРЕМЕННЫЕ ===== */
     :root {
-      --bg: #0f0f14;
-      --card: #181825;
-      --text: #eaeaf0;
-      --muted: #9aa0b4;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #0d0d12;
+      --card-bg: #14141f;
+      --text-primary: #f0f0fa;
+      --text-secondary: #a0a8c0;
+      --text-muted: #707890;
       --accent: #7c7cff;
       --accent-hover: #6b6bff;
       --danger: #ff4766;
@@ -19,194 +21,184 @@
       --success: #00d4aa;
       --info: #47b5ff;
       --gradient-accent: linear-gradient(135deg, #7c7cff, #a78bfa);
-      --gradient-danger: linear-gradient(135deg, #ff4766, #ff2e4a);
-      --gradient-success: linear-gradient(135deg, #00d4aa, #00b894);
+      --gradient-accent-wide: linear-gradient(90deg, #7c7cff, #a78bfa, #ff7cff);
+      --border-color: rgba(124, 124, 255, 0.2);
+      --border-subtle: rgba(255, 255, 255, 0.05);
     }
 
-    * { 
-      box-sizing: border-box; 
+    /* ===== СБРОС ===== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #0f0f14, #0b0b10);
-      color: var(--text);
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #0a0a0f, #0c0c12);
+      color: var(--text-primary);
       line-height: 1.6;
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* ===== ШАПКА С ПАРАЛЛАКС ЭФФЕКТОМ ===== */
-    header {
+    /* ===== УЛУЧШЕННЫЙ HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #0c0c14 0%, #0f0f18 100%);
       padding: 2.5rem 1rem 2rem;
-      text-align: center;
       position: relative;
-      overflow: hidden;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
+      border-bottom: 2px solid transparent;
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
     }
 
-    header::before {
+    /* Верхняя линия */
+    .site-header::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(124, 124, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 71, 102, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(0, 212, 170, 0.05) 0%, transparent 50%);
-      z-index: 0;
-      animation: gradientShift 20s ease infinite;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(124, 124, 255, 0.5) 20%,
+        rgba(255, 71, 102, 0.5) 50%,
+        rgba(124, 124, 255, 0.5) 80%,
+        transparent 100%
+      );
+      z-index: 2;
     }
 
-    @keyframes gradientShift {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-      33% {
-        transform: translate(-5%, 5%);
-      }
-      66% {
-        transform: translate(5%, -5%);
-      }
+    /* Нижняя линия (основная) */
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        transparent 0%,
+        #7c7cff 20%,
+        #ff4766 50%,
+        #7c7cff 80%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 0 15px rgba(124, 124, 255, 0.5));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
 
     .site-title {
       margin: 0;
-      font-size: 3rem;
-      letter-spacing: 0.1em;
-      background: linear-gradient(90deg, #7c7cff, #a78bfa, #ff7cff);
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff, #c0c0ff, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 
-        0 0 30px rgba(124, 124, 255, 0.3),
-        0 0 60px rgba(124, 124, 255, 0.1);
-      position: relative;
-      z-index: 1;
-      animation: titleGlow 3s ease-in-out infinite alternate;
+      text-shadow: 0 0 30px rgba(124, 124, 255, 0.3);
+      line-height: 1.2;
     }
 
-    @keyframes titleGlow {
-      from {
-        text-shadow: 
-          0 0 30px rgba(124, 124, 255, 0.3),
-          0 0 60px rgba(124, 124, 255, 0.1);
-      }
-      to {
-        text-shadow: 
-          0 0 40px rgba(124, 124, 255, 0.4),
-          0 0 80px rgba(124, 124, 255, 0.2),
-          0 0 120px rgba(124, 124, 255, 0.1);
-      }
-    }
-
-    .tagline {
-      margin-top: 1rem;
-      color: var(--muted);
+    .header-tagline {
+      color: var(--text-secondary);
       font-size: 1.1rem;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 1;
-      background: rgba(24, 24, 37, 0.7);
-      padding: 0.8rem 1.5rem;
-      border-radius: 20px;
-      border: 1px solid rgba(124, 124, 255, 0.1);
-      backdrop-filter: blur(10px);
+      margin: 0 auto 1.5rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(20, 20, 31, 0.6);
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(5px);
+      display: inline-block;
     }
 
-    /* ===== НАВИГАЦИЯ С ГЛАСС-МОРФИЗМОМ ===== */
+    /* ===== НАВИГАЦИЯ ===== */
     .main-nav {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      margin-top: 2rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      padding: 0 1rem;
-      position: relative;
-      z-index: 2;
+      margin-top: 1rem;
     }
 
     .nav-link {
-      color: var(--text);
+      color: var(--text-secondary);
       text-decoration: none;
       padding: 0.5rem 1.2rem;
-      border-radius: 20px;
-      background: rgba(24, 24, 37, 0.7);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid rgba(124, 124, 255, 0.1);
+      border-radius: 25px;
+      background: rgba(20, 20, 31, 0.6);
+      border: 1px solid var(--border-color);
       font-weight: 500;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      backdrop-filter: blur(10px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .nav-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.6s;
-    }
-
-    .nav-link:hover::before {
-      left: 100%;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
     }
 
     .nav-link:hover {
-      background: rgba(124, 124, 255, 0.2);
-      border-color: rgba(124, 124, 255, 0.3);
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 
-        0 8px 20px rgba(124, 124, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      background: rgba(124, 124, 255, 0.15);
+      border-color: var(--accent);
+      color: white;
+      transform: translateY(-2px);
     }
 
     .nav-link.active {
       background: var(--gradient-accent);
-      border: none;
-      box-shadow: 
-        0 4px 15px rgba(124, 124, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.4);
     }
 
-    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 2rem 1rem 4rem;
+      padding: 2.5rem 1.5rem 4rem;
     }
 
-    /* ===== КАРТОЧКИ С ФУТУРИСТИЧНЫМ ДИЗАЙНОМ ===== */
+    /* ===== КАРТОЧКИ ===== */
     .card {
-      background: linear-gradient(145deg, rgba(24, 24, 37, 0.9), rgba(15, 15, 20, 0.9));
-      border-radius: 20px;
+      background: rgba(20, 20, 31, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(124, 124, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(10px);
     }
 
+    /* Верхняя линия карточки */
     .card::before {
       content: '';
       position: absolute;
@@ -216,15 +208,13 @@
       height: 2px;
       background: var(--gradient-accent);
       opacity: 0;
-      transition: opacity 0.4s;
+      transition: opacity 0.2s ease;
     }
 
     .card:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(124, 124, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(124, 124, 255, 0.3);
     }
 
     .card:hover::before {
@@ -232,15 +222,13 @@
     }
 
     .card-title {
-      margin-top: 0;
-      font-size: 1.6rem;
-      color: var(--text);
+      margin: 0 0 1.5rem 0;
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(124, 124, 255, 0.2);
+      border-bottom: 1px solid var(--border-color);
       position: relative;
     }
 
@@ -255,140 +243,166 @@
       border-radius: 2px;
     }
 
-    /* ===== ЦИТАТЫ С АНИМАЦИЕЙ ТЕКСТА ===== */
+    /* ===== ЦИТАТЫ ===== */
     .quote-box {
-      background: linear-gradient(135deg, rgba(124, 124, 255, 0.1), rgba(124, 124, 255, 0.05));
+      background: linear-gradient(135deg, rgba(124, 124, 255, 0.1), rgba(124, 124, 255, 0.03));
       border-left: 4px solid var(--accent);
       padding: 2rem;
       border-radius: 16px;
       margin: 2rem 0;
-      border: 1px solid rgba(124, 124, 255, 0.2);
+      border: 1px solid var(--border-color);
       position: relative;
-      overflow: hidden;
-      transition: all 0.4s;
-    }
-
-    .quote-box:hover {
-      transform: translateX(5px);
-      box-shadow: 
-        0 10px 25px rgba(124, 124, 255, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .quote-box::before {
       content: '"';
       position: absolute;
-      top: 1rem;
+      top: 0.5rem;
       left: 1rem;
-      font-size: 4rem;
+      font-size: 5rem;
       color: rgba(124, 124, 255, 0.1);
       font-family: Georgia, serif;
       line-height: 1;
     }
 
     .quote-text {
-      color: rgba(234, 234, 240, 0.9);
+      color: rgba(240, 240, 250, 0.9);
       line-height: 1.7;
       margin: 0 0 1rem 0;
       font-style: italic;
       font-size: 1.2rem;
       position: relative;
       z-index: 1;
-      padding-left: 1rem;
+      padding-left: 1.5rem;
     }
 
     .quote-author {
       color: var(--accent);
       text-align: right;
-      margin-top: 0.8rem;
+      margin-top: 0.5rem;
       font-weight: 500;
-      font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 0.5rem;
     }
 
-    /* ===== ЦЕННОСТИ КЛАНА С 3D ЭФФЕКТОМ ===== */
+    /* ===== ЦЕННОСТИ ===== */
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
       margin: 2rem 0;
     }
 
     .value-item {
-      background: linear-gradient(145deg, rgba(24, 24, 37, 0.8), rgba(15, 15, 20, 0.8));
-      padding: 2rem;
-      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
       text-align: center;
-      border: 1px solid rgba(124, 124, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      perspective: 1000px;
-    }
-
-    .value-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--gradient-accent);
-      opacity: 0;
-      transition: opacity 0.4s;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
     }
 
     .value-item:hover {
-      transform: translateY(-10px) rotateX(5deg);
-      box-shadow: 
-        0 20px 40px rgba(124, 124, 255, 0.2),
-        0 0 0 1px rgba(124, 124, 255, 0.3);
-      border-color: transparent;
-    }
-
-    .value-item:hover::before {
-      opacity: 0.1;
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(124, 124, 255, 0.15);
     }
 
     .value-icon {
-      font-size: 3rem;
-      margin-bottom: 1.2rem;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
       color: var(--accent);
       display: block;
       filter: drop-shadow(0 4px 8px rgba(124, 124, 255, 0.3));
-      transition: all 0.4s;
-    }
-
-    .value-item:hover .value-icon {
-      transform: scale(1.2) rotateY(10deg);
-      filter: drop-shadow(0 6px 12px rgba(124, 124, 255, 0.4));
     }
 
     .value-title {
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-      position: relative;
-      z-index: 1;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
     }
 
     .value-description {
-      color: rgba(154, 160, 180, 0.8);
+      color: var(--text-secondary);
       font-size: 0.95rem;
-      line-height: 1.6;
       margin: 0;
-      position: relative;
-      z-index: 1;
+      line-height: 1.5;
     }
 
-    /* ===== ИСТОРИЯ КЛАНА С ИНТЕРАКТИВНЫМ ТАЙМЛАЙНОМ ===== */
+    /* ===== ИДЕНТИЧНОСТЬ ===== */
+    .identity-lists {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .identity-section {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1.8rem;
+      border-radius: 20px;
+      border: 1px solid;
+      transition: transform 0.2s ease;
+    }
+
+    .identity-section:nth-child(1) {
+      border-color: rgba(0, 212, 170, 0.3);
+    }
+
+    .identity-section:nth-child(2) {
+      border-color: rgba(255, 71, 102, 0.3);
+    }
+
+    .identity-section:hover {
+      transform: translateY(-3px);
+    }
+
+    .identity-section-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .identity-list {
+      list-style: none;
+    }
+
+    .identity-item {
+      display: flex;
+      align-items: center;
+      padding: 0.7rem 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .identity-item:last-child {
+      border-bottom: none;
+    }
+
+    .identity-item::after {
+      content: '✓';
+      color: var(--success);
+      margin-right: 0.8rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .identity-item.not::after {
+      content: '✗';
+      color: var(--danger);
+    }
+
+    /* ===== ТАЙМЛАЙН ===== */
     .timeline {
       position: relative;
-      padding-left: 3rem;
+      padding-left: 2.5rem;
       margin: 2rem 0;
     }
 
@@ -398,28 +412,19 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 3px;
+      width: 2px;
       background: linear-gradient(to bottom, 
         transparent, 
         var(--accent) 20%, 
         var(--accent) 80%, 
         transparent);
-      border-radius: 3px;
-      box-shadow: 0 0 20px rgba(124, 124, 255, 0.3);
+      border-radius: 2px;
     }
 
     .timeline-item {
       position: relative;
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateX(0);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
     }
 
     .timeline-item:last-child {
@@ -430,250 +435,48 @@
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -3.2rem;
+      left: -2.7rem;
       top: 0.3rem;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       background: var(--gradient-accent);
       border-radius: 50%;
-      border: 4px solid var(--card);
-      box-shadow: 
-        0 0 0 4px rgba(124, 124, 255, 0.2),
-        0 0 20px rgba(124, 124, 255, 0.4);
-      z-index: 1;
-      transition: all 0.4s;
-    }
-
-    .timeline-item:hover::before {
-      transform: scale(1.3);
-      box-shadow: 
-        0 0 0 4px rgba(124, 124, 255, 0.3),
-        0 0 30px rgba(124, 124, 255, 0.5);
+      border: 3px solid var(--card-bg);
+      box-shadow: 0 0 0 3px rgba(124, 124, 255, 0.2);
     }
 
     .timeline-date {
       color: var(--accent);
       font-weight: 600;
-      margin-bottom: 0.8rem;
-      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      transition: all 0.3s;
-    }
-
-    .timeline-item:hover .timeline-date {
-      color: var(--text);
-      transform: translateX(5px);
+      gap: 0.5rem;
     }
 
     .timeline-content {
-      color: rgba(234, 234, 240, 0.8);
+      color: var(--text-secondary);
       line-height: 1.6;
-      background: rgba(124, 124, 255, 0.05);
-      padding: 1.2rem;
+      background: rgba(124, 124, 255, 0.03);
+      padding: 1rem 1.2rem;
       border-radius: 12px;
-      border: 1px solid rgba(124, 124, 255, 0.1);
-      transition: all 0.3s;
+      border: 1px solid var(--border-color);
     }
 
-    .timeline-item:hover .timeline-content {
-      background: rgba(124, 124, 255, 0.08);
-      border-color: rgba(124, 124, 255, 0.2);
-      transform: translateX(5px);
-    }
-
-    /* ===== СПИСКИ ИДЕНТИЧНОСТИ ===== */
-    .identity-lists {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    .identity-section {
-      background: linear-gradient(145deg, rgba(24, 24, 37, 0.8), rgba(15, 15, 20, 0.8));
-      padding: 1.8rem;
-      border-radius: 16px;
-      border: 1px solid;
-      transition: all 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .identity-section:nth-child(1) {
-      border-color: rgba(0, 212, 170, 0.2);
-    }
-
-    .identity-section:nth-child(2) {
-      border-color: rgba(255, 71, 102, 0.2);
-    }
-
-    .identity-section:hover {
-      transform: translateY(-5px);
-      box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .identity-section-title {
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 1.2rem;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .identity-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .identity-item {
-      display: flex;
-      align-items: center;
-      padding: 0.8rem 0;
-      color: rgba(234, 234, 240, 0.8);
-      border-bottom: 1px solid rgba(124, 124, 255, 0.05);
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .identity-item:last-child {
-      border-bottom: none;
-    }
-
-    .identity-item::before {
-      content: '';
-      position: absolute;
-      left: -100%;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      background: linear-gradient(90deg, transparent, rgba(124, 124, 255, 0.1), transparent);
-      transition: left 0.6s;
-    }
-
-    .identity-item:hover::before {
-      left: 100%;
-    }
-
-    .identity-item::after {
-      content: '✓';
-      color: var(--success);
-      margin-right: 0.8rem;
-      font-weight: bold;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      transition: all 0.3s;
-    }
-
-    .identity-item.not::after {
-      content: '✗';
-      color: var(--danger);
-    }
-
-    .identity-item:hover {
-      padding-left: 0.5rem;
-    }
-
-    .identity-item:hover::after {
-      transform: scale(1.3);
-    }
-
-    /* ===== КНОПКИ С НЕОНОВЫМ ЭФФЕКТОМ ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 0.9rem 1.8rem;
-      background: var(--gradient-accent);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 1rem;
-      box-shadow: 
-        0 6px 20px rgba(124, 124, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.6s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 
-        0 10px 30px rgba(124, 124, 255, 0.4),
-        0 0 30px rgba(124, 124, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      filter: brightness(1.1);
-    }
-
-    .btn-secondary {
-      background: rgba(24, 24, 37, 0.8);
-      border: 1px solid rgba(124, 124, 255, 0.3);
-      box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(124, 124, 255, 0.1);
-      border-color: rgba(124, 124, 255, 0.5);
-      box-shadow: 
-        0 8px 25px rgba(124, 124, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-
-    /* ===== ИНФОРМАЦИОННЫЕ БЛОКИ ===== */
+    /* ===== ИНФО-БЛОКИ ===== */
     .info-box {
-      background: linear-gradient(135deg, rgba(124, 124, 255, 0.1), rgba(124, 124, 255, 0.05));
+      background: linear-gradient(135deg, rgba(124, 124, 255, 0.1), rgba(124, 124, 255, 0.03));
       border-left: 4px solid var(--accent);
       padding: 1.5rem;
-      border-radius: 14px;
-      margin: 2rem 0;
-      border: 1px solid rgba(124, 124, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s;
-    }
-
-    .info-box:hover {
-      transform: translateX(5px);
-      box-shadow: 
-        0 10px 25px rgba(124, 124, 255, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-color);
     }
 
     .info-box p {
-      margin: 0 0 1rem 0;
-      line-height: 1.7;
-      color: rgba(234, 234, 240, 0.9);
-      position: relative;
-      z-index: 1;
+      margin: 0 0 0.8rem 0;
+      color: var(--text-secondary);
     }
 
     .info-box p:last-child {
@@ -684,107 +487,101 @@
       color: var(--accent);
     }
 
-    /* ===== ПЛАВНЫЕ АНИМАЦИИ ===== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* ===== КНОПКИ ===== */
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      background: var(--gradient-accent);
+      color: white;
+      border: none;
+      box-shadow: 0 5px 15px rgba(124, 124, 255, 0.3);
     }
 
-    .fade-in {
-      opacity: 0;
+    .btn-secondary {
+      background: rgba(30, 30, 40, 0.8);
+      border: 1px solid var(--border-color);
+      box-shadow: none;
+      color: var(--text-primary);
     }
 
-    .fade-in-up {
-      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(124, 124, 255, 0.4);
     }
 
-    .fade-in-left {
-      animation: fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    .btn-secondary:hover {
+      background: rgba(124, 124, 255, 0.1);
+      border-color: var(--accent);
     }
 
-    .stagger-delay-1 { animation-delay: 0.1s; }
-    .stagger-delay-2 { animation-delay: 0.2s; }
-    .stagger-delay-3 { animation-delay: 0.3s; }
-    .stagger-delay-4 { animation-delay: 0.4s; }
-    .stagger-delay-5 { animation-delay: 0.5s; }
-
-    /* ===== ПРОГРЕСС-БАР И КНОПКА НАВЕРХ ===== */
-    .reading-progress {
+    /* ===== ПРОГРЕСС-БАР ===== */
+    .progress-bar {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--gradient-accent);
+      background: linear-gradient(90deg, #7c7cff, #ff4766, #7c7cff);
       z-index: 1000;
-      transition: width 0.2s ease;
-      box-shadow: 0 0 10px rgba(124, 124, 255, 0.5);
+      transition: width 0.1s ease;
     }
 
-    .scroll-indicator {
+    /* ===== КНОПКА НАВЕРХ ===== */
+    .scroll-top {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: var(--gradient-accent);
-      color: white;
       width: 50px;
       height: 50px;
+      background: var(--gradient-accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: white;
       cursor: pointer;
       opacity: 0;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      visibility: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 20px rgba(124, 124, 255, 0.3);
       z-index: 100;
-      box-shadow: 
-        0 6px 20px rgba(124, 124, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       font-size: 1.3rem;
     }
 
-    .scroll-indicator.visible {
+    .scroll-top.visible {
       opacity: 1;
+      visibility: visible;
     }
 
-    .scroll-indicator:hover {
-      transform: scale(1.1) rotate(180deg);
-      box-shadow: 
-        0 10px 30px rgba(124, 124, 255, 0.4),
-        0 0 30px rgba(124, 124, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    .scroll-top:hover {
+      transform: scale(1.1);
     }
 
     /* ===== ФУТЕР ===== */
-    footer {
+    .footer {
       text-align: center;
-      padding: 3rem 1rem;
-      color: rgba(154, 160, 180, 0.7);
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(124, 124, 255, 0.1);
-      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.3));
+      padding: 2.5rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(10px);
       position: relative;
-      overflow: hidden;
     }
 
-    footer::before {
+    .footer::before {
       content: '';
       position: absolute;
       top: 0;
@@ -794,189 +591,197 @@
       background: linear-gradient(90deg, 
         transparent, 
         rgba(124, 124, 255, 0.5), 
-        transparent);
+        rgba(255, 71, 102, 0.5), 
+        rgba(124, 124, 255, 0.5), 
+        transparent
+      );
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
     .footer-link {
-      color: rgba(154, 160, 180, 0.7);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: all 0.3s;
-      font-size: 0.9rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .footer-link::before {
-      content: '';
-      position: absolute;
-      left: -100%;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--accent);
-      transition: left 0.4s;
+      transition: color 0.2s ease;
+      font-size: 0.95rem;
     }
 
     .footer-link:hover {
       color: var(--accent);
     }
 
-    .footer-link:hover::before {
-      left: 0;
+    /* ===== АНИМАЦИИ ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+    .fade-in {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    /* ===== МЕДИА-ЗАПРОСЫ ===== */
     @media (max-width: 768px) {
-      .site-title { 
-        font-size: 2.2rem; 
+      .site-header {
+        padding: 2rem 1rem 1.5rem;
       }
-      
-      .tagline { 
-        font-size: 1rem; 
-        padding: 0.6rem 1.2rem;
+
+      .logo-icon {
+        font-size: 2.2rem;
       }
-      
-      .main-nav { 
-        gap: 0.5rem; 
-        padding: 0 0.5rem;
-        margin-top: 1.5rem;
+
+      .site-title {
+        font-size: 2.2rem;
       }
-      
-      .nav-link { 
-        padding: 0.4rem 0.9rem; 
-        font-size: 0.85rem; 
+
+      .header-tagline {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
       }
-      
-      .container { 
-        padding: 1.5rem 1rem 3rem; 
+
+      .nav-link {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
       }
-      
-      .card { 
-        padding: 1.5rem; 
-        margin-bottom: 1.5rem;
-        border-radius: 16px;
+
+      .container {
+        padding: 1.5rem 1rem 3rem;
       }
-      
-      .card-title { 
-        font-size: 1.4rem; 
-        gap: 0.6rem;
+
+      .card {
+        padding: 1.5rem;
       }
-      
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+
       .values-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
       }
-      
+
       .identity-lists {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
       }
-      
+
       .timeline {
         padding-left: 2rem;
       }
-      
+
       .timeline-item::before {
-        left: -2.4rem;
-        width: 16px;
-        height: 16px;
+        left: -2.2rem;
+        width: 14px;
+        height: 14px;
       }
-      
+
+      .btn-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
       .btn {
-        padding: 0.8rem 1.4rem;
-        font-size: 0.95rem;
+        justify-content: center;
       }
-      
-      .scroll-indicator { 
-        width: 45px; 
-        height: 45px; 
-        font-size: 1.2rem;
+
+      .scroll-top {
         bottom: 20px;
         right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
       }
     }
 
     @media (max-width: 480px) {
-      header {
-        min-height: 250px;
-        padding: 2rem 1rem 1.5rem;
+      .site-title {
+        font-size: 1.8rem;
+        letter-spacing: 0.1em;
       }
-      
-      .site-title { 
-        font-size: 1.8rem; 
+
+      .logo-icon {
+        font-size: 2rem;
       }
-      
-      .main-nav {
-        gap: 0.4rem;
+
+      .nav-link {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
       }
-      
-      .nav-link { 
-        padding: 0.35rem 0.7rem; 
-        font-size: 0.8rem; 
-      }
-      
-      .card { 
-        padding: 1.2rem; 
-      }
-      
-      .card-title { 
-        font-size: 1.3rem; 
-      }
-      
-      .value-icon {
-        font-size: 2.5rem;
-      }
-      
-      .value-title {
-        font-size: 1.2rem;
-      }
-      
+
       .quote-text {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        padding-left: 1rem;
+      }
+
+      .value-icon {
+        font-size: 2.4rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Прогресс-бар чтения -->
-  <div class="reading-progress"></div>
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Кнопка "Наверх" -->
-  <div class="scroll-indicator" onclick="scrollToTop()">
+  <!-- Кнопка наверх -->
+  <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
     ↑
   </div>
 
-  <header>
-    <h1 class="site-title fade-in-up">REQUIEM</h1>
-    <div class="tagline fade-in-up stagger-delay-1">
-      О клане и нашей философии
+  <!-- ШАПКА -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo-wrapper">
+        <span class="logo-icon">⚔️</span>
+        <h1 class="site-title">REQUIEM</h1>
+      </div>
+      
+      <div class="header-tagline">
+        О клане и нашей философии
+      </div>
+      
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="rules.html" class="nav-link">Правила</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="join.html" class="nav-link">Вступление</a>
+        <a href="blacklist.html" class="nav-link">Чёрный список</a>
+        <a href="requirements.html" class="nav-link">Требования</a>
+        <a href="about.html" class="nav-link active">О клане</a>
+      </nav>
     </div>
-    
-    <nav class="main-nav fade-in-up stagger-delay-2">
-      <a href="index.html" class="nav-link">Главная</a>
-      <a href="rules.html" class="nav-link">Правила</a>
-      <a href="news.html" class="nav-link">Новости</a>
-      <a href="join.html" class="nav-link">Вступление</a>
-      <a href="blacklist.html" class="nav-link">Чёрный список</a>
-      <a href="requirements.html" class="nav-link">Требования</a>
-      <a href="about.html" class="nav-link active">О клане</a>
-    </nav>
   </header>
 
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
   <main class="container">
     <!-- Кто мы -->
-    <div class="card fade-in fade-in-up stagger-delay-1">
-      <h2 class="card-title">⚔️ Кто мы</h2>
+    <section class="card fade-in delay-1">
+      <h2 class="card-title">
+        <span>⚔️</span>
+        Кто мы
+      </h2>
       
       <div class="info-box">
         <p><strong>Requiem — закрытое сообщество с чёткой иерархией, строгой дисциплиной и продуманными правилами.</strong></p>
@@ -989,49 +794,55 @@
         </p>
         <div class="quote-author">— Философия Requiem</div>
       </div>
-    </div>
+    </section>
 
     <!-- Философия клана -->
-    <div class="card fade-in fade-in-up stagger-delay-2">
-      <h2 class="card-title">🎯 Философия клана</h2>
+    <section class="card fade-in delay-2">
+      <h2 class="card-title">
+        <span>🎯</span>
+        Философия клана
+      </h2>
       
       <div class="values-grid">
-        <div class="value-item fade-in-left stagger-delay-1">
+        <div class="value-item">
           <span class="value-icon">⚖️</span>
           <div class="value-title">Дисциплина</div>
           <p class="value-description">Строгое соблюдение установленных правил и норм поведения</p>
         </div>
         
-        <div class="value-item fade-in-left stagger-delay-2">
+        <div class="value-item">
           <span class="value-icon">👑</span>
           <div class="value-title">Иерархия</div>
           <p class="value-description">Чёткая структура с уважением к вышестоящим позициям</p>
         </div>
         
-        <div class="value-item fade-in-left stagger-delay-3">
+        <div class="value-item">
           <span class="value-icon">🤝</span>
           <div class="value-title">Уважение</div>
           <p class="value-description">Взаимное уважение между всеми членами сообщества</p>
         </div>
         
-        <div class="value-item fade-in-left stagger-delay-4">
+        <div class="value-item">
           <span class="value-icon">🛡️</span>
           <div class="value-title">Ответственность</div>
           <p class="value-description">Ответственность за свои действия и слова</p>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Для кого Requiem -->
-    <div class="card fade-in fade-in-up stagger-delay-3">
-      <h2 class="card-title">🎮 Для кого Requiem</h2>
+    <section class="card fade-in delay-3">
+      <h2 class="card-title">
+        <span>🎮</span>
+        Для кого Requiem
+      </h2>
       
       <div class="info-box">
         <p>Клан подойдёт тем, кто готов соблюдать правила, уважать иерархию и быть частью организованного сообщества. Requiem — пространство для порядка, а не для хаоса.</p>
       </div>
       
       <div class="identity-lists">
-        <div class="identity-section fade-in-left stagger-delay-1">
+        <div class="identity-section">
           <div class="identity-section-title">
             <span style="color: var(--success);">✅</span>
             Кто мы есть
@@ -1045,7 +856,7 @@
           </ul>
         </div>
         
-        <div class="identity-section fade-in-left stagger-delay-2">
+        <div class="identity-section">
           <div class="identity-section-title">
             <span style="color: var(--danger);">❌</span>
             Кто мы не есть
@@ -1059,11 +870,14 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- История клана -->
-    <div class="card fade-in fade-in-up stagger-delay-4">
-      <h2 class="card-title">📜 Наша история</h2>
+    <section class="card fade-in delay-4">
+      <h2 class="card-title">
+        <span>📜</span>
+        Наша история
+      </h2>
       
       <div class="timeline">
         <div class="timeline-item">
@@ -1098,39 +912,45 @@
           <div class="timeline-content">Создание официального сайта клана Requiem. Унификация всех правил, требований и процедур на единой платформе.</div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Присоединиться -->
-    <div class="card fade-in fade-in-up stagger-delay-5">
-      <h2 class="card-title">🚀 Присоединиться к Requiem</h2>
+    <section class="card fade-in delay-5">
+      <h2 class="card-title">
+        <span>🚀</span>
+        Присоединиться к Requiem
+      </h2>
       
       <div class="info-box">
         <p>Если вы разделяете наши ценности и готовы стать частью организованного сообщества, ознакомьтесь с требованиями и подайте заявку на вступление.</p>
       </div>
       
-      <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center;">
-        <a href="requirements.html" class="btn btn-secondary fade-in-left stagger-delay-1">
+      <div class="btn-group">
+        <a href="requirements.html" class="btn-secondary btn">
           📋 Требования
         </a>
         
-        <a href="rules.html" class="btn btn-secondary fade-in-left stagger-delay-2">
+        <a href="rules.html" class="btn-secondary btn">
           📜 Правила
         </a>
         
-        <a href="join.html" class="btn fade-in-left stagger-delay-3">
+        <a href="join.html" class="btn">
           ✍️ Подать заявку
         </a>
       </div>
       
-      <div class="info-box fade-in-up" style="margin-top: 2rem;">
-        <p><strong>Discord сервер:</strong> <a href="https://discord.gg/u769kvpCT5" target="_blank" style="color: var(--accent); text-decoration: none; transition: color 0.3s;">discord.gg/u769kvpCT5</a></p>
+      <div class="info-box" style="margin-top: 2rem;">
+        <p><strong>Discord сервер:</strong> <a href="https://discord.gg/u769kvpCT5" target="_blank" style="color: var(--accent); text-decoration: none;">discord.gg/u769kvpCT5</a></p>
         <p>Все обсуждения, мероприятия и важные объявления происходят в нашем Discord сообществе.</p>
       </div>
-    </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="fade-in-up">© 2026 Requiem • Официальный сайт клана • Создан 14.01.2026</div>
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="footer-text">
+      © 2026 Requiem • Официальный сайт клана • Создан 14.01.2026
+    </div>
     <div class="footer-links">
       <a href="https://discord.gg/u769kvpCT5" target="_blank" class="footer-link">Discord</a>
       <a href="index.html" class="footer-link">Главная</a>
@@ -1140,28 +960,26 @@
   </footer>
 
   <script>
-    // ===== ПЛАВНЫЕ И УЛУЧШЕННЫЕ АНИМАЦИИ =====
-
-    // Прогресс-бар чтения
-    function setupReadingProgress() {
-      const progressBar = document.querySelector('.reading-progress');
-      const scrollIndicator = document.querySelector('.scroll-indicator');
+    // Прогресс-бар
+    const progressBar = document.getElementById('progressBar');
+    const scrollTop = document.getElementById('scrollTop');
+    
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
       
-      window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        
-        progressBar.style.width = scrolled + '%';
-        
-        if (window.scrollY > 300) {
-          scrollIndicator.classList.add('visible');
-        } else {
-          scrollIndicator.classList.remove('visible');
-        }
-      });
-    }
+      progressBar.style.width = scrolled + '%';
+      
+      // Кнопка наверх
+      if (winScroll > 300) {
+        scrollTop.classList.add('visible');
+      } else {
+        scrollTop.classList.remove('visible');
+      }
+    });
 
-    // Плавная прокрутка наверх
+    // Прокрутка наверх
     function scrollToTop() {
       window.scrollTo({
         top: 0,
@@ -1169,211 +987,36 @@
       });
     }
 
-    // Анимация появления элементов при скролле
-    function setupScrollAnimations() {
-      const fadeElements = document.querySelectorAll('.fade-in');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const element = entry.target;
-            
-            if (element.classList.contains('fade-in-up')) {
-              element.style.animation = 'fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-            } else if (element.classList.contains('fade-in-left')) {
-              element.style.animation = 'fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-            } else {
-              element.style.animation = 'fadeInUp 0.6s ease forwards';
-            }
-            
-            observer.unobserve(element);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
-      
-      // Таймлайн анимация
-      const timelineItems = document.querySelectorAll('.timeline-item');
-      
-      const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            timelineObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.2
-      });
-      
-      timelineItems.forEach(item => {
-        timelineObserver.observe(item);
-      });
-    }
-
-    // Интерактивные эффекты при наведении
-    function setupInteractiveEffects() {
-      // Плавный эффект для карточек
-      const cards = document.querySelectorAll('.card, .value-item, .identity-section');
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          card.style.transform = 'translateY(-8px)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'translateY(0)';
-        });
-      });
-      
-      // Эффект для ссылок
-      const links = document.querySelectorAll('a');
-      links.forEach(link => {
-        link.addEventListener('mouseenter', (e) => {
-          e.target.style.transform = 'translateY(-2px)';
-        });
-        
-        link.addEventListener('mouseleave', (e) => {
-          e.target.style.transform = 'translateY(0)';
-        });
-      });
-      
-      // Эффект для элементов идентичности
-      const identityItems = document.querySelectorAll('.identity-item');
-      identityItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-          item.style.paddingLeft = '1rem';
-          item.style.backgroundColor = 'rgba(124, 124, 255, 0.05)';
-        });
-        
-        item.addEventListener('mouseleave', () => {
-          item.style.paddingLeft = '';
-          item.style.backgroundColor = '';
-        });
-      });
-    }
-
-    // Параллакс эффект для заголовка
-    function setupParallaxEffect() {
-      const header = document.querySelector('header');
-      
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        header.style.transform = `translateY(${rate}px)`;
-      });
-    }
-
-    // Случайные частицы в фоне
-    function createParticles() {
-      const header = document.querySelector('header');
-      const particleCount = 20;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = Math.random() * 3 + 1 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.background = `rgba(124, 124, 255, ${Math.random() * 0.3})`;
-        particle.style.borderRadius = '50%';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.zIndex = '0';
-        
-        // Анимация плавающих частиц
-        particle.animate([
-          { transform: 'translateY(0px)' },
-          { transform: `translateY(${Math.random() * 100 - 50}px) translateX(${Math.random() * 100 - 50}px)` }
-        ], {
-          duration: Math.random() * 3000 + 2000,
-          iterations: Infinity,
-          direction: 'alternate',
-          easing: 'ease-in-out'
-        });
-        
-        header.appendChild(particle);
-      }
-    }
-
-    // Горячие клавиши
-    function setupKeyboardShortcuts() {
-      document.addEventListener('keydown', (e) => {
-        // Escape - сброс
-        if (e.key === 'Escape') {
-          document.querySelectorAll('.card, .value-item').forEach(el => {
-            el.style.transform = '';
-          });
-        }
-        
-        // Home - наверх
-        if (e.key === 'Home') {
-          scrollToTop();
-        }
-        
-        // 1-5 - быстрая навигация
-        if (e.key >= '1' && e.key <= '5') {
-          const cards = document.querySelectorAll('.card');
-          const index = parseInt(e.key) - 1;
-          if (cards[index]) {
-            cards[index].scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'center'
-            });
-            
-            // Подсветка карточки
-            cards.forEach(card => {
-              card.style.boxShadow = '';
-            });
-            cards[index].style.boxShadow = '0 0 0 3px rgba(124, 124, 255, 0.5)';
-            setTimeout(() => {
-              cards[index].style.boxShadow = '';
-            }, 2000);
-          }
-        }
-        
-        // D - Discord
-        if (e.key === 'd' || e.key === 'D') {
-          window.open('https://discord.gg/u769kvpCT5', '_blank');
-        }
-        
-        // A - о клане
-        if (e.key === 'a' || e.key === 'A') {
-          document.querySelector('h1').scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'center'
-          });
+    // Анимация таймлайна при скролле
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
         }
       });
-    }
+    }, { threshold: 0.2 });
 
-    // Инициализация при загрузке
-    document.addEventListener('DOMContentLoaded', () => {
-      // Базовая настройка
-      setupReadingProgress();
-      setupScrollAnimations();
-      setupInteractiveEffects();
-      setupKeyboardShortcuts();
-      
-      // Дополнительные эффекты
-      setupParallaxEffect();
-      createParticles();
-      
-      // Плавное появление
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in-up, .fade-in-left').forEach(el => {
-          el.style.opacity = '1';
-        });
-      }, 100);
+    timelineItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateX(-10px)';
+      item.style.transition = 'all 0.4s ease';
+      observer.observe(item);
     });
 
-    // Обработчик для кнопки наверх
-    document.querySelector('.scroll-indicator').addEventListener('click', scrollToTop);
+    // Подсветка активной ссылки
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPage = window.location.pathname.split('/').pop() || 'about.html';
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
